@@ -25,6 +25,9 @@ jobs:
       - name: Checkout codes
         uses: actions/checkout@v4
 
+      - name: Enable corepack
+        run: corepack enable
+
       - name: Setup node
         uses: actions/setup-node@v4
         with:
@@ -51,6 +54,9 @@ jobs:
       - name: Checkout codes
         uses: actions/checkout@v4
 
+      - name: Enable corepack
+        run: corepack enable
+
       - name: Setup node
         uses: actions/setup-node@v4
         with:
@@ -75,6 +81,9 @@ jobs:
       - name: Checkout codes
         uses: actions/checkout@v4
 
+      - name: Enable corepack
+        run: corepack enable
+
       - name: Setup node
         uses: actions/setup-node@v4
         with:
@@ -98,6 +107,9 @@ jobs:
     steps:
       - name: Checkout codes
         uses: actions/checkout@v4
+
+      - name: Enable corepack
+        run: corepack enable
 
       - name: Setup node
         uses: actions/setup-node@v4
