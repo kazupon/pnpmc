@@ -31,7 +31,7 @@
   },
   "files": [
     "bin",
-    "dist"
+    "lib"
   ],
   "scripts": {
     "build": "tsc -p .",
