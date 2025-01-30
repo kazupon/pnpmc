@@ -1,0 +1,11 @@
+node_modules
+.DS_Store
+.idea
+lib
+dist
+
+*.log
+*.swp
+*.tgz
+*.zip
+*~
