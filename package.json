@@ -44,6 +44,9 @@
     "lint": "pnpm run --parallel /^lint:/",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier . --check",
+    "prepack": "pnpm build",
+    "prepare": "git config --local core.hooksPath .githooks",
+    "release": "bumpp --commit \"release: v%s\" --all --push --tag",
     "test": "echo 'test!'",
     "typecheck": "tsc --noEmit"
   },
