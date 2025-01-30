@@ -18,6 +18,14 @@ export default defineConfig(
   }),
   prettier(),
   {
-    ignores: ['.vscode', 'lib', 'bin', 'tsconfig.json', 'pnpm-lock.yaml', 'eslint.config.ts']
+    ignores: [
+      '.vscode',
+      '.github',
+      'lib',
+      'bin',
+      'tsconfig.json',
+      'pnpm-lock.yaml',
+      'eslint.config.ts'
+    ]
   }
 )
