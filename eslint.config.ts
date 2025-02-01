@@ -20,6 +20,11 @@ export default defineConfig(
   markdown(),
   prettier(),
   {
+    rules: {
+      '@typescript-eslint/ban-ts-comment': 'off'
+    }
+  },
+  {
     ignores: [
       '.vscode',
       '.github',

@@ -9,6 +9,7 @@ PNPM Catalogs Tooling
 
 - Show cataglos
 - Detect catalogable dependencies in workspace
+- Register the dependency to the catalog
 
 ## 💿 Installation
 
@@ -53,6 +54,21 @@ pnpx pnpmc
 #     /packages/package1 (package1): ^5.7.3
 #     /packages/package2 (package2): ^5.6.0
 #
+```
+
+### Register the dependency to the catalog
+
+You can register the dependency to the catalog on your pnpm workspace projects (`pnpm-workspace.yaml`):
+
+```sh
+pnpx pnpmc --dependency typescript --alias ^5.7.0 --catalog tools
+
+# PNPM Catalogs Tooling (pnpmc v0.1.2)
+#
+# 📙 Registered 'typescript' as '5.7.0' in Catalog 'tools'
+#
+# 📦 Overridden 'typescript' alias on /packages/package1 (package1) : ^5.7.3 -> catalog:tools
+# 📦 Overridden 'typescript' alias on /packages/package2 (package2) : ^5.6.0 -> catalog:tools
 ```
 
 ## 🙌 Contributing guidelines
