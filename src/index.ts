@@ -53,7 +53,7 @@ function renderCatalogs(manifest: WorkspaceManifest): string {
   if (manifest.catalog) {
     catalogs += '  default:\n'
     for (const [dep, ver] of Object.entries(manifest.catalog)) {
-      catalogs += `    ${dep}: ${ver}`
+      catalogs += `    ${dep}: ${ver}\n`
     }
   }
 
@@ -61,7 +61,7 @@ function renderCatalogs(manifest: WorkspaceManifest): string {
     for (const [name, catalog] of Object.entries(manifest.catalogs)) {
       catalogs += `  ${name}:\n`
       for (const [dep, ver] of Object.entries(catalog)) {
-        catalogs += `    ${dep}: ${ver}`
+        catalogs += `    ${dep}: ${ver}\n`
       }
     }
   }
