@@ -3,6 +3,10 @@
 [![Version][npm-version-src]][npm-version-href]
 [![CI][ci-src]][ci-href]
 
+<p align="center">
+  <img src="./assets/pnpmc.gif" alt="PNPMC Demo">
+</p>
+
 PNPM Catalogs Tooling
 
 ## 🌟 Features
