@@ -67,6 +67,7 @@
     "eslint-plugin-jsonc": "^2.19.1",
     "gh-changelogen": "^0.2.8",
     "lint-staged": "^15.4.3",
+    "pkg-pr-new": "^0.0.39",
     "prettier": "^3.4.2",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.22.0",
