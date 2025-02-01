@@ -1,2 +1,2 @@
 - [ ] apply catalog command or options
-- [ ] ignore `workspace` protocol
+- [x] ignore `workspace` protocol
