@@ -1,0 +1,7 @@
+{
+  "name": "root",
+  "dependencies": {
+    "package1": "file:packages/package1",
+    "package2": "file:packages/package2"
+  }
+}
