@@ -53,7 +53,7 @@ describe('analyzeDependencies', () => {
     expect(deps.size).toBe(0)
   })
 
-  test('defiend with named catalog', async () => {
+  test('defined with named catalog', async () => {
     const workspaceDir = path.resolve(__dirname, '../test/fixtures/named')
     const manifest = await readWorkspaceManifest(workspaceDir)
     const deps = await analyzeDependencies(workspaceDir, manifest!)
