@@ -1,18 +1,31 @@
 import { findWorkspaceDir } from '@pnpm/find-workspace-dir'
 import { readWorkspaceManifest } from '@pnpm/workspace.read-manifest'
-import { promises as fs } from 'node:fs'
 import path from 'node:path'
 import pc from 'picocolors'
 import { analyzeDependencies } from './analyze'
+import { parse as parseArgs, usage } from './args'
+import { readPackageJson } from './utils'
 
 import type { WorkspaceManifest } from '@pnpm/workspace.read-manifest'
 
 async function main() {
-  const cwd = process.cwd()
+  const args = process.argv.slice(2)
+  const { values: argv } = parseArgs(args)
 
-  console.log(pc.cyanBright(await renderFooter()))
+  if (argv.version) {
+    console.log(await version())
+    return
+  }
+
+  console.log(pc.cyanBright(await footer()))
   console.log()
 
+  if (argv.help) {
+    console.log(usage())
+    return
+  }
+
+  const cwd = process.cwd()
   const workspaceDir = await findWorkspaceDir(cwd)
   if (workspaceDir == null) {
     // TODO: handle message
@@ -24,26 +37,31 @@ async function main() {
     fail('No workspace manifest found')
   }
 
-  console.log(renderCatalogs(manifest))
+  console.log(catalogs(manifest))
   console.log()
 
   const catalogableDeps = await analyzeDependencies(workspaceDir, manifest)
   if (catalogableDeps.size > 0) {
-    console.log(renderCatalogableDependencies(catalogableDeps))
+    console.log(catalogableDependencies(catalogableDeps))
     console.log()
   }
 }
 
-async function renderFooter(): Promise<string> {
+async function version(): Promise<string> {
+  const pkgJson = await readPackageJson(path.resolve(__dirname, '../package.json'))
+  return `${pkgJson.version as string}`
+}
+
+async function footer(): Promise<string> {
   const pkgJsonPath = path.resolve(__dirname, '../package.json')
-  const pkgJson = JSON.parse(await fs.readFile(pkgJsonPath, 'utf-8')) as Record<string, unknown>
+  const pkgJson = await readPackageJson(pkgJsonPath)
   const version = pkgJson.version as string
   const name = pkgJson.name as string
   const title = pkgJson.description as string
   return `${title} (${name} v${version})`
 }
 
-function renderCatalogs(manifest: WorkspaceManifest): string {
+function catalogs(manifest: WorkspaceManifest): string {
   let catalogs = `📙 Defined catalogs in pnpm-workspace.yaml:\n`
   if (manifest.catalog == null && manifest.catalogs == null) {
     catalogs += '  (none)'
@@ -69,7 +87,7 @@ function renderCatalogs(manifest: WorkspaceManifest): string {
   return catalogs
 }
 
-function renderCatalogableDependencies(
+function catalogableDependencies(
   catalogableDeps: Awaited<ReturnType<typeof analyzeDependencies>>
 ): string {
   let text = `📦 Catalogable Dependencies (${catalogableDeps.size}):\n`
