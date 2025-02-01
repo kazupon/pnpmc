@@ -82,7 +82,7 @@ export async function analyzeDependencies(
         // TODO: handle devDependencies
         const pkgPath = project.rootDir.split(workspaceDir)[1] || '/'
         const alias = deps[dep]
-        if (alias) {
+        if (alias && !alias.startsWith('workspace:')) {
           catalogableDeps.push({
             name: project.manifest.name,
             path: pkgPath,
@@ -93,7 +93,10 @@ export async function analyzeDependencies(
         }
       }
 
-      if (!catalogDeps.has(dep) || catalogableDeps.some(dep => !dep.cataloged)) {
+      if (
+        catalogableDeps.length > 1 &&
+        (!catalogDeps.has(dep) || catalogableDeps.some(dep => !dep.cataloged))
+      ) {
         ret.set(dep, catalogableDeps)
       }
     }

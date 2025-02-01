@@ -16,7 +16,7 @@ pnpm add -D pnpmc
 ```
 
 > [!IMPORTANT]
-> Notice that this tool is for pnpm worksapce feature only.
+> Notice that this tool is for pnpm workspace feature only.
 
 ## 🚀 Usage
 

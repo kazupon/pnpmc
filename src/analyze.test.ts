@@ -103,4 +103,12 @@ describe('analyzeDependencies', () => {
     expect(package2.alias).toBe('^5.6.0')
     expect(package2.cataloged).toBe(false)
   })
+
+  test('workspace', async () => {
+    const workspaceDir = path.resolve(__dirname, '../test/fixtures/workspace')
+    const manifest = await readWorkspaceManifest(workspaceDir)
+    const deps = await analyzeDependencies(workspaceDir, manifest!)
+
+    expect(deps.size).toBe(0)
+  })
 })
