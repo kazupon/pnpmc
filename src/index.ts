@@ -222,14 +222,14 @@ async function orverrideDependency(
     const deps = (project.manifest.dependencies = project.manifest.dependencies || {})
     // TODO: handle devDependencies
     const alias = deps[dependency]
-    const catalogAlis = `catalog:${catalog === 'default' ? '' : catalog}`
-    if (alias && !alias.startsWith(catalogAlis)) {
-      deps[dependency] = catalogAlis
+    const catalogAlias = `catalog:${catalog === 'default' ? '' : catalog}`
+    if (alias && !alias.startsWith(catalogAlias)) {
+      deps[dependency] = catalogAlias
       try {
         await project.writeProjectManifest(project.manifest)
         const pkgPath = project.rootDir.split(workspaceDir)[1] || '/'
         const displayName = `${pkgPath}${project.manifest.name ? ` (${project.manifest.name})` : ''} `
-        ret += `📦 Overrided '${dependency}' alias on ${displayName}: ${alias} -> ${deps[dependency]} \n`
+        ret += `📦 Overridden '${dependency}' alias on ${displayName}: ${alias} -> ${deps[dependency]} \n`
       } catch (error: unknown) {
         fail(error)
       }

@@ -67,8 +67,8 @@ pnpx pnpmc --dependency typescript --alias ^5.7.0 --catalog tools
 #
 # 📙 Registered 'typescript' as '5.7.0' in Catalog 'tools'
 #
-# 📦 Overrided 'typescript' alias on /packages/package1 (package1) : ^5.7.3 -> catalog:tools
-# 📦 Overrided 'typescript' alias on /packages/package2 (package2) : ^5.6.0 -> catalog:tools
+# 📦 Overridden 'typescript' alias on /packages/package1 (package1) : ^5.7.3 -> catalog:tools
+# 📦 Overridden 'typescript' alias on /packages/package2 (package2) : ^5.6.0 -> catalog:tools
 ```
 
 ## 🙌 Contributing guidelines
