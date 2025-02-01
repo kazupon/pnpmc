@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@kazupon/jts-utils':
-        specifier: ^0.3.2
-        version: 0.3.2
       '@pnpm/find-workspace-dir':
         specifier: ^1000.0.2
         version: 1000.0.2
