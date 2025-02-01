@@ -3,6 +3,7 @@ import {
   defineConfig,
   javascript,
   jsonc,
+  markdown,
   prettier,
   typescript
 } from '@kazupon/eslint-config'
@@ -16,6 +17,7 @@ export default defineConfig(
     json5: true,
     jsonc: true
   }),
+  markdown(),
   prettier(),
   {
     ignores: [

@@ -57,6 +57,7 @@
     "picocolors": "^1.1.1"
   },
   "devDependencies": {
+    "@eslint/markdown": "^6.2.2",
     "@kazupon/eslint-config": "^0.19.0",
     "@kazupon/prettier-config": "^0.1.1",
     "@types/node": "^22.12.0",
