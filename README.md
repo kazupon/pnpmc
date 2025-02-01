@@ -7,6 +7,7 @@ PNPM Catalogs Tooling
 
 ## 🌟 Features
 
+- Show cataglos
 - Detect catalogable dependencies in workspace
 
 ## 💿 Installation
@@ -19,6 +20,21 @@ pnpm add -D pnpmc
 > Notice that this tool is for pnpm workspace feature only.
 
 ## 🚀 Usage
+
+### Display of defined catalogs
+
+You can show the defined catalogs on your pnpm workspace projects (`pnpm-workspace.yaml`):
+
+```sh
+pnpx pnpmc
+
+# PNPM Catalogs Tooling (pnpmc v0.1.0)
+#
+# 📙 Defined catalogs in pnpm-workspace.yaml:
+#   default:
+#     typescript: ^5.7.3
+#
+```
 
 ### Detect catalogable dependencies
 
