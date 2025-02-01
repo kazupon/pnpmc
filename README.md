@@ -1,6 +1,6 @@
 # pnpmc
 
-pnpm catalogs tooling
+PNPM Catalogs Tooling
 
 > [!WARNING]
 > WIP

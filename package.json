@@ -1,6 +1,6 @@
 {
   "name": "pnpmc",
-  "description": "pnpm catalogs tooling",
+  "description": "PNPM Catalogs Tooling",
   "version": "0.0.0",
   "author": {
     "name": "kazuya kawaguchi",
@@ -34,7 +34,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "tsc -p .",
+    "build": "tsc -p ./tsconfig.build.json",
     "changelog": "gh-changelogen --repo=kazupon/eslint-config",
     "dev": "pnpx @eslint/config-inspector --config eslint.config.ts",
     "dev:eslint": "pnpx @eslint/config-inspector --config eslint.config.ts",
@@ -47,8 +47,14 @@
     "prepack": "pnpm build",
     "prepare": "git config --local core.hooksPath .githooks",
     "release": "bumpp --commit \"release: v%s\" --all --push --tag",
-    "test": "echo 'test!'",
+    "test": "vitest run",
     "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@pnpm/find-workspace-dir": "^1000.0.2",
+    "@pnpm/workspace.find-packages": "^1000.0.6",
+    "@pnpm/workspace.read-manifest": "^1000.0.2",
+    "picocolors": "^1.1.1"
   },
   "devDependencies": {
     "@kazupon/eslint-config": "^0.19.0",
@@ -62,7 +68,8 @@
     "lint-staged": "^15.4.3",
     "prettier": "^3.4.2",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^8.22.0"
+    "typescript-eslint": "^8.22.0",
+    "vitest": "^3.0.4"
   },
   "prettier": "@kazupon/prettier-config",
   "lint-staged": {

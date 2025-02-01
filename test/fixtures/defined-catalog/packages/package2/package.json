@@ -1,0 +1,6 @@
+{
+  "name": "package2",
+  "dependencies": {
+    "typescript": "catalog:"
+  }
+}

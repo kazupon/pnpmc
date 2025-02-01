@@ -25,7 +25,8 @@ export default defineConfig(
       'bin',
       'tsconfig.json',
       'pnpm-lock.yaml',
-      'eslint.config.ts'
+      'eslint.config.ts',
+      'test/fixtures'
     ]
   }
 )
