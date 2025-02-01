@@ -51,10 +51,12 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@pnpm/constants": "^1001.1.0",
     "@pnpm/find-workspace-dir": "^1000.0.2",
     "@pnpm/workspace.find-packages": "^1000.0.6",
     "@pnpm/workspace.read-manifest": "^1000.0.2",
-    "picocolors": "^1.1.1"
+    "picocolors": "^1.1.1",
+    "write-yaml-file": "^5.0.0"
   },
   "devDependencies": {
     "@eslint/markdown": "^6.2.2",

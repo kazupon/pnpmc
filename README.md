@@ -63,6 +63,12 @@ You can register the dependency to the catalog on your pnpm workspace projects (
 ```sh
 pnpx pnpmc --dependency typescript --alias ^5.7.0 --catalog tools
 
+# PNPM Catalogs Tooling (pnpmc v0.1.2)
+#
+# 📙 Registered 'typescript' as '5.7.0' in Catalog 'tools'
+#
+# 📦 Overrided 'typescript' alias on /packages/package1 (package1) : ^5.7.3 -> catalog:tools
+# 📦 Overrided 'typescript' alias on /packages/package2 (package2) : ^5.6.0 -> catalog:tools
 ```
 
 ## 🙌 Contributing guidelines
