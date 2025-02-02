@@ -53,6 +53,7 @@
   "dependencies": {
     "@pnpm/constants": "^1001.1.0",
     "@pnpm/find-workspace-dir": "^1000.0.2",
+    "@pnpm/logger": "^1000.0.0",
     "@pnpm/workspace.find-packages": "^1000.0.6",
     "@pnpm/workspace.read-manifest": "^1000.0.2",
     "picocolors": "^1.1.1",

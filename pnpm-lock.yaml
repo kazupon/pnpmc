@@ -14,6 +14,9 @@ importers:
       '@pnpm/find-workspace-dir':
         specifier: ^1000.0.2
         version: 1000.0.2
+      '@pnpm/logger':
+        specifier: ^1000.0.0
+        version: 1000.0.0
       '@pnpm/workspace.find-packages':
         specifier: ^1000.0.6
         version: 1000.0.6(@pnpm/logger@1000.0.0)
