@@ -11,7 +11,7 @@ PNPM Catalogs Tooling
 
 ## 🌟 Features
 
-- Show cataglos
+- Show catalogs
 - Detect catalogable dependencies in workspace
 - Register the dependency to the catalog
 
