@@ -27,15 +27,17 @@ export function collectCatalogDependencies(manifest: WorkspaceManifest): Set<str
 export function collectProjectDependencies(projects: Project[]): Map<string, Project[]> {
   const deps = new Map<string, Project[]>()
   for (const project of projects) {
-    const dep = project.manifest.dependencies || {}
-    if (Object.keys(dep).length > 0) {
-      for (const d of Object.keys(dep)) {
-        const p = deps.get(d) || []
-        p.push(project)
-        deps.set(d, p)
+    const dependencies = project.manifest.dependencies || {}
+    const devDependencies = project.manifest.devDependencies || {}
+    for (const dep of [dependencies, devDependencies]) {
+      if (Object.keys(dep).length > 0) {
+        for (const d of Object.keys(dep)) {
+          const p = deps.get(d) || []
+          p.push(project)
+          deps.set(d, p)
+        }
       }
     }
-    // TODO: handle devDependencies
   }
   return deps
 }
@@ -78,18 +80,20 @@ export async function analyzeDependencies(
     if (projects.length > 1) {
       const catalogableDeps: CatalogableDependency[] = []
       for (const project of projects) {
-        const deps = project.manifest.dependencies || {}
-        // TODO: handle devDependencies
-        const pkgPath = project.rootDir.split(workspaceDir)[1] || '/'
-        const alias = deps[dep]
-        if (alias && !alias.startsWith('workspace:')) {
-          catalogableDeps.push({
-            name: project.manifest.name,
-            path: pkgPath,
-            dependency: dep,
-            alias,
-            cataloged: alias.startsWith('catalog:')
-          })
+        const dependencies = project.manifest.dependencies || {}
+        const devDependencies = project.manifest.devDependencies || {}
+        for (const deps of [dependencies, devDependencies]) {
+          const pkgPath = project.rootDir.split(workspaceDir)[1] || '/'
+          const alias = deps[dep]
+          if (alias && !alias.startsWith('workspace:')) {
+            catalogableDeps.push({
+              name: project.manifest.name,
+              path: pkgPath,
+              dependency: dep,
+              alias,
+              cataloged: alias.startsWith('catalog:')
+            })
+          }
         }
       }
 

@@ -111,4 +111,23 @@ describe('analyzeDependencies', () => {
 
     expect(deps.size).toBe(0)
   })
+
+  test('devDependencies', async () => {
+    const workspaceDir = path.resolve(__dirname, '../test/fixtures/dev-deps')
+    const manifest = await readWorkspaceManifest(workspaceDir)
+    const deps = await analyzeDependencies(workspaceDir, manifest!)
+
+    expect(deps.size).toBe(1)
+    const [package1, package2] = deps.get('typescript')!
+    expect(package1.path).toBe('/packages/package1')
+    expect(package1.name).toBe('package1')
+    expect(package1.dependency).toBe('typescript')
+    expect(package1.alias).toBe('^5.7.3')
+    expect(package1.cataloged).toBe(false)
+    expect(package2.path).toBe('/packages/package2')
+    expect(package2.name).toBe('package2')
+    expect(package2.dependency).toBe('typescript')
+    expect(package2.alias).toBe('^5.6.0')
+    expect(package2.cataloged).toBe(false)
+  })
 })
