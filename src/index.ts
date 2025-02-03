@@ -110,10 +110,14 @@ function catalogableDependencies(
 
   for (const [depName, deps] of catalogableDeps.entries()) {
     text += `  ${depName}:\n`
+    console.log(deps)
+    const depsPathMaxLenght = Math.max(...deps.map(dep => dep.path.length))
+    const depsNameMaxLenght = Math.max(...deps.map(dep => dep.name?.length || 0))
     for (const dep of deps) {
-      text += `    ${dep.path}`
+      text += `    ${dep.path.padEnd(depsPathMaxLenght)}`
       if (dep.name) {
-        text += ` (${dep.name}): `
+        // NOTE: padEnd with 3 spaces for `()`
+        text += ` ${`(${dep.name})`.padEnd(depsNameMaxLenght + 3)}: `
       } else {
         text += ': '
       }
