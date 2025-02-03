@@ -57,8 +57,11 @@ jobs:
       - name: Checkout codes
         uses: actions/checkout@v4
 
+      # TODO: workaround, see https://github.com/nodejs/corepack/issues/612
       - name: Enable corepack
-        run: corepack enable
+        run: |
+          npm install -g corepack@latest
+          corepack enable
 
       - name: Setup node
         uses: actions/setup-node@v4
@@ -84,8 +87,11 @@ jobs:
       - name: Checkout codes
         uses: actions/checkout@v4
 
+      # TODO: workaround, see https://github.com/nodejs/corepack/issues/612
       - name: Enable corepack
-        run: corepack enable
+        run: |
+          npm install -g corepack@latest
+          corepack enable
 
       - name: Setup node
         uses: actions/setup-node@v4
@@ -111,8 +117,11 @@ jobs:
       - name: Checkout codes
         uses: actions/checkout@v4
 
+      # TODO: workaround, see https://github.com/nodejs/corepack/issues/612
       - name: Enable corepack
-        run: corepack enable
+        run: |
+          npm install -g corepack@latest
+          corepack enable
 
       - name: Setup node
         uses: actions/setup-node@v4
