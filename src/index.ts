@@ -110,7 +110,6 @@ function catalogableDependencies(
 
   for (const [depName, deps] of catalogableDeps.entries()) {
     text += `  ${depName}:\n`
-    console.log(deps)
     const depsPathMaxLength = Math.max(...deps.map(dep => dep.path.length))
     const depsNameMaxLength = Math.max(...deps.map(dep => dep.name?.length || 0))
     for (const dep of deps) {
