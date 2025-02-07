@@ -42,7 +42,7 @@ export function collectProjectDependencies(projects: Project[]): Map<string, Pro
   return deps
 }
 
-export interface CatalogableDependency {
+interface CatalogableDependency {
   /**
    * The path of the workspace package. e.g, `./packages/foo`, `./packages/bar`.
    * if the package is root, the path is `/`.
