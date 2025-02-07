@@ -13,7 +13,7 @@ import type { WorkspaceManifest } from '@pnpm/workspace.read-manifest'
 
 async function main() {
   const args = process.argv.slice(2)
-  const { values: argv } = parseArgs(args)
+  const { options: argv, command } = parseArgs(args)
 
   if (argv.version) {
     console.log(await version())
@@ -34,10 +34,16 @@ async function main() {
   }
 
   const cwd = process.cwd()
-  if (isRegisterable()) {
-    await update(cwd, argv.dependency as string, argv.alias as string, argv.catalog as string)
-  } else {
+  if (command === 'register') {
+    if (isRegisterable()) {
+      await update(cwd, argv.dependency as string, argv.alias as string, argv.catalog as string)
+    } else {
+      console.log(usage())
+    }
+  } else if (command === 'show') {
     await display(cwd)
+  } else {
+    console.log(usage())
   }
 }
 

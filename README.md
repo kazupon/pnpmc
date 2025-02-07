@@ -26,37 +26,22 @@ pnpm add -D pnpmc
 
 ## 🚀 Usage
 
-### Display of defined catalogs
+### Display of defined catalogs and Detect catalogable dependencies
 
-You can show the defined catalogs on your pnpm workspace projects (`pnpm-workspace.yaml`):
-
-```sh
-pnpx pnpmc
-
-# PNPM Catalogs Tooling (pnpmc v0.1.0)
-#
-# 📙 Defined catalogs in pnpm-workspace.yaml:
-#   default:
-#     typescript: ^5.7.3
-#
-```
-
-### Detect catalogable dependencies
-
-You can detect catalogable dependencies on your pnpm workspace projects (`pnpm-workspace.yaml`):
+You can show the defined catalogs and catalogable dependencies on your pnpm workspace projects (`pnpm-workspace.yaml`):
 
 ```sh
-pnpx pnpmc
+pnpx pnpmc # or `pnpx pnpm show`
 
-# PNPM Catalogs Tooling (pnpmc v0.1.0)
+# PNPM Catalogs Tooling (pnpmc v0.4.0)
 #
 # 📙 Defined catalogs in pnpm-workspace.yaml:
 #   (none)
 #
 # 📦 Catalogable Dependencies (1):
 #   typescript:
-#     /packages/package1 (package1): ^5.7.3
-#     /packages/package2 (package2): ^5.6.0
+#     /packages/package1 (package1) : ^5.7.3
+#     /packages/package2 (package2) : ^5.6.0
 #
 ```
 
@@ -65,7 +50,7 @@ pnpx pnpmc
 You can register the dependency to the catalog on your pnpm workspace projects (`pnpm-workspace.yaml`):
 
 ```sh
-pnpx pnpmc --dependency typescript --alias ^5.7.0 --catalog tools
+pnpx pnpmc register --dependency typescript --alias ^5.7.0 --catalog tools
 
 # PNPM Catalogs Tooling (pnpmc v0.1.2)
 #
