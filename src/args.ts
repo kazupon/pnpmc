@@ -1,7 +1,12 @@
 import { parseArgs } from 'node:util'
 
+const _SUB_COMMANDS = ['register', 'show'] as const
+const DEFAULT_COMMAND = 'show' satisfies SubCommand
+
+type SubCommand = (typeof _SUB_COMMANDS)[number]
+
 export function parse(args: string[]) {
-  return parseArgs({
+  const result = parseArgs({
     allowPositionals: true,
     strict: false,
     args,
@@ -30,11 +35,27 @@ export function parse(args: string[]) {
     },
     tokens: true
   })
+
+  const firstToken = result.tokens[0]
+  const command: SubCommand = firstToken
+    ? firstToken.kind === 'positional' && firstToken.index === 0
+      ? (firstToken.value as SubCommand)
+      : DEFAULT_COMMAND
+    : DEFAULT_COMMAND
+
+  return {
+    command,
+    options: result.values
+  }
 }
 
 export function usage(): string {
   return `USAGE:
-  pnpmc <options>
+  pnpmc <commands> <options>
+
+COMMANDS:
+  show                 Show the catalog and catalogable dependencies.
+  register             Register the dependency to the catalog.
 
 OPTIONS:
   --dependency, -d     Register the dependency. Use with --alias and --catalog options.
@@ -45,9 +66,9 @@ OPTIONS:
 
 EXAMPLES:
   1. Show the catalog and catalogable dependencies:
-    pnpmc
+    pnpmc show         # \`pnpmc\` is equivalent to \`pnpm show\`
 
   2. Register the dependency to the catalog:
-    pnpmc --dependency typescript --alias ^5.7.9 --catalog tools
+    pnpmc register --dependency typescript --alias ^5.7.9 --catalog tools
 `
 }
