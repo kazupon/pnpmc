@@ -92,7 +92,10 @@ function catalogs(manifest: WorkspaceManifest): string {
 
   if (manifest.catalog) {
     catalogs += '  default:\n'
-    for (const [dep, ver] of Object.entries(manifest.catalog)) {
+    const sortedCatalog = new Map(
+      [...Object.entries(manifest.catalog)].sort((a, b) => a[0].localeCompare(b[0]))
+    )
+    for (const [dep, ver] of sortedCatalog.entries()) {
       catalogs += `    ${dep}: ${ver}\n`
     }
   }
@@ -114,7 +117,10 @@ function catalogableDependencies(
 ): string {
   let text = `📦 Catalogable Dependencies (${catalogableDeps.size}):\n`
 
-  for (const [depName, deps] of catalogableDeps.entries()) {
+  const sortedCatalogableDeps = new Map(
+    [...catalogableDeps.entries()].sort((a, b) => a[0].localeCompare(b[0]))
+  )
+  for (const [depName, deps] of sortedCatalogableDeps.entries()) {
     text += `  ${depName}:\n`
     const depsPathMaxLength = Math.max(...deps.map(dep => dep.path.length))
     const depsNameMaxLength = Math.max(...deps.map(dep => dep.name?.length || 0))
