@@ -103,7 +103,7 @@ async function showHelpDefault<Options extends ArgOptions>(
     Object.entries(commands).map(async ([key, cmd]) => [key, await cmd()])
   )) as [Commands, Command<ArgOptions>][]
 
-  const mesasge = `USAGE:
+  const message = `USAGE:
   pnpmc [show] <OPTIONS>
   pnpmc <COMMANDS>
 
@@ -123,7 +123,7 @@ ${loadedCommands
   .filter(Boolean)
   .join('\n\n')}
 `
-  console.log(mesasge)
+  console.log(message)
 }
 
 function resolveOptions<Options extends ArgOptions>(options: Options): Options {
