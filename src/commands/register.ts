@@ -155,7 +155,7 @@ async function orverrideDependency(
       project.manifest.devDependencies || {})
     for (const deps of [dependencies, devDependencies]) {
       const alias = deps[dependency]
-      const catalogAlias = `catalog: ${catalog === 'default' ? '' : catalog} `
+      const catalogAlias = `catalog:${catalog === 'default' ? '' : catalog}`
       if (alias && !alias.startsWith(catalogAlias)) {
         deps[dependency] = catalogAlias
         try {

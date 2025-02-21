@@ -32,12 +32,18 @@ export default {
     examples: `  # Show the catalog and catalogable dependencies:
   pnpmc  # \`pnpmc\` is equivalent to \`pnpm show\``
   },
-  async run({ values: _values, cwd }) {
-    await display(cwd)
+  async run({ values, cwd }) {
+    await display(cwd, {
+      showCategory: !values.catalog && !values.dependency ? true : values.catalog,
+      showDependency: !values.catalog && !values.dependency ? true : values.dependency
+    })
   }
 } satisfies Command<typeof options>
 
-async function display(target: string): Promise<void> {
+async function display(
+  target: string,
+  options: { showCategory: boolean; showDependency: boolean }
+): Promise<void> {
   const workspaceDir = await findWorkspaceDir(target)
   if (workspaceDir == null) {
     // TODO: handle message
@@ -49,13 +55,17 @@ async function display(target: string): Promise<void> {
     fail('No workspace manifest found')
   }
 
-  console.log(catalogs(manifest))
-  console.log()
-
-  const catalogableDeps = await analyzeDependencies(workspaceDir, manifest)
-  if (catalogableDeps.size > 0) {
-    console.log(catalogableDependencies(catalogableDeps))
+  if (options.showCategory) {
+    console.log(catalogs(manifest))
     console.log()
+  }
+
+  if (options.showDependency) {
+    const catalogableDeps = await analyzeDependencies(workspaceDir, manifest)
+    if (catalogableDeps.size > 0) {
+      console.log(catalogableDependencies(catalogableDeps))
+      console.log()
+    }
   }
 }
 

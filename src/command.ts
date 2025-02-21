@@ -57,7 +57,12 @@ ${resolveCommandHelpRender(ctx, ctx.help.examples)}`)
 
 function getCommandRaw(tokens: ArgToken[]): string {
   const firstToken = tokens[0]
-  if (firstToken.kind === 'positional' && firstToken.index === 0 && firstToken.value) {
+  if (
+    firstToken &&
+    firstToken.kind === 'positional' &&
+    firstToken.index === 0 &&
+    firstToken.value
+  ) {
     return firstToken.value
   } else {
     return ''
