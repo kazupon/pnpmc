@@ -83,7 +83,7 @@ async function header(): Promise<string> {
   return `${title} (${name} v${version})`
 }
 
-function createCommandContext<Options extends ArgOptions, Values = ArgValues<Options>>(
+export function createCommandContext<Options extends ArgOptions, Values = ArgValues<Options>>(
   options: Options,
   values: Values,
   positionals: string[],

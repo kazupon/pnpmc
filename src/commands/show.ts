@@ -2,7 +2,7 @@ import { WORKSPACE_MANIFEST_FILENAME } from '@pnpm/constants'
 import { findWorkspaceDir } from '@pnpm/find-workspace-dir'
 import { readWorkspaceManifest } from '@pnpm/workspace.read-manifest'
 import { analyzeDependencies } from '../analyze'
-import { fail } from '../utils'
+import { fail, log } from '../utils'
 
 import type { WorkspaceManifest } from '@pnpm/workspace.read-manifest'
 import type { ArgOptions } from 'args-tokens'
@@ -56,15 +56,15 @@ async function display(
   }
 
   if (options.showCategory) {
-    console.log(catalogs(manifest))
-    console.log()
+    log(catalogs(manifest))
+    log()
   }
 
   if (options.showDependency) {
     const catalogableDeps = await analyzeDependencies(workspaceDir, manifest)
     if (catalogableDeps.size > 0) {
-      console.log(catalogableDependencies(catalogableDeps))
-      console.log()
+      log(catalogableDependencies(catalogableDeps))
+      log()
     }
   }
 }
