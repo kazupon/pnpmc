@@ -4,8 +4,8 @@ import pc from 'picocolors'
 import { commands } from './commands/index'
 import { readPackageJson } from './utils'
 
-import type { Awaitable } from '@kazupon/jts-utils'
 import type { ArgOptions, ArgToken, ArgValues } from 'args-tokens'
+import type { Command, CommandContext, CommandHelpRender } from './commands/types'
 
 type Commands = keyof typeof commands
 
@@ -21,33 +21,6 @@ const COMMON_OPTIONS = {
     short: 'v'
   }
 } as const satisfies ArgOptions
-
-interface CommandContext<Options extends ArgOptions, Values = ArgValues<Options>> {
-  description: CommandHelpRender<Options>
-  locale: Intl.Locale
-  cwd: string
-  options: Options
-  values: Values
-  positionals: string[]
-  help: CommandHelp<Options>
-}
-
-type CommandHelpRender<Options extends ArgOptions> =
-  | ((ctx: CommandContext<Options>) => string)
-  | string
-
-interface CommandHelp<Options extends ArgOptions> {
-  usage: CommandHelpRender<Options>
-  options: CommandHelpRender<Options>
-  examples?: CommandHelpRender<Options>
-}
-
-export interface Command<Options extends ArgOptions> {
-  options: Options
-  description: CommandHelpRender<Options>
-  help: CommandHelp<Options>
-  run(ctx: CommandContext<Options>): Awaitable<void>
-}
 
 function resolveCommandHelpRender<Options extends ArgOptions>(
   ctx: CommandContext<Options>,

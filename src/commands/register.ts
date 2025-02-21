@@ -8,7 +8,7 @@ import { showHelp } from '../command'
 import { fail } from '../utils'
 
 import type { ArgOptions } from 'args-tokens'
-import type { Command } from '../command'
+import type { Command } from './types'
 
 const options = {
   catalog: {

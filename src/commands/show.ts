@@ -6,7 +6,7 @@ import { fail } from '../utils'
 
 import type { WorkspaceManifest } from '@pnpm/workspace.read-manifest'
 import type { ArgOptions } from 'args-tokens'
-import type { Command } from '../command'
+import type { Command } from './types'
 
 const options = {
   catalog: {
