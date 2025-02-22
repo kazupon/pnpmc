@@ -27,8 +27,8 @@ importers:
         specifier: ^1000.0.2
         version: 1000.0.2
       args-tokens:
-        specifier: ^0.7.0
-        version: 0.7.0
+        specifier: ^0.7.1
+        version: 0.7.1
       picocolors:
         specifier: ^1.1.1
         version: 1.1.1
@@ -974,8 +974,8 @@ packages:
   args-tokenizer@0.3.0:
     resolution: {integrity: sha512-xXAd7G2Mll5W8uo37GETpQ2VrE84M181Z7ugHFGQnJZ50M2mbOv0osSZ9VsSgPfJQ+LVG0prSi0th+ELMsno7Q==}
 
-  args-tokens@0.7.0:
-    resolution: {integrity: sha512-gxJKr6lLJZb2J1i0IF1JhRlK2UNcywIlwfvhiUY61VUZa8QPRcHnHSR3SXlgymDHjCjgOpnBRY9+ecSuTE0xgA==}
+  args-tokens@0.7.1:
+    resolution: {integrity: sha512-jBUn9Y9JhzKInV1gEOPKfR00Nedkfhb05TlLqNs0725jY+nTVpc9+3+sEaX+7LZoKvEFJ0mwCPv6MYkOkZNNgw==}
     engines: {node: '>= 18.18'}
 
   as-table@1.0.55:
@@ -3393,7 +3393,7 @@ snapshots:
 
   args-tokenizer@0.3.0: {}
 
-  args-tokens@0.7.0: {}
+  args-tokens@0.7.1: {}
 
   as-table@1.0.55:
     dependencies:
