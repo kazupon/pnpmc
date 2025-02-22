@@ -1,19 +1,11 @@
 import path from 'node:path'
 import { afterEach, expect, test, vi } from 'vitest'
+import { defineMockLog } from '../../test/utils'
 import { createCommandContext } from '../command'
 
 afterEach(() => {
   vi.resetAllMocks()
 })
-
-function defineMockLog(utils: typeof import('../utils')) {
-  const logs: unknown[] = []
-  vi.spyOn(utils, 'log').mockImplementation((...args: unknown[]) => {
-    logs.push(args)
-  })
-
-  return () => logs.join(`\n`)
-}
 
 test('default', async () => {
   const { default: show } = await import('./show')

@@ -5,7 +5,7 @@ import { readWorkspaceManifest } from '@pnpm/workspace.read-manifest'
 import path from 'node:path'
 import writeYamlFile from 'write-yaml-file'
 import { showHelp } from '../command'
-import { fail } from '../utils'
+import { fail, log } from '../utils'
 
 import type { ArgOptions } from 'args-tokens'
 import type { Command } from './types'
@@ -68,14 +68,14 @@ async function register(
   }
 
   const catalogText = await registerCatalog(workspaceDir, dependency, alias, catalog)
-  console.log(catalogText)
-  console.log()
+  log(catalogText)
+  log()
 
   const dependencyText = await orverrideDependency(workspaceDir, dependency, catalog)
   if (!dependencyText) {
     return
   }
-  console.log(dependencyText)
+  log(dependencyText)
 }
 
 interface WorkspaceCatalog {
