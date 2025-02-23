@@ -161,19 +161,20 @@ export async function run(args: string[], cwd: string): Promise<void> {
         console.error(pc.red(err.message))
       }
       log()
-      log(`For more info, run \`pnpmc ${command} --help\` flag`)
+      log(`For more info, run \`pnpmc ${command} --help\``)
       fail()
     } else {
       throw e
     }
   }
 
-  await showHeader()
   const { values, positionals } = resolvedArgs
   if (values.version) {
     log(await version())
     return
   }
+
+  await showHeader()
 
   const ctx = createCommandContext(options, values, positionals, cwd, resolvedCommand)
   if (values.help) {
