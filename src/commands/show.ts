@@ -1,8 +1,8 @@
 import { WORKSPACE_MANIFEST_FILENAME } from '@pnpm/constants'
 import { findWorkspaceDir } from '@pnpm/find-workspace-dir'
 import { readWorkspaceManifest } from '@pnpm/workspace.read-manifest'
-import { analyzeDependencies } from '../analyze'
-import { fail, log } from '../utils'
+import { analyzeDependencies } from '../analyze.js'
+import { fail, log } from '../utils.js'
 
 import type { WorkspaceManifest } from '@pnpm/workspace.read-manifest'
 import type { ArgOptions } from 'args-tokens'
