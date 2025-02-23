@@ -2,7 +2,7 @@ import { parseArgs, resolveArgs } from 'args-tokens'
 import path from 'node:path'
 import pc from 'picocolors'
 import { commands } from './commands/index.js'
-import { readPackageJson } from './utils.js'
+import { fail, log, readPackageJson } from './utils.js'
 
 import type { ArgOptions, ArgToken, ArgValues } from 'args-tokens'
 import type { Command, CommandContext, CommandHelpRender } from './commands/types'
@@ -32,7 +32,7 @@ function resolveCommandHelpRender<Options extends ArgOptions>(
 }
 
 export function showHelp<Options extends ArgOptions>(ctx: CommandContext<Options>): void {
-  console.log(renderHelp(ctx))
+  log(renderHelp(ctx))
 }
 
 function renderHelp<Options extends ArgOptions>(ctx: CommandContext<Options>): string {
@@ -130,11 +130,16 @@ ${loadedCommands
   .filter(Boolean)
   .join('\n\n')}
 `
-  console.log(message)
+  log(message)
 }
 
 function resolveOptions<Options extends ArgOptions>(options: Options): Options {
   return Object.assign(Object.create(null) as Options, options, COMMON_OPTIONS)
+}
+
+async function showHeader(): Promise<void> {
+  log(pc.cyanBright(await header()))
+  log()
 }
 
 export async function run(args: string[], cwd: string): Promise<void> {
@@ -146,14 +151,29 @@ export async function run(args: string[], cwd: string): Promise<void> {
   const resolvedCommand = (await commands[command]()) as Command<ArgOptions>
   const options = resolveOptions(resolvedCommand.options)
 
-  const { values, positionals } = resolveArgs(options, tokens)
-  if (values.version) {
-    console.log(await version())
-    return
+  let resolvedArgs: ReturnType<typeof resolveArgs> | undefined
+  try {
+    resolvedArgs = resolveArgs(options, tokens)
+  } catch (e: unknown) {
+    await showHeader()
+    if (e instanceof AggregateError) {
+      for (const err of e.errors as Error[]) {
+        console.error(pc.red(err.message))
+      }
+      log()
+      log(`For more info, run \`pnpmc ${command} --help\` flag`)
+      fail()
+    } else {
+      throw e
+    }
   }
 
-  console.log(pc.cyanBright(await header()))
-  console.log()
+  await showHeader()
+  const { values, positionals } = resolvedArgs
+  if (values.version) {
+    log(await version())
+    return
+  }
 
   const ctx = createCommandContext(options, values, positionals, cwd, resolvedCommand)
   if (values.help) {
