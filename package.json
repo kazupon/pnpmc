@@ -60,7 +60,7 @@
     "@pnpm/logger": "^1000.0.0",
     "@pnpm/workspace.find-packages": "^1000.0.10",
     "@pnpm/workspace.read-manifest": "^1000.0.2",
-    "args-tokens": "^0.8.0",
+    "args-tokens": "^0.9.0",
     "picocolors": "^1.1.1",
     "write-yaml-file": "^5.0.0"
   },
