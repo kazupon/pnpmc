@@ -22,17 +22,18 @@ const options = {
 } satisfies ArgOptions
 
 export default {
-  options,
+  name: 'show',
   description: 'Show the catalog and catalogable dependencies (default command)',
-  help: {
-    usage: '  pnpmc show <OPTIONS>',
-    options: `  -c, --catalog        Display the catalog only
-  -d, --dependency     Display the catalogable dependencies only
-  -h, --help           Display this help message`,
-    examples: `  # Show the catalog and catalogable dependencies:
-  pnpmc  # \`pnpmc\` is equivalent to \`pnpm show\``
+  options,
+  usage: {
+    options: {
+      catalog: 'Display the catalog only',
+      dependency: 'Display the catalogable dependencies only'
+    },
+    examples: `# Show the catalog and catalogable dependencies:
+pnpmc  # \`pnpmc\` is equivalent to \`pnpm show\``
   },
-  async run({ values, cwd }) {
+  async run({ values, env: { cwd } }) {
     await display(cwd, {
       showCategory: !values.catalog && !values.dependency ? true : values.catalog,
       showDependency: !values.catalog && !values.dependency ? true : values.dependency

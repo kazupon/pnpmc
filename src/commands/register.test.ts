@@ -53,7 +53,7 @@ test('basic', async () => {
       catalog: 'tools'
     },
     [],
-    cwd,
+    { cwd, version: '0.0.0', name: 'pnpmc' },
     register
   )
 
@@ -111,7 +111,7 @@ test('default catalog', async () => {
       catalog: 'default'
     },
     [],
-    cwd,
+    { cwd, version: '0.0.0', name: 'pnpmc' },
     register
   )
 

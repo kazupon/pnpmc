@@ -28,20 +28,22 @@ const options = {
 } satisfies ArgOptions
 
 export default {
-  options,
+  name: 'register',
   description: 'Register the dependency to the catalog',
-  help: {
-    usage: '  pnpmc register <OPTIONS>',
-    options: `  -d, --dependency     Register the dependency, required. use with --alias and --catalog options
-  -a, --alias          Register the alias, required. Use with --dependency and --catalog options
-  -c, --catalog        Register the catalog. Use with --dependency and --alias options. Default is 'default'
-  -h, --help           Display this help message`,
-    examples: `  # Register the dependency to the catalog:
-  pnpmc register --dependency typescript --alias ^5.7.9 --catalog tools`
+  options,
+  usage: {
+    options: {
+      dependency: 'Register the dependency, required. use with --alias and --catalog options',
+      alias: 'Register the alias, required. Use with --dependency and --catalog options',
+      catalog:
+        "Register the catalog. Use with --dependency and --alias options. Default is 'default'"
+    },
+    examples: `# Register the dependency to the catalog:
+pnpmc register --dependency typescript --alias ^5.7.9 --catalog tools`
   },
   async run(ctx) {
     const { dependency, alias, catalog } = ctx.values
-    await register(ctx.cwd, dependency, alias, catalog)
+    await register(ctx.env.cwd, dependency, alias, catalog)
   }
 } satisfies Command<typeof options>
 

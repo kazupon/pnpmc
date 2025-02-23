@@ -20,7 +20,7 @@ test('default', async () => {
       dependency: false
     },
     [],
-    cwd,
+    { cwd, version: '0.0.0', name: 'pnpmc' },
     show
   )
 
@@ -45,7 +45,7 @@ test('catalog only', async () => {
       dependency: false
     },
     [],
-    cwd,
+    { cwd, version: '0.0.0', name: 'pnpmc' },
     show
   )
 
@@ -70,7 +70,7 @@ test('dependency only', async () => {
       dependency: true
     },
     [],
-    cwd,
+    { cwd, version: '0.0.0', name: 'pnpmc' },
     show
   )
 
@@ -95,7 +95,7 @@ test('both option enable', async () => {
       dependency: true
     },
     [],
-    cwd,
+    { cwd, version: '0.0.0', name: 'pnpmc' },
     show
   )
 
