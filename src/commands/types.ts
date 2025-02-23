@@ -33,6 +33,7 @@ export interface CommandContext<Options extends ArgOptions, Values = ArgValues<O
   positionals: string[]
   usage: CommandUsage<Options>
   leftMargin: number
+  middleMargin: number
 }
 
 export type CommandUsageRender<Options extends ArgOptions> =

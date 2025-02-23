@@ -26,6 +26,14 @@ const COMMON_OPTIONS = {
   }
 } as const satisfies ArgOptions
 
+const COMMON_OPTIONS_USAGE: Record<
+  keyof typeof COMMON_OPTIONS,
+  CommandUsageRender<typeof COMMON_OPTIONS>
+> = {
+  help: 'Display this help message',
+  version: 'Display this version'
+}
+
 function resolveCommandUsageRender<Options extends ArgOptions>(
   ctx: CommandContext<Options>,
   redner: CommandUsageRender<Options>
@@ -72,7 +80,7 @@ function generateOptionsUsage<Options extends ArgOptions>(
   return Object.entries(optionsPairs)
     .map(([key, value]) => {
       const desc = resolveCommandUsageRender(ctx, ctx.usage.options[key])
-      const option = `${value.padEnd(optoinsMaxLength + 10)}${desc || ''}`
+      const option = `${value.padEnd(optoinsMaxLength + ctx.middleMargin)}${desc || ''}`
       return `${option.padStart(ctx.leftMargin + option.length)}`
     })
     .join('\n')
@@ -82,14 +90,15 @@ function renderUsage<Options extends ArgOptions>(ctx: CommandContext<Options>): 
   const hasOptions = Object.keys(ctx.options).length > 0
   const usageStr = `${ctx.env.name} ${ctx.name} ${hasOptions ? '<OPTIONS>' : ''}`
 
-  const messages = [
-    `${resolveCommandUsageRender(ctx, ctx.description)}
+  // render description
+  const messages = [resolveCommandUsageRender(ctx, ctx.description), '']
 
-USAGE:
-${usageStr.padStart(ctx.leftMargin + usageStr.length)}
-`
-  ]
+  // render usage
+  messages.push(`USAGE:`)
+  messages.push(usageStr.padStart(ctx.leftMargin + usageStr.length))
+  messages.push('')
 
+  // render options
   if (hasOptions) {
     messages.push('OPTIONS:')
     const optionsPairs = getOptionsPairs(ctx)
@@ -97,14 +106,15 @@ ${usageStr.padStart(ctx.leftMargin + usageStr.length)}
     messages.push('')
   }
 
+  // render examples
   if (ctx.usage.examples) {
     const examples = resolveCommandUsageRender(ctx, ctx.usage.examples)
       .split('\n')
       .map(exmaple => exmaple.padStart(ctx.leftMargin + exmaple.length))
     messages.push(`EXAMPLES: `)
     messages.push(...examples)
+    messages.push('')
   }
-  messages.push('')
 
   return messages.join('\n')
 }
@@ -133,8 +143,11 @@ export function createCommandContext<Options extends ArgOptions, Values = ArgVal
   positionals: string[],
   env: CommandEnvironment,
   command: Command<Options>,
-  leftMargin = 2
+  leftMargin = 2,
+  middleMargin = 10
 ): CommandContext<Options, Values> {
+  const usage = command.usage
+  usage.options = Object.assign(Object.create(null) as Options, usage.options, COMMON_OPTIONS_USAGE)
   return {
     name: command.name,
     description: command.description,
@@ -143,8 +156,9 @@ export function createCommandContext<Options extends ArgOptions, Values = ArgVal
     options,
     values,
     positionals,
-    usage: command.usage,
-    leftMargin
+    usage,
+    leftMargin,
+    middleMargin
   }
 }
 
@@ -159,8 +173,10 @@ async function renderUsageDefault<Options extends ArgOptions>(
   const defaultCommand = `${ctx.env.name} [show] ${hasOptions ? '<OPTIONS>' : ''} `
   const hasManyCommands = loadedCommands.length > 1
 
+  // render usage
   const messages = ['USAGE:', defaultCommand.padStart(ctx.leftMargin + defaultCommand.length)]
 
+  // render commands
   if (hasManyCommands) {
     const commandsUsage = `${ctx.env.name} <COMMANDS>`
     messages.push(commandsUsage.padStart(ctx.leftMargin + commandsUsage.length))
@@ -169,7 +185,7 @@ async function renderUsageDefault<Options extends ArgOptions>(
     const commandMaxLength = Math.max(...loadedCommands.map(([key, _]) => key.length))
     const commandsStr = loadedCommands.map(([key, cmd]) => {
       const desc = resolveCommandUsageRender(ctx, cmd.description)
-      const command = `${key.padEnd(commandMaxLength + 10)}${desc} `
+      const command = `${key.padEnd(commandMaxLength + ctx.middleMargin)}${desc} `
       return `${command.padStart(ctx.leftMargin + command.length)} `
     })
     messages.push(...commandsStr)
@@ -181,9 +197,10 @@ async function renderUsageDefault<Options extends ArgOptions>(
         return `${commandHelp.padStart(ctx.leftMargin + commandHelp.length)}`
       })
     )
+    messages.push('')
   }
-  messages.push('')
 
+  // render options
   if (hasOptions) {
     messages.push('OPTIONS:')
     const optionsPairs = getOptionsPairs(ctx)
@@ -191,6 +208,7 @@ async function renderUsageDefault<Options extends ArgOptions>(
     messages.push('')
   }
 
+  // render examples
   if (ctx.usage.examples) {
     const examples = resolveCommandUsageRender(ctx, ctx.usage.examples)
       .split('\n')
@@ -237,6 +255,11 @@ interface CommandOptions {
    * @default 2
    */
   leftMargin: number
+  /**
+   * The middle margin of the command output
+   * @default 10
+   */
+  middleMargin: number
 }
 
 /**
@@ -249,7 +272,8 @@ export async function run(
   args: string[],
   env: CommandEnvironment,
   opts: CommandOptions = {
-    leftMargin: 2
+    leftMargin: 2,
+    middleMargin: 10
   }
 ): Promise<void> {
   const tokens = parseArgs(args)
@@ -267,7 +291,8 @@ export async function run(
     positionals,
     env,
     resolvedCommand,
-    opts.leftMargin
+    opts.leftMargin,
+    opts.middleMargin
   )
   if (values.version) {
     showVersion(ctx)
