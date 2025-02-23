@@ -2,7 +2,7 @@ import { parseArgs, resolveArgs } from 'args-tokens'
 import path from 'node:path'
 import pc from 'picocolors'
 import { commands } from './commands/index.js'
-import { fail, log, readPackageJson } from './utils.js'
+import { log, readPackageJson } from './utils.js'
 
 import type { ArgOptions, ArgToken, ArgValues } from 'args-tokens'
 import type { Command, CommandContext, CommandHelpRender } from './commands/types'
@@ -151,31 +151,13 @@ export async function run(args: string[], cwd: string): Promise<void> {
   const resolvedCommand = (await commands[command]()) as Command<ArgOptions>
   const options = resolveOptions(resolvedCommand.options)
 
-  let resolvedArgs: ReturnType<typeof resolveArgs> | undefined
-  try {
-    resolvedArgs = resolveArgs(options, tokens)
-  } catch (e: unknown) {
-    await showHeader()
-    if (e instanceof AggregateError) {
-      for (const err of e.errors as Error[]) {
-        console.error(pc.red(err.message))
-      }
-      log()
-      log(`For more info, run \`pnpmc ${command} --help\``)
-      fail()
-    } else {
-      throw e
-    }
-  }
-
-  const { values, positionals } = resolvedArgs
+  const { values, positionals, error } = resolveArgs(options, tokens)
   if (values.version) {
     log(await version())
     return
   }
 
   await showHeader()
-
   const ctx = createCommandContext(options, values, positionals, cwd, resolvedCommand)
   if (values.help) {
     if (omitted) {
@@ -185,6 +167,16 @@ export async function run(args: string[], cwd: string): Promise<void> {
       showHelp(ctx)
       return
     }
+  }
+
+  if (error) {
+    const errors = error.errors as Error[]
+    for (const err of errors) {
+      console.error(pc.red(err.message))
+    }
+    log()
+    log(`For more info, run \`pnpmc ${command} --help\``)
+    return
   }
 
   await resolvedCommand.run(ctx)
