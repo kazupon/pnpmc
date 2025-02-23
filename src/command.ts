@@ -1,11 +1,13 @@
 import { parseArgs, resolveArgs } from 'args-tokens'
 import path from 'node:path'
 import pc from 'picocolors'
-import { commands } from './commands/index'
-import { readPackageJson } from './utils'
+import { commands } from './commands/index.js'
+import { readPackageJson } from './utils.js'
 
 import type { ArgOptions, ArgToken, ArgValues } from 'args-tokens'
 import type { Command, CommandContext, CommandHelpRender } from './commands/types'
+
+const __dirname = path.dirname(new URL(import.meta.url).pathname)
 
 type Commands = keyof typeof commands
 

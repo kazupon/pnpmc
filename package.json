@@ -26,6 +26,7 @@
   "engines": {
     "node": ">= 18.18"
   },
+  "type": "module",
   "bin": {
     "pnpmc": "./bin/cli.js"
   },
@@ -53,19 +54,19 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@kazupon/jts-utils": "^0.4.0",
+    "@kazupon/jts-utils": "^0.6.0",
     "@pnpm/constants": "^1001.1.0",
     "@pnpm/find-workspace-dir": "^1000.0.2",
     "@pnpm/logger": "^1000.0.0",
     "@pnpm/workspace.find-packages": "^1000.0.10",
     "@pnpm/workspace.read-manifest": "^1000.0.2",
-    "args-tokens": "^0.7.1",
+    "args-tokens": "^0.8.0",
     "picocolors": "^1.1.1",
     "write-yaml-file": "^5.0.0"
   },
   "devDependencies": {
     "@eslint/markdown": "^6.2.2",
-    "@kazupon/eslint-config": "^0.19.0",
+    "@kazupon/eslint-config": "^0.22.0",
     "@kazupon/prettier-config": "^0.1.1",
     "@types/node": "^22.13.4",
     "bumpp": "^10.0.3",
