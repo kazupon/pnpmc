@@ -2,7 +2,7 @@ import { parseArgs, resolveArgs } from 'args-tokens'
 import path from 'node:path'
 import pc from 'picocolors'
 import { commands } from './commands/index.js'
-import { log, readPackageJson } from './utils.js'
+import { fail, log, readPackageJson } from './utils.js'
 
 import type { ArgOptions, ArgToken, ArgValues } from 'args-tokens'
 import type { Command, CommandContext, CommandHelpRender } from './commands/types'
@@ -31,7 +31,7 @@ function resolveCommandHelpRender<Options extends ArgOptions>(
   return typeof redner === 'function' ? redner(ctx) : redner
 }
 
-export function showHelp<Options extends ArgOptions>(ctx: CommandContext<Options>): void {
+function showHelp<Options extends ArgOptions>(ctx: CommandContext<Options>): void {
   log(renderHelp(ctx))
 }
 
@@ -139,7 +139,20 @@ function resolveOptions<Options extends ArgOptions>(options: Options): Options {
 
 async function showHeader(): Promise<void> {
   log(pc.cyanBright(await header()))
-  log()
+}
+
+async function showVersion(): Promise<void> {
+  log(await version())
+}
+
+function showValidationErrors(errors: Error[]): void {
+  for (const err of errors) {
+    console.error(pc.red(err.message))
+  }
+}
+
+function showMoreHelp(command: string): void {
+  log(`For more info, run \`pnpmc ${command} --help\``)
 }
 
 export async function run(args: string[], cwd: string): Promise<void> {
@@ -153,11 +166,13 @@ export async function run(args: string[], cwd: string): Promise<void> {
 
   const { values, positionals, error } = resolveArgs(options, tokens)
   if (values.version) {
-    log(await version())
+    await showVersion()
     return
   }
 
   await showHeader()
+  log()
+
   const ctx = createCommandContext(options, values, positionals, cwd, resolvedCommand)
   if (values.help) {
     if (omitted) {
@@ -170,12 +185,10 @@ export async function run(args: string[], cwd: string): Promise<void> {
   }
 
   if (error) {
-    const errors = error.errors as Error[]
-    for (const err of errors) {
-      console.error(pc.red(err.message))
-    }
+    showValidationErrors(error.errors as Error[])
     log()
-    log(`For more info, run \`pnpmc ${command} --help\``)
+    showMoreHelp(command)
+    fail()
     return
   }
 

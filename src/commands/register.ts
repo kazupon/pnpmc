@@ -4,7 +4,6 @@ import { findWorkspacePackages } from '@pnpm/workspace.find-packages'
 import { readWorkspaceManifest } from '@pnpm/workspace.read-manifest'
 import path from 'node:path'
 import writeYamlFile from 'write-yaml-file'
-import { showHelp } from '../command.js'
 import { fail, log } from '../utils.js'
 
 import type { ArgOptions } from 'args-tokens'
@@ -42,18 +41,9 @@ export default {
   },
   async run(ctx) {
     const { dependency, alias, catalog } = ctx.values
-    if (isRegisterable(ctx.values)) {
-      await register(ctx.cwd, dependency, alias, catalog)
-    } else {
-      showHelp(ctx)
-    }
+    await register(ctx.cwd, dependency, alias, catalog)
   }
 } satisfies Command<typeof options>
-
-function isRegisterable(values: Parameters<Command<typeof options>['run']>[0]['values']): boolean {
-  // @ts-ignore -- NOTE: change to boolean with exclamations operator
-  return !!values.dependency && !!values.alias && values.catalog
-}
 
 async function register(
   target: string,
