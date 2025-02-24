@@ -1,8 +1,60 @@
 import { describe, expect, test } from 'vitest'
-import { createCommandContext, renderUsage } from './command'
+import { createCommandContext, renderHeader, renderUsage } from './command'
 
 import type { ArgOptions } from 'args-tokens'
 import type { Command } from './commands/types'
+
+const NOOP = async () => {}
+
+describe('renderHeader', () => {
+  const command = {
+    name: 'test',
+    description: 'A test command',
+    run: NOOP
+  } as Command<ArgOptions>
+
+  test('basic', () => {
+    const ctx = createCommandContext(
+      command.options,
+      {},
+      [],
+      { cwd: '/path/to/cmd1', description: 'this is command line', version: '0.0.0', name: 'cmd1' },
+      command
+    )
+
+    expect(renderHeader(ctx)).toEqual('this is command line (cmd1 v0.0.0)')
+  })
+
+  test('no description', () => {
+    const ctx = createCommandContext(
+      command.options,
+      {},
+      [],
+      { cwd: '/path/to/cmd1', version: '0.0.0', name: 'cmd1' },
+      command
+    )
+
+    expect(renderHeader(ctx)).toEqual('cmd1 (cmd1 v0.0.0)')
+  })
+
+  test('no name & no description', () => {
+    const ctx = createCommandContext(command.options, {}, [], { cwd: '/path/to/cmd1' }, command)
+
+    expect(renderHeader(ctx)).toEqual('')
+  })
+
+  test('no version', () => {
+    const ctx = createCommandContext(
+      command.options,
+      {},
+      [],
+      { cwd: '/path/to/cmd1', name: 'cmd1', description: 'this is command line' },
+      command
+    )
+
+    expect(renderHeader(ctx)).toEqual('this is command line (cmd1)')
+  })
+})
 
 describe('renderUsage', () => {
   test('basic', () => {
@@ -37,9 +89,7 @@ describe('renderUsage', () => {
         },
         examples: `# Example 1\n $test --foo bar --bar --baz 42 --qux quux\n# Example 2\n$ test -f bar -b 42 -q quux`
       },
-      run: async () => {
-        // something here
-      }
+      run: NOOP
     } as Command<ArgOptions>
     const ctx = createCommandContext(
       command.options,
@@ -99,9 +149,7 @@ describe('renderUsage', () => {
           baz: 'The baz option'
         }
       },
-      run: async () => {
-        // something here
-      }
+      run: NOOP
     } as Command<ArgOptions>
     const ctx = createCommandContext(
       command.options,
@@ -145,9 +193,7 @@ describe('renderUsage', () => {
           qux: 'The qux option'
         }
       },
-      run: async () => {
-        // something here
-      }
+      run: NOOP
     } as Command<ArgOptions>
     const ctx = createCommandContext(
       command.options,
@@ -192,9 +238,7 @@ describe('renderUsage', () => {
         },
         examples: `# Example 1\n $test --foo bar --bar --baz 42 --qux quux\n# Example 2\n$ test -f bar -b 42 -q quux`
       },
-      run: async () => {
-        // something here
-      }
+      run: NOOP
     } as Command<ArgOptions>
     const ctx = createCommandContext(
       command.options,

@@ -12,7 +12,7 @@ export interface CommandEnvironment {
   /**
    * The command name
    */
-  name: string
+  name?: string
   /**
    * The command description
    */

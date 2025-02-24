@@ -151,8 +151,11 @@ function getCommandRaw(tokens: ArgToken[]): string {
   }
 }
 
-function renderHeader<Options extends ArgOptions>(ctx: CommandContext<Options>): string {
-  return `${ctx.env.description || ctx.env.name} (${ctx.env.name} v${ctx.env.version || 'N/A'})`
+export function renderHeader<Options extends ArgOptions>(ctx: CommandContext<Options>): string {
+  const title = ctx.env.description || ctx.env.name || ''
+  return title
+    ? `${title} (${ctx.env.name}${ctx.env.version ? ` v${ctx.env.version}` : ''})`
+    : title
 }
 
 export function createCommandContext<Options extends ArgOptions, Values = ArgValues<Options>>(
@@ -184,9 +187,8 @@ async function renderUsageDefault<Options extends ArgOptions>(
   const loadedCommands = (await Promise.all(
     Object.entries(commands).map(async ([key, cmd]) => [key, await cmd()])
   )) as [Commands, Command<ArgOptions>][]
-  const hasOptions = ctx.options && Object.keys(ctx.options).length > 0
 
-  const defaultCommand = `${ctx.env.name} [show] ${hasOptions ? '<OPTIONS>' : ''} `
+  const defaultCommand = `${ctx.env.name} [show] ${hasOptions(ctx) ? '<OPTIONS>' : ''} `
   const hasManyCommands = loadedCommands.length > 1
 
   // render usage
@@ -220,7 +222,7 @@ async function renderUsageDefault<Options extends ArgOptions>(
   }
 
   // render options
-  if (hasOptions) {
+  if (hasOptions(ctx)) {
     messages.push('OPTIONS:')
     const optionsPairs = getOptionsPairs(ctx)
     messages.push(generateOptionsUsage(ctx, optionsPairs))
@@ -294,7 +296,14 @@ export async function run(
   const options = resolveOptions(resolvedCommand.options)
 
   const { values, positionals, error } = resolveArgs(options, tokens)
-  const ctx = createCommandContext(options, values, positionals, env, resolvedCommand, opts)
+  const ctx = createCommandContext(
+    options,
+    values,
+    positionals,
+    env,
+    resolvedCommand,
+    opts as Required<CommandOptions>
+  )
   if (values.version) {
     showVersion(ctx)
     return
