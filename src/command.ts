@@ -74,13 +74,13 @@ function generateOptionsUsage<Options extends ArgOptions>(
   ctx: CommandContext<Options>,
   optionsPairs: Record<string, string>
 ): string {
-  const optoinsMaxLength = Math.max(
+  const optionsMaxLength = Math.max(
     ...Object.entries(optionsPairs).map(([_, value]) => value.length)
   )
   return Object.entries(optionsPairs)
     .map(([key, value]) => {
       const desc = resolveCommandUsageRender(ctx, ctx.usage.options[key])
-      const option = `${value.padEnd(optoinsMaxLength + ctx.middleMargin)}${desc || ''}`
+      const option = `${value.padEnd(optionsMaxLength + ctx.middleMargin)}${desc || ''}`
       return `${option.padStart(ctx.leftMargin + option.length)}`
     })
     .join('\n')
@@ -110,7 +110,7 @@ function renderUsage<Options extends ArgOptions>(ctx: CommandContext<Options>): 
   if (ctx.usage.examples) {
     const examples = resolveCommandUsageRender(ctx, ctx.usage.examples)
       .split('\n')
-      .map(exmaple => exmaple.padStart(ctx.leftMargin + exmaple.length))
+      .map(example => example.padStart(ctx.leftMargin + example.length))
     messages.push(`EXAMPLES: `)
     messages.push(...examples)
     messages.push('')
@@ -212,7 +212,7 @@ async function renderUsageDefault<Options extends ArgOptions>(
   if (ctx.usage.examples) {
     const examples = resolveCommandUsageRender(ctx, ctx.usage.examples)
       .split('\n')
-      .map(exmaple => exmaple.padStart(ctx.leftMargin + exmaple.length))
+      .map(example => example.padStart(ctx.leftMargin + example.length))
     messages.push(`EXAMPLES:`)
     messages.push(...examples)
   }
