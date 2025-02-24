@@ -7,7 +7,7 @@ USAGE:
   cmd1 test <OPTIONS>
 
 OPTIONS:
-  -f, --foo                The foo option
+  -f, --foo <foo>          The foo option
   --bar                    The bar option
   -b, --baz [baz]          The baz option
   -q, --qux <qux>          The qux option
@@ -27,7 +27,7 @@ USAGE:
     cmd1 test <OPTIONS>
 
 OPTIONS:
-    -f, --foo                  [string]  The foo option
+    -f, --foo <foo>            [string]  The foo option
     --bar                      [boolean] The bar option
     -b, --baz [baz]            [number]  The baz option
     -q, --qux <qux>            [string]  The qux option
@@ -47,7 +47,7 @@ USAGE:
   cmd1 test <OPTIONS>
 
 OPTIONS:
-  -f, --foo                The foo option
+  -f, --foo <foo>          The foo option
   --bar                    The bar option
   -b, --baz [baz]          The baz option
   -q, --qux <qux>          The qux option
@@ -72,10 +72,10 @@ exports[`renderUsage > no required options 1`] = `
 "A test command
 
 USAGE:
-  cmd1 test [OPTIONS]
+  cmd1 test <OPTIONS>
 
 OPTIONS:
-  -f, --foo                The foo option
+  -f, --foo <foo>          The foo option
   --bar                    The bar option
   -b, --baz [baz]          The baz option
 "
@@ -97,7 +97,7 @@ For more info, run any command with the \`--help\` flag:
   cmd1 command1 --help
 
 OPTIONS:
-  -f, --foo                The foo option
+  -f, --foo <foo>          The foo option
   --bar                    The bar option
   -b, --baz [baz]          The baz option
   -q, --qux <qux>          The qux option
@@ -115,7 +115,7 @@ exports[`renderUsageDefault > no subCommands 1`] = `
   cmd1 <OPTIONS> 
 
 OPTIONS:
-  -f, --foo                The foo option
+  -f, --foo <foo>          The foo option
   --bar                    The bar option
   -b, --baz [baz]          The baz option
   -q, --qux <qux>          The qux option
@@ -125,5 +125,20 @@ EXAMPLES:
   $ test --foo bar --bar --baz 42 --qux quux
   # Example 2
   $ test -f bar -b 42 -q quux
+"
+`;
+
+exports[`run > simple > help 1`] = `
+"USAGE:
+  COMMAND <OPTIONS> 
+
+OPTIONS:
+  --foo <foo>            
+  --bar                  
+  --baz <baz>            
+  --qux <qux>            
+  -h, --help             Display this help message
+  -v, --version          Display this version
+
 "
 `;

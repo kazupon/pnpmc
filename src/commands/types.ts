@@ -53,7 +53,7 @@ export interface CommandContext<Options extends ArgOptions, Values = ArgValues<O
   name: string
   description?: CommandUsageRender<Options>
   locale: Intl.Locale
-  env: CommandEnvironment
+  env: CommandEnvironment<Options>
   options?: Options
   values: Values
   positionals: string[]

@@ -5,6 +5,7 @@ import { commands } from './commands/index.js'
 import { default as show } from './commands/show.js'
 import { fail, readPackageJson } from './utils.js'
 
+import type { ArgOptions } from 'args-tokens'
 import type { CommandEnvironment } from './commands/types'
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname)
@@ -19,9 +20,9 @@ async function main() {
     version: pkgJson.version as string,
     entry: show,
     subCommands: commands
-  } satisfies CommandEnvironment
+  } satisfies CommandEnvironment<ArgOptions>
 
-  await run(process.argv.slice(2), env)
+  await run<ArgOptions>(process.argv.slice(2), env)
 }
 
 main().catch(error => {

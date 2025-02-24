@@ -45,26 +45,21 @@ function showUsage<Options extends ArgOptions>(ctx: CommandContext<Options>): vo
 function getOptionsPairs<Options extends ArgOptions>(
   ctx: CommandContext<Options>
 ): Record<string, string> {
-  return Object.entries(ctx.options!).reduce(
-    (acc, [name, value]) => {
-      let key = `--${name}`
-      if (value.short) {
-        key = `-${value.short}, ${key}`
+  return Object.entries(ctx.options!).reduce((acc, [name, value]) => {
+    let key = `--${name}`
+    if (value.short) {
+      key = `-${value.short}, ${key}`
+    }
+    if (value.type !== 'boolean') {
+      if (value.default) {
+        key = `${key} [${name}]`
+      } else {
+        key = `${key} <${name}>`
       }
-      if (value.type !== 'boolean') {
-        if (value.required) {
-          key = `${key} <${name}>`
-        } else {
-          if (value.default) {
-            key = `${key} [${name}]`
-          }
-        }
-      }
-      acc[name] = key
-      return acc
-    },
-    {} as Record<string, string>
-  )
+    }
+    acc[name] = key
+    return acc
+  }, nullObject<Record<string, string>>())
 }
 
 function generateOptionsUsage<Options extends ArgOptions>(
@@ -79,7 +74,7 @@ function generateOptionsUsage<Options extends ArgOptions>(
     : 0
   return Object.entries(optionsPairs)
     .map(([key, value]) => {
-      const rawDesc = resolveCommandUsageRender(ctx, ctx.usage.options![key])
+      const rawDesc = resolveCommandUsageRender(ctx, ctx.usage.options![key]) || ''
       const optionsSchema = ctx.commandOptions.usageOptionType ? `[${ctx.options![key].type}] ` : ''
       // padEnd is used to align the `[]` symbols
       const desc = `${optionsSchema ? optionsSchema.padEnd(optionSchemaMaxLength + 3) : ''}${rawDesc}`
@@ -93,12 +88,12 @@ function hasOptions<Options extends ArgOptions>(ctx: CommandContext<Options>): b
   return !!(ctx.options && Object.keys(ctx.options).length > 0)
 }
 
-function hasRequiredOptions<Options extends ArgOptions>(ctx: CommandContext<Options>): boolean {
-  return !!(ctx.options && Object.values(ctx.options).some(opt => opt.required))
+function hasAllDefaultOptions<Options extends ArgOptions>(ctx: CommandContext<Options>): boolean {
+  return !!(ctx.options && Object.values(ctx.options).every(opt => opt.default))
 }
 
 function generateOptionsSymbols<Options extends ArgOptions>(ctx: CommandContext<Options>): string {
-  return hasOptions(ctx) ? (hasRequiredOptions(ctx) ? '<OPTIONS>' : '[OPTIONS]') : ''
+  return hasOptions(ctx) ? (hasAllDefaultOptions(ctx) ? '[OPTIONS]' : '<OPTIONS>') : ''
 }
 
 export function renderUsage<Options extends ArgOptions>(
@@ -165,7 +160,7 @@ export function createCommandContext<Options extends ArgOptions, Values = ArgVal
   options: Options | undefined,
   values: Values,
   positionals: string[],
-  env: CommandEnvironment,
+  env: CommandEnvironment<Options>,
   command: Command<Options>,
   commandOptions: Required<CommandOptions> = COMMAND_OPTIONS_DEFAULT
 ): Readonly<CommandContext<Options, Values>> {
@@ -185,18 +180,20 @@ export function createCommandContext<Options extends ArgOptions, Values = ArgVal
 }
 
 function resolveEntry<Options extends ArgOptions>(ctx: Readonly<CommandContext<Options>>): string {
-  return `${ctx.env.name}` || '<COMMAND>'
+  return ctx.env.name || 'COMMAND'
 }
 
 export async function renderUsageDefault<Options extends ArgOptions>(
   ctx: Readonly<CommandContext<Options>>
 ): Promise<string> {
+  const subCommands =
+    ctx.env.subCommands || nullObject<Record<string, Command<Options> | LazyCommand<Options>>>()
   const loadedCommands = await Promise.all(
-    Object.entries(ctx.env.subCommands || {}).map(async ([_, cmd]) => await resolveLazyCommand(cmd))
+    Object.entries(subCommands).map(async ([_, cmd]) => await resolveLazyCommand(cmd))
   )
 
   const hasManyCommands = loadedCommands.length > 1
-  const defaultCommand = `${ctx.env.name}${hasManyCommands ? ` [${ctx.name}]` : ''} ${hasOptions(ctx) ? '<OPTIONS>' : ''} `
+  const defaultCommand = `${resolveEntry(ctx)}${hasManyCommands ? ` [${ctx.name}]` : ''} ${hasOptions(ctx) ? '<OPTIONS>' : ''} `
 
   // render usage
   const messages = [
@@ -318,7 +315,7 @@ async function resolveCommand<Options extends ArgOptions>(
       // find command from such commands that has default flag
       const found = (
         await Promise.all(
-          Object.entries(env.subCommands || {}).map(
+          Object.entries(env.subCommands || nullObject()).map(
             async ([_, cmd]) => await resolveLazyCommand(cmd)
           )
         )
@@ -359,9 +356,9 @@ const COMMAND_OPTIONS_DEFAULT: Required<CommandOptions> = {
  * @param env - a {@link CommandEnvironment | command environment}
  * @param opts - a {@link CommandOptions | command options}
  */
-export async function run(
+export async function run<Options extends ArgOptions>(
   args: string[],
-  env: CommandEnvironment,
+  env: CommandEnvironment<Options>,
   opts: CommandOptions = COMMAND_OPTIONS_DEFAULT
 ): Promise<void> {
   const tokens = parseArgs(args)
@@ -370,6 +367,7 @@ export async function run(
   const [name, command] = await resolveCommand(raw, env)
   if (!command) {
     fail(`Command not found: ${name || ''}`)
+    return
   }
 
   const options = resolveOptions(command.options)
@@ -391,8 +389,8 @@ export async function run(
   showHeader(ctx)
 
   if (values.help) {
-    const omitted = !raw
-    if (omitted) {
+    if (!raw) {
+      // omitted command
       await showUsageDefault(ctx)
       return
     } else {
@@ -404,6 +402,7 @@ export async function run(
   if (error) {
     showValidationErrors(ctx, error)
     fail() // TODO: should we fail?
+    return
   }
 
   await command.run(ctx)
