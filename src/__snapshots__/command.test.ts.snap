@@ -14,7 +14,7 @@ OPTIONS:
 
 EXAMPLES: 
   # Example 1
-   $test --foo bar --bar --baz 42 --qux quux
+  $ test --foo bar --bar --baz 42 --qux quux
   # Example 2
   $ test -f bar -b 42 -q quux
 "
@@ -34,7 +34,7 @@ OPTIONS:
 
 EXAMPLES: 
     # Example 1
-     $test --foo bar --bar --baz 42 --qux quux
+    $ test --foo bar --bar --baz 42 --qux quux
     # Example 2
     $ test -f bar -b 42 -q quux
 "
@@ -78,5 +78,52 @@ OPTIONS:
   -f, --foo                The foo option
   --bar                    The bar option
   -b, --baz [baz]          The baz option
+"
+`;
+
+exports[`renderUsageDefault > basic 1`] = `
+"USAGE:
+  cmd1 [show] <OPTIONS> 
+  cmd1 <COMMANDS>
+
+COMMANDS:
+  show              A show command  
+  command1          this is command1  
+  command1          this is command2  
+
+For more info, run any command with the \`--help\` flag:
+  cmd1 show --help
+  cmd1 command1 --help
+  cmd1 command1 --help
+
+OPTIONS:
+  -f, --foo                The foo option
+  --bar                    The bar option
+  -b, --baz [baz]          The baz option
+  -q, --qux <qux>          The qux option
+
+EXAMPLES:
+  # Example 1
+  $ test --foo bar --bar --baz 42 --qux quux
+  # Example 2
+  $ test -f bar -b 42 -q quux
+"
+`;
+
+exports[`renderUsageDefault > no subCommands 1`] = `
+"USAGE:
+  cmd1 <OPTIONS> 
+
+OPTIONS:
+  -f, --foo                The foo option
+  --bar                    The bar option
+  -b, --baz [baz]          The baz option
+  -q, --qux <qux>          The qux option
+
+EXAMPLES:
+  # Example 1
+  $ test --foo bar --bar --baz 42 --qux quux
+  # Example 2
+  $ test -f bar -b 42 -q quux
 "
 `;

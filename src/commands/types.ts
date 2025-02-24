@@ -4,7 +4,7 @@ import type { ArgOptions, ArgValues } from 'args-tokens'
 /**
  * The command environment
  */
-export interface CommandEnvironment {
+export interface CommandEnvironment<Options extends ArgOptions = ArgOptions> {
   /**
    * The current working directory
    */
@@ -21,6 +21,14 @@ export interface CommandEnvironment {
    * The command version
    */
   version?: string
+  /**
+   * The entry command
+   */
+  entry?: Command<Options> | string
+  /**
+   * The sub commands
+   */
+  subCommands?: Record<string, Command<Options> | LazyCommand<Options>>
 }
 
 export interface CommandOptions {
@@ -43,7 +51,7 @@ export interface CommandOptions {
 
 export interface CommandContext<Options extends ArgOptions, Values = ArgValues<Options>> {
   name: string
-  description: CommandUsageRender<Options>
+  description?: CommandUsageRender<Options>
   locale: Intl.Locale
   env: CommandEnvironment
   options?: Options
@@ -66,8 +74,10 @@ interface CommandUsage<Options extends ArgOptions> {
 
 export interface Command<Options extends ArgOptions> {
   name: string
-  description: CommandUsageRender<Options>
+  description?: CommandUsageRender<Options>
+  default?: boolean
   options?: Options
   usage?: CommandUsage<Options>
   run(ctx: CommandContext<Options>): Awaitable<void>
 }
+export type LazyCommand<Options extends ArgOptions> = () => Awaitable<Command<Options>>
