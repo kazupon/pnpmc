@@ -1,17 +1,16 @@
 import { parseArgs, resolveArgs } from 'args-tokens'
-import path from 'node:path'
 import pc from 'picocolors'
-import { commands } from './commands/index.js'
-import { fail, log, readPackageJson } from './utils.js'
+import { fail, log, nullObject } from './utils.js'
 
 import type { ArgOptions, ArgToken, ArgValues } from 'args-tokens'
-import type { Command, CommandContext, CommandHelpRender } from './commands/types'
-
-const __dirname = path.dirname(new URL(import.meta.url).pathname)
-
-type Commands = keyof typeof commands
-
-const DEFAULT_COMMAND = 'show'
+import type {
+  Command,
+  CommandContext,
+  CommandEnvironment,
+  CommandOptions,
+  CommandUsageRender,
+  LazyCommand
+} from './commands/types'
 
 const COMMON_OPTIONS = {
   help: {
@@ -24,33 +23,116 @@ const COMMON_OPTIONS = {
   }
 } as const satisfies ArgOptions
 
-function resolveCommandHelpRender<Options extends ArgOptions>(
+const COMMON_OPTIONS_USAGE: Record<
+  keyof typeof COMMON_OPTIONS,
+  CommandUsageRender<typeof COMMON_OPTIONS>
+> = {
+  help: 'Display this help message',
+  version: 'Display this version'
+}
+
+async function resolveCommandUsageRender<Options extends ArgOptions>(
   ctx: CommandContext<Options>,
-  redner: CommandHelpRender<Options>
-): string {
-  return typeof redner === 'function' ? redner(ctx) : redner
+  redner: CommandUsageRender<Options>
+): Promise<string> {
+  return typeof redner === 'function' ? await redner(ctx) : redner
 }
 
-function showHelp<Options extends ArgOptions>(ctx: CommandContext<Options>): void {
-  log(renderHelp(ctx))
+async function showUsage<Options extends ArgOptions>(ctx: CommandContext<Options>): Promise<void> {
+  const render = ctx.commandOptions.renderUsage || renderUsage
+  log(await render(ctx))
 }
 
-function renderHelp<Options extends ArgOptions>(ctx: CommandContext<Options>): string {
-  const messages = [
-    `${resolveCommandHelpRender(ctx, ctx.description)}
+function getOptionsPairs<Options extends ArgOptions>(
+  ctx: CommandContext<Options>
+): Record<string, string> {
+  return Object.entries(ctx.options!).reduce((acc, [name, value]) => {
+    let key = `--${name}`
+    if (value.short) {
+      key = `-${value.short}, ${key}`
+    }
+    if (value.type !== 'boolean') {
+      if (value.default) {
+        key = `${key} [${name}]`
+      } else {
+        key = `${key} <${name}>`
+      }
+    }
+    acc[name] = key
+    return acc
+  }, nullObject<Record<string, string>>())
+}
 
-USAGE:
-${resolveCommandHelpRender(ctx, ctx.help.usage)}
+async function generateOptionsUsage<Options extends ArgOptions>(
+  ctx: CommandContext<Options>,
+  optionsPairs: Record<string, string>
+  // ): string {
+): Promise<string> {
+  const optionsMaxLength = Math.max(
+    ...Object.entries(optionsPairs).map(([_, value]) => value.length)
+  )
+  const optionSchemaMaxLength = ctx.commandOptions.usageOptionType
+    ? Math.max(...Object.entries(optionsPairs).map(([key, _]) => ctx.options![key].type.length))
+    : 0
+  return (
+    await Promise.all(
+      Object.entries(optionsPairs).map(async ([key, value]) => {
+        const rawDesc = (await resolveCommandUsageRender(ctx, ctx.usage.options![key])) || ''
+        const optionsSchema = ctx.commandOptions.usageOptionType
+          ? `[${ctx.options![key].type}] `
+          : ''
+        // padEnd is used to align the `[]` symbols
+        const desc = `${optionsSchema ? optionsSchema.padEnd(optionSchemaMaxLength + 3) : ''}${rawDesc}`
+        const option = `${value.padEnd(optionsMaxLength + ctx.commandOptions.middleMargin)}${desc}`
+        return `${option.padStart(ctx.commandOptions.leftMargin + option.length)}`
+      })
+    )
+  ).join('\n')
+}
 
-OPTIONS:
-${resolveCommandHelpRender(ctx, ctx.help.options)}
-`
-  ]
+function hasOptions<Options extends ArgOptions>(ctx: CommandContext<Options>): boolean {
+  return !!(ctx.options && Object.keys(ctx.options).length > 0)
+}
 
-  if (ctx.help.examples) {
-    messages.push(`EXAMPLES:
-${resolveCommandHelpRender(ctx, ctx.help.examples)}`)
-  } else {
+function hasAllDefaultOptions<Options extends ArgOptions>(ctx: CommandContext<Options>): boolean {
+  return !!(ctx.options && Object.values(ctx.options).every(opt => opt.default))
+}
+
+function generateOptionsSymbols<Options extends ArgOptions>(ctx: CommandContext<Options>): string {
+  return hasOptions(ctx) ? (hasAllDefaultOptions(ctx) ? '[OPTIONS]' : '<OPTIONS>') : ''
+}
+
+export async function renderUsage<Options extends ArgOptions>(
+  ctx: Readonly<CommandContext<Options>>
+): Promise<string> {
+  const messages: string[] = []
+
+  // render description
+  if (ctx.description) {
+    messages.push(await resolveCommandUsageRender(ctx, ctx.description), '')
+  }
+
+  // render usage
+  const usageStr = `${resolveEntry(ctx)} ${ctx.name} ${generateOptionsSymbols(ctx)}`
+  messages.push(`USAGE:`)
+  messages.push(usageStr.padStart(ctx.commandOptions.leftMargin + usageStr.length))
+  messages.push('')
+
+  // render options
+  if (hasOptions(ctx)) {
+    messages.push('OPTIONS:')
+    const optionsPairs = getOptionsPairs(ctx)
+    messages.push(await generateOptionsUsage(ctx, optionsPairs))
+    messages.push('')
+  }
+
+  // render examples
+  if (ctx.usage.examples) {
+    const examples = (await resolveCommandUsageRender(ctx, ctx.usage.examples))
+      .split('\n')
+      .map(example => example.padStart(ctx.commandOptions.leftMargin + example.length))
+    messages.push(`EXAMPLES: `)
+    messages.push(...examples)
     messages.push('')
   }
 
@@ -71,126 +153,275 @@ function getCommandRaw(tokens: ArgToken[]): string {
   }
 }
 
-async function version(): Promise<string> {
-  const pkgJson = await readPackageJson(path.resolve(__dirname, '../package.json'))
-  return `${pkgJson.version as string}`
-}
-
-async function header(): Promise<string> {
-  const pkgJsonPath = path.resolve(__dirname, '../package.json')
-  const pkgJson = await readPackageJson(pkgJsonPath)
-  const version = pkgJson.version as string
-  const name = pkgJson.name as string
-  const title = pkgJson.description as string
-  return `${title} (${name} v${version})`
+export function renderHeader<Options extends ArgOptions>(
+  ctx: Readonly<CommandContext<Options>>
+): Promise<string> {
+  const title = ctx.env.description || ctx.env.name || ''
+  return Promise.resolve(
+    title
+      ? `${title} (${ctx.env.name || ''}${ctx.env.version ? ` v${ctx.env.version}` : ''})`
+      : title
+  )
 }
 
 export function createCommandContext<Options extends ArgOptions, Values = ArgValues<Options>>(
-  options: Options,
+  options: Options | undefined,
   values: Values,
   positionals: string[],
-  cwd: string,
-  command: Command<Options>
-): CommandContext<Options, Values> {
-  return {
+  env: CommandEnvironment<Options>,
+  command: Command<Options>,
+  commandOptions: Required<CommandOptions<Options>> = COMMAND_OPTIONS_DEFAULT as Required<
+    CommandOptions<Options>
+  >
+): Readonly<CommandContext<Options, Values>> {
+  const usage = command.usage || nullObject<Options>()
+  usage.options = Object.assign(nullObject<Options>(), usage.options, COMMON_OPTIONS_USAGE)
+  return Object.freeze({
+    name: command.name,
     description: command.description,
     locale: new Intl.Locale('en'), // TODO: resolve locale on runtime and abstraction
-    cwd,
+    env,
     options,
     values,
     positionals,
-    help: command.help
-  }
+    usage,
+    commandOptions
+  })
 }
 
-async function showHelpDefault<Options extends ArgOptions>(
+function resolveEntry<Options extends ArgOptions>(ctx: Readonly<CommandContext<Options>>): string {
+  return ctx.env.name || 'COMMAND'
+}
+
+export async function renderUsageDefault<Options extends ArgOptions>(
+  ctx: Readonly<CommandContext<Options>>
+): Promise<string> {
+  const subCommands =
+    ctx.env.subCommands || nullObject<Record<string, Command<Options> | LazyCommand<Options>>>()
+  const loadedCommands = await Promise.all(
+    Object.entries(subCommands).map(async ([_, cmd]) => await resolveLazyCommand(cmd))
+  )
+
+  const hasManyCommands = loadedCommands.length > 1
+  const defaultCommand = `${resolveEntry(ctx)}${hasManyCommands ? ` [${ctx.name}]` : ''} ${hasOptions(ctx) ? '<OPTIONS>' : ''} `
+
+  // render usage
+  const messages = [
+    'USAGE:',
+    defaultCommand.padStart(ctx.commandOptions.leftMargin + defaultCommand.length)
+  ]
+
+  // render commands
+  if (hasManyCommands) {
+    const commandsUsage = `${resolveEntry(ctx)} <COMMANDS>`
+    messages.push(commandsUsage.padStart(ctx.commandOptions.leftMargin + commandsUsage.length))
+    messages.push('')
+    messages.push('COMMANDS:')
+    const commandMaxLength = Math.max(...loadedCommands.map(cmd => cmd.name.length))
+    const commandsStr = await Promise.all(
+      loadedCommands.map(async cmd => {
+        const key = cmd.name
+        const desc = await resolveCommandUsageRender(
+          ctx as CommandContext<Options>,
+          cmd.description || ''
+        )
+        const command = `${key.padEnd(commandMaxLength + ctx.commandOptions.middleMargin)}${desc} `
+        return `${command.padStart(ctx.commandOptions.leftMargin + command.length)} `
+      })
+    )
+    messages.push(...commandsStr)
+    messages.push('')
+    messages.push(`For more info, run any command with the \`--help\` flag:`)
+    messages.push(
+      ...loadedCommands.map(cmd => {
+        const commandHelp = `${ctx.env.name} ${cmd.name} --help`
+        return `${commandHelp.padStart(ctx.commandOptions.leftMargin + commandHelp.length)}`
+      })
+    )
+  }
+  messages.push('')
+
+  // render options
+  if (hasOptions(ctx)) {
+    messages.push('OPTIONS:')
+    const optionsPairs = getOptionsPairs(ctx)
+    messages.push(await generateOptionsUsage(ctx, optionsPairs))
+    messages.push('')
+  }
+
+  // render examples
+  if (ctx.usage.examples) {
+    const examples = (await resolveCommandUsageRender(ctx, ctx.usage.examples))
+      .split('\n')
+      .map(example => example.padStart(ctx.commandOptions.leftMargin + example.length))
+    messages.push(`EXAMPLES:`)
+    messages.push(...examples)
+  }
+  messages.push('')
+
+  return messages.join('\n')
+}
+
+async function showUsageDefault<Options extends ArgOptions>(
   ctx: CommandContext<Options>
 ): Promise<void> {
-  const loadedCommands = (await Promise.all(
-    Object.entries(commands).map(async ([key, cmd]) => [key, await cmd()])
-  )) as [Commands, Command<ArgOptions>][]
-
-  const message = `USAGE:
-  pnpmc [show] <OPTIONS>
-  pnpmc <COMMANDS>
-
-COMMANDS:
-${loadedCommands.map(([key, cmd]) => `  ${key.padEnd(21)}${resolveCommandHelpRender(ctx, cmd.description)}`).join('\n')}
-
-For more info, run any command with the \`--help\` flag:
-${loadedCommands.map(([key, _]) => `  pnpmc ${key} --help`).join('\n')}
-
-OPTIONS:
-${resolveCommandHelpRender(ctx, ctx.help.options)}
-  -v, --version        Display the version
-
-EXAMPLES:
-${loadedCommands
-  .map(([_, cmd]) => cmd.help.examples)
-  .filter(Boolean)
-  .join('\n\n')}
-`
-  log(message)
+  const render = ctx.commandOptions.renderUsageDefault || renderUsageDefault
+  log(await render(ctx))
 }
 
-function resolveOptions<Options extends ArgOptions>(options: Options): Options {
+function resolveOptions<Options extends ArgOptions>(options?: Options): Options {
   return Object.assign(Object.create(null) as Options, options, COMMON_OPTIONS)
 }
 
-async function showHeader(): Promise<void> {
-  log(pc.cyanBright(await header()))
-}
-
-async function showVersion(): Promise<void> {
-  log(await version())
-}
-
-function showValidationErrors(errors: Error[]): void {
-  for (const err of errors) {
-    console.error(pc.red(err.message))
+async function showHeader<Options extends ArgOptions>(ctx: CommandContext<Options>): Promise<void> {
+  const render = ctx.commandOptions.renderHeader || renderHeader
+  const header = await render(ctx)
+  if (header) {
+    log(pc.cyanBright(header))
+    log()
   }
 }
 
-function showMoreHelp(command: string): void {
-  log(`For more info, run \`pnpmc ${command} --help\``)
+function showVersion<Options extends ArgOptions>(ctx: CommandContext<Options>): void {
+  log(ctx.env.version)
 }
 
-export async function run(args: string[], cwd: string): Promise<void> {
+function renderValidationErrors<Options extends ArgOptions>(
+  ctx: CommandContext<Options>,
+  error: AggregateError
+): Promise<string> {
+  const messages = [] as string[]
+  for (const err of error.errors as Error[]) {
+    messages.push(err.message)
+  }
+  messages.push('')
+  messages.push(`For more info, run \`${resolveEntry(ctx)} ${ctx.name} --help\``)
+  return Promise.resolve(messages.join('\n'))
+}
+
+async function showValidationErrors<Options extends ArgOptions>(
+  ctx: CommandContext<Options>,
+  error: AggregateError
+): Promise<void> {
+  const render = ctx.commandOptions.renderValidationErrors || renderValidationErrors
+  log(await render(ctx, error))
+}
+
+async function resolveCommand<Options extends ArgOptions>(
+  raw: string,
+  env: CommandEnvironment<Options>
+): Promise<[string | undefined, Command<Options> | undefined]> {
+  const omitted = !raw
+  if (omitted) {
+    let name: string | undefined
+    if (env.entry) {
+      if (typeof env.entry === 'string') {
+        name = env.entry
+      } else if (typeof env.entry === 'object') {
+        return [env.entry.name, env.entry]
+      }
+    }
+
+    if (env.subCommands == null) {
+      return [undefined, undefined]
+    }
+
+    if (name) {
+      // find sub command with entry command name
+      return [raw, await loadCommand(raw, env)]
+    } else {
+      // find command from such commands that has default flag
+      const found = (
+        await Promise.all(
+          Object.entries(env.subCommands || nullObject()).map(
+            async ([_, cmd]) => await resolveLazyCommand(cmd)
+          )
+        )
+      ).find(cmd => cmd.default)
+      return found ? [found.name, found] : [undefined, undefined]
+    }
+  } else {
+    if (env.subCommands == null) {
+      return [raw, undefined]
+    }
+    return [raw, await loadCommand(raw, env)]
+  }
+}
+
+async function resolveLazyCommand<Options extends ArgOptions>(
+  cmd: Command<Options> | LazyCommand<Options>
+): Promise<Command<Options>> {
+  return typeof cmd == 'function' ? await cmd() : cmd
+}
+
+async function loadCommand<Options extends ArgOptions>(
+  name: string,
+  env: CommandEnvironment<Options>
+): Promise<Command<Options>> {
+  const cmd = env.subCommands![name]
+  return await resolveLazyCommand(cmd)
+}
+
+const COMMAND_OPTIONS_DEFAULT: CommandOptions<ArgOptions> = {
+  leftMargin: 2,
+  middleMargin: 10,
+  usageOptionType: false
+}
+
+/**
+ * Run the command
+ * @param args - command line arguments
+ * @param env - a {@link CommandEnvironment | command environment}
+ * @param opts - a {@link CommandOptions | command options}
+ */
+export async function run<Options extends ArgOptions>(
+  args: string[],
+  env: CommandEnvironment<Options>,
+  opts: CommandOptions<Options> = COMMAND_OPTIONS_DEFAULT
+): Promise<void> {
   const tokens = parseArgs(args)
-  const rawCommand = getCommandRaw(tokens)
 
-  const omitted = !rawCommand
-  const command = (rawCommand || DEFAULT_COMMAND) as Commands
-  const resolvedCommand = (await commands[command]()) as Command<ArgOptions>
-  const options = resolveOptions(resolvedCommand.options)
-
-  const { values, positionals, error } = resolveArgs(options, tokens)
-  if (values.version) {
-    await showVersion()
+  const raw = getCommandRaw(tokens)
+  const [name, command] = await resolveCommand(raw, env)
+  if (!command) {
+    fail(`Command not found: ${name || ''}`)
     return
   }
 
-  await showHeader()
-  log()
+  const options = resolveOptions(command.options)
 
-  const ctx = createCommandContext(options, values, positionals, cwd, resolvedCommand)
+  const { values, positionals, error } = resolveArgs(options, tokens)
+  const ctx = createCommandContext(
+    options,
+    values,
+    positionals,
+    env,
+    command,
+    opts as Required<CommandOptions<Options>>
+  )
+  if (values.version) {
+    showVersion(ctx)
+    return
+  }
+
+  await showHeader(ctx)
+
   if (values.help) {
-    if (omitted) {
-      await showHelpDefault(ctx)
+    if (!raw) {
+      // omitted command
+      await showUsageDefault(ctx)
       return
     } else {
-      showHelp(ctx)
+      await showUsage(ctx)
       return
     }
   }
 
   if (error) {
-    showValidationErrors(error.errors as Error[])
-    log()
-    showMoreHelp(command)
-    fail()
+    await showValidationErrors(ctx, error)
+    fail() // TODO: should we fail?
     return
   }
 
-  await resolvedCommand.run(ctx)
+  await command.run(ctx)
 }

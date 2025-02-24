@@ -12,3 +12,7 @@ export function fail(...messages: unknown[]): never {
   console.error(...messages)
   process.exit(1)
 }
+
+export function nullObject<T>(): T {
+  return Object.create(null) as T
+}
