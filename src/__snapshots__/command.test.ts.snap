@@ -1,0 +1,82 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`renderUsage > basic 1`] = `
+"A test command
+
+USAGE:
+  cmd1 test <OPTIONS>
+
+OPTIONS:
+  -f, --foo                The foo option
+  --bar                    The bar option
+  -b, --baz [baz]          The baz option
+  -q, --qux <qux>          The qux option
+
+EXAMPLES: 
+  # Example 1
+   $test --foo bar --bar --baz 42 --qux quux
+  # Example 2
+  $ test -f bar -b 42 -q quux
+"
+`;
+
+exports[`renderUsage > enable usageOptionType 1`] = `
+"A test command
+
+USAGE:
+    cmd1 test <OPTIONS>
+
+OPTIONS:
+    -f, --foo                  [string]  The foo option
+    --bar                      [boolean] The bar option
+    -b, --baz [baz]            [number]  The baz option
+    -q, --qux <qux>            [string]  The qux option
+
+EXAMPLES: 
+    # Example 1
+     $test --foo bar --bar --baz 42 --qux quux
+    # Example 2
+    $ test -f bar -b 42 -q quux
+"
+`;
+
+exports[`renderUsage > no examples 1`] = `
+"A test command
+
+USAGE:
+  cmd1 test <OPTIONS>
+
+OPTIONS:
+  -f, --foo                The foo option
+  --bar                    The bar option
+  -b, --baz [baz]          The baz option
+  -q, --qux <qux>          The qux option
+"
+`;
+
+exports[`renderUsage > no options 1`] = `
+"A test command
+
+USAGE:
+  cmd1 test 
+
+EXAMPLES: 
+  # Example 1
+   $test
+  # Example 2
+  $ test
+"
+`;
+
+exports[`renderUsage > no required options 1`] = `
+"A test command
+
+USAGE:
+  cmd1 test [OPTIONS]
+
+OPTIONS:
+  -f, --foo                The foo option
+  --bar                    The bar option
+  -b, --baz [baz]          The baz option
+"
+`;

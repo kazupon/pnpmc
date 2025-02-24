@@ -1,13 +1,14 @@
 import { parseArgs, resolveArgs } from 'args-tokens'
 import pc from 'picocolors'
 import { commands } from './commands/index.js'
-import { fail, log } from './utils.js'
+import { fail, log, nullObject } from './utils.js'
 
 import type { ArgOptions, ArgToken, ArgValues } from 'args-tokens'
 import type {
   Command,
   CommandContext,
   CommandEnvironment,
+  CommandOptions,
   CommandUsageRender
 } from './commands/types'
 
@@ -48,7 +49,7 @@ function showUsage<Options extends ArgOptions>(ctx: CommandContext<Options>): vo
 function getOptionsPairs<Options extends ArgOptions>(
   ctx: CommandContext<Options>
 ): Record<string, string> {
-  return Object.entries(ctx.options).reduce(
+  return Object.entries(ctx.options!).reduce(
     (acc, [name, value]) => {
       let key = `--${name}`
       if (value.short) {
@@ -77,29 +78,46 @@ function generateOptionsUsage<Options extends ArgOptions>(
   const optionsMaxLength = Math.max(
     ...Object.entries(optionsPairs).map(([_, value]) => value.length)
   )
+  const optionSchemaMaxLength = ctx.commandOptions.usageOptionType
+    ? Math.max(...Object.entries(optionsPairs).map(([key, _]) => ctx.options![key].type.length))
+    : 0
   return Object.entries(optionsPairs)
     .map(([key, value]) => {
-      const desc = resolveCommandUsageRender(ctx, ctx.usage.options[key])
-      const option = `${value.padEnd(optionsMaxLength + ctx.middleMargin)}${desc || ''}`
-      return `${option.padStart(ctx.leftMargin + option.length)}`
+      const rawDesc = resolveCommandUsageRender(ctx, ctx.usage.options![key])
+      const optionsSchema = ctx.commandOptions.usageOptionType ? `[${ctx.options![key].type}] ` : ''
+      // padEnd is used to align the `[]` symbols
+      const desc = `${optionsSchema ? optionsSchema.padEnd(optionSchemaMaxLength + 3) : ''}${rawDesc}`
+      const option = `${value.padEnd(optionsMaxLength + ctx.commandOptions.middleMargin)}${desc}`
+      return `${option.padStart(ctx.commandOptions.leftMargin + option.length)}`
     })
     .join('\n')
 }
 
-function renderUsage<Options extends ArgOptions>(ctx: CommandContext<Options>): string {
-  const hasOptions = Object.keys(ctx.options).length > 0
-  const usageStr = `${ctx.env.name} ${ctx.name} ${hasOptions ? '<OPTIONS>' : ''}`
+function hasOptions<Options extends ArgOptions>(ctx: CommandContext<Options>): boolean {
+  return !!(ctx.options && Object.keys(ctx.options).length > 0)
+}
+
+function hasRequiredOptions<Options extends ArgOptions>(ctx: CommandContext<Options>): boolean {
+  return !!(ctx.options && Object.values(ctx.options).some(opt => opt.required))
+}
+
+function generateOptionsSymbols<Options extends ArgOptions>(ctx: CommandContext<Options>): string {
+  return hasOptions(ctx) ? (hasRequiredOptions(ctx) ? '<OPTIONS>' : '[OPTIONS]') : ''
+}
+
+export function renderUsage<Options extends ArgOptions>(ctx: CommandContext<Options>): string {
+  const usageStr = `${ctx.env.name} ${ctx.name} ${generateOptionsSymbols(ctx)}`
 
   // render description
   const messages = [resolveCommandUsageRender(ctx, ctx.description), '']
 
   // render usage
   messages.push(`USAGE:`)
-  messages.push(usageStr.padStart(ctx.leftMargin + usageStr.length))
+  messages.push(usageStr.padStart(ctx.commandOptions.leftMargin + usageStr.length))
   messages.push('')
 
   // render options
-  if (hasOptions) {
+  if (hasOptions(ctx)) {
     messages.push('OPTIONS:')
     const optionsPairs = getOptionsPairs(ctx)
     messages.push(generateOptionsUsage(ctx, optionsPairs))
@@ -110,7 +128,7 @@ function renderUsage<Options extends ArgOptions>(ctx: CommandContext<Options>): 
   if (ctx.usage.examples) {
     const examples = resolveCommandUsageRender(ctx, ctx.usage.examples)
       .split('\n')
-      .map(example => example.padStart(ctx.leftMargin + example.length))
+      .map(example => example.padStart(ctx.commandOptions.leftMargin + example.length))
     messages.push(`EXAMPLES: `)
     messages.push(...examples)
     messages.push('')
@@ -138,16 +156,15 @@ function renderHeader<Options extends ArgOptions>(ctx: CommandContext<Options>):
 }
 
 export function createCommandContext<Options extends ArgOptions, Values = ArgValues<Options>>(
-  options: Options,
+  options: Options | undefined,
   values: Values,
   positionals: string[],
   env: CommandEnvironment,
   command: Command<Options>,
-  leftMargin = 2,
-  middleMargin = 10
+  commandOptions: Required<CommandOptions> = COMMAND_OPTIONS_DEFAULT
 ): CommandContext<Options, Values> {
-  const usage = command.usage
-  usage.options = Object.assign(Object.create(null) as Options, usage.options, COMMON_OPTIONS_USAGE)
+  const usage = command.usage || nullObject<Options>()
+  usage.options = Object.assign(nullObject<Options>(), usage.options, COMMON_OPTIONS_USAGE)
   return {
     name: command.name,
     description: command.description,
@@ -157,8 +174,7 @@ export function createCommandContext<Options extends ArgOptions, Values = ArgVal
     values,
     positionals,
     usage,
-    leftMargin,
-    middleMargin
+    commandOptions
   }
 }
 
@@ -168,25 +184,28 @@ async function renderUsageDefault<Options extends ArgOptions>(
   const loadedCommands = (await Promise.all(
     Object.entries(commands).map(async ([key, cmd]) => [key, await cmd()])
   )) as [Commands, Command<ArgOptions>][]
-  const hasOptions = Object.keys(ctx.options).length > 0
+  const hasOptions = ctx.options && Object.keys(ctx.options).length > 0
 
   const defaultCommand = `${ctx.env.name} [show] ${hasOptions ? '<OPTIONS>' : ''} `
   const hasManyCommands = loadedCommands.length > 1
 
   // render usage
-  const messages = ['USAGE:', defaultCommand.padStart(ctx.leftMargin + defaultCommand.length)]
+  const messages = [
+    'USAGE:',
+    defaultCommand.padStart(ctx.commandOptions.leftMargin + defaultCommand.length)
+  ]
 
   // render commands
   if (hasManyCommands) {
     const commandsUsage = `${ctx.env.name} <COMMANDS>`
-    messages.push(commandsUsage.padStart(ctx.leftMargin + commandsUsage.length))
+    messages.push(commandsUsage.padStart(ctx.commandOptions.leftMargin + commandsUsage.length))
     messages.push('')
     messages.push('COMMANDS:')
     const commandMaxLength = Math.max(...loadedCommands.map(([key, _]) => key.length))
     const commandsStr = loadedCommands.map(([key, cmd]) => {
       const desc = resolveCommandUsageRender(ctx, cmd.description)
-      const command = `${key.padEnd(commandMaxLength + ctx.middleMargin)}${desc} `
-      return `${command.padStart(ctx.leftMargin + command.length)} `
+      const command = `${key.padEnd(commandMaxLength + ctx.commandOptions.middleMargin)}${desc} `
+      return `${command.padStart(ctx.commandOptions.leftMargin + command.length)} `
     })
     messages.push(...commandsStr)
     messages.push('')
@@ -194,7 +213,7 @@ async function renderUsageDefault<Options extends ArgOptions>(
     messages.push(
       ...loadedCommands.map(([key, _]) => {
         const commandHelp = `${ctx.env.name} ${key} --help`
-        return `${commandHelp.padStart(ctx.leftMargin + commandHelp.length)}`
+        return `${commandHelp.padStart(ctx.commandOptions.leftMargin + commandHelp.length)}`
       })
     )
     messages.push('')
@@ -212,7 +231,7 @@ async function renderUsageDefault<Options extends ArgOptions>(
   if (ctx.usage.examples) {
     const examples = resolveCommandUsageRender(ctx, ctx.usage.examples)
       .split('\n')
-      .map(example => example.padStart(ctx.leftMargin + example.length))
+      .map(example => example.padStart(ctx.commandOptions.leftMargin + example.length))
     messages.push(`EXAMPLES:`)
     messages.push(...examples)
   }
@@ -227,7 +246,7 @@ async function showUsageDefault<Options extends ArgOptions>(
   log(await renderUsageDefault(ctx))
 }
 
-function resolveOptions<Options extends ArgOptions>(options: Options): Options {
+function resolveOptions<Options extends ArgOptions>(options?: Options): Options {
   return Object.assign(Object.create(null) as Options, options, COMMON_OPTIONS)
 }
 
@@ -249,17 +268,10 @@ function showMoreUsage(command: string): void {
   log(`For more info, run \`pnpmc ${command} --help\``)
 }
 
-interface CommandOptions {
-  /**
-   * The left margin of the command output
-   * @default 2
-   */
-  leftMargin: number
-  /**
-   * The middle margin of the command output
-   * @default 10
-   */
-  middleMargin: number
+const COMMAND_OPTIONS_DEFAULT: Required<CommandOptions> = {
+  leftMargin: 2,
+  middleMargin: 10,
+  usageOptionType: false
 }
 
 /**
@@ -271,10 +283,7 @@ interface CommandOptions {
 export async function run(
   args: string[],
   env: CommandEnvironment,
-  opts: CommandOptions = {
-    leftMargin: 2,
-    middleMargin: 10
-  }
+  opts: CommandOptions = COMMAND_OPTIONS_DEFAULT
 ): Promise<void> {
   const tokens = parseArgs(args)
   const rawCommand = getCommandRaw(tokens)
@@ -285,15 +294,7 @@ export async function run(
   const options = resolveOptions(resolvedCommand.options)
 
   const { values, positionals, error } = resolveArgs(options, tokens)
-  const ctx = createCommandContext(
-    options,
-    values,
-    positionals,
-    env,
-    resolvedCommand,
-    opts.leftMargin,
-    opts.middleMargin
-  )
+  const ctx = createCommandContext(options, values, positionals, env, resolvedCommand, opts)
   if (values.version) {
     showVersion(ctx)
     return

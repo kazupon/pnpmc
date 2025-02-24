@@ -23,17 +23,34 @@ export interface CommandEnvironment {
   version?: string
 }
 
+export interface CommandOptions {
+  /**
+   * The left margin of the command output
+   * @default 2
+   */
+  leftMargin?: number
+  /**
+   * The middle margin of the command output
+   * @default 10
+   */
+  middleMargin?: number
+  /**
+   * Whether to display the usage option type
+   * @default false
+   */
+  usageOptionType?: boolean
+}
+
 export interface CommandContext<Options extends ArgOptions, Values = ArgValues<Options>> {
   name: string
   description: CommandUsageRender<Options>
   locale: Intl.Locale
   env: CommandEnvironment
-  options: Options
+  options?: Options
   values: Values
   positionals: string[]
   usage: CommandUsage<Options>
-  leftMargin: number
-  middleMargin: number
+  commandOptions: Required<CommandOptions>
 }
 
 export type CommandUsageRender<Options extends ArgOptions> =
@@ -41,7 +58,7 @@ export type CommandUsageRender<Options extends ArgOptions> =
   | string
 
 interface CommandUsage<Options extends ArgOptions> {
-  options: {
+  options?: {
     [Option in keyof Options]: CommandUsageRender<Options>
   }
   examples?: CommandUsageRender<Options>
@@ -50,7 +67,7 @@ interface CommandUsage<Options extends ArgOptions> {
 export interface Command<Options extends ArgOptions> {
   name: string
   description: CommandUsageRender<Options>
-  options: Options
-  usage: CommandUsage<Options>
+  options?: Options
+  usage?: CommandUsage<Options>
   run(ctx: CommandContext<Options>): Awaitable<void>
 }
