@@ -31,15 +31,16 @@ const COMMON_OPTIONS_USAGE: Record<
   version: 'Display this version'
 }
 
-function resolveCommandUsageRender<Options extends ArgOptions>(
+async function resolveCommandUsageRender<Options extends ArgOptions>(
   ctx: CommandContext<Options>,
   redner: CommandUsageRender<Options>
-): string {
-  return typeof redner === 'function' ? redner(ctx) : redner
+): Promise<string> {
+  return typeof redner === 'function' ? await redner(ctx) : redner
 }
 
-function showUsage<Options extends ArgOptions>(ctx: CommandContext<Options>): void {
-  log(renderUsage(ctx))
+async function showUsage<Options extends ArgOptions>(ctx: CommandContext<Options>): Promise<void> {
+  const render = ctx.commandOptions.renderUsage || renderUsage
+  log(await render(ctx))
 }
 
 function getOptionsPairs<Options extends ArgOptions>(
@@ -62,26 +63,31 @@ function getOptionsPairs<Options extends ArgOptions>(
   }, nullObject<Record<string, string>>())
 }
 
-function generateOptionsUsage<Options extends ArgOptions>(
+async function generateOptionsUsage<Options extends ArgOptions>(
   ctx: CommandContext<Options>,
   optionsPairs: Record<string, string>
-): string {
+  // ): string {
+): Promise<string> {
   const optionsMaxLength = Math.max(
     ...Object.entries(optionsPairs).map(([_, value]) => value.length)
   )
   const optionSchemaMaxLength = ctx.commandOptions.usageOptionType
     ? Math.max(...Object.entries(optionsPairs).map(([key, _]) => ctx.options![key].type.length))
     : 0
-  return Object.entries(optionsPairs)
-    .map(([key, value]) => {
-      const rawDesc = resolveCommandUsageRender(ctx, ctx.usage.options![key]) || ''
-      const optionsSchema = ctx.commandOptions.usageOptionType ? `[${ctx.options![key].type}] ` : ''
-      // padEnd is used to align the `[]` symbols
-      const desc = `${optionsSchema ? optionsSchema.padEnd(optionSchemaMaxLength + 3) : ''}${rawDesc}`
-      const option = `${value.padEnd(optionsMaxLength + ctx.commandOptions.middleMargin)}${desc}`
-      return `${option.padStart(ctx.commandOptions.leftMargin + option.length)}`
-    })
-    .join('\n')
+  return (
+    await Promise.all(
+      Object.entries(optionsPairs).map(async ([key, value]) => {
+        const rawDesc = (await resolveCommandUsageRender(ctx, ctx.usage.options![key])) || ''
+        const optionsSchema = ctx.commandOptions.usageOptionType
+          ? `[${ctx.options![key].type}] `
+          : ''
+        // padEnd is used to align the `[]` symbols
+        const desc = `${optionsSchema ? optionsSchema.padEnd(optionSchemaMaxLength + 3) : ''}${rawDesc}`
+        const option = `${value.padEnd(optionsMaxLength + ctx.commandOptions.middleMargin)}${desc}`
+        return `${option.padStart(ctx.commandOptions.leftMargin + option.length)}`
+      })
+    )
+  ).join('\n')
 }
 
 function hasOptions<Options extends ArgOptions>(ctx: CommandContext<Options>): boolean {
@@ -96,18 +102,18 @@ function generateOptionsSymbols<Options extends ArgOptions>(ctx: CommandContext<
   return hasOptions(ctx) ? (hasAllDefaultOptions(ctx) ? '[OPTIONS]' : '<OPTIONS>') : ''
 }
 
-export function renderUsage<Options extends ArgOptions>(
+export async function renderUsage<Options extends ArgOptions>(
   ctx: Readonly<CommandContext<Options>>
-): string {
+): Promise<string> {
   const messages: string[] = []
 
   // render description
   if (ctx.description) {
-    messages.push(resolveCommandUsageRender(ctx, ctx.description), '')
+    messages.push(await resolveCommandUsageRender(ctx, ctx.description), '')
   }
 
   // render usage
-  const usageStr = `${ctx.env.name} ${ctx.name} ${generateOptionsSymbols(ctx)}`
+  const usageStr = `${resolveEntry(ctx)} ${ctx.name} ${generateOptionsSymbols(ctx)}`
   messages.push(`USAGE:`)
   messages.push(usageStr.padStart(ctx.commandOptions.leftMargin + usageStr.length))
   messages.push('')
@@ -116,13 +122,13 @@ export function renderUsage<Options extends ArgOptions>(
   if (hasOptions(ctx)) {
     messages.push('OPTIONS:')
     const optionsPairs = getOptionsPairs(ctx)
-    messages.push(generateOptionsUsage(ctx, optionsPairs))
+    messages.push(await generateOptionsUsage(ctx, optionsPairs))
     messages.push('')
   }
 
   // render examples
   if (ctx.usage.examples) {
-    const examples = resolveCommandUsageRender(ctx, ctx.usage.examples)
+    const examples = (await resolveCommandUsageRender(ctx, ctx.usage.examples))
       .split('\n')
       .map(example => example.padStart(ctx.commandOptions.leftMargin + example.length))
     messages.push(`EXAMPLES: `)
@@ -149,11 +155,13 @@ function getCommandRaw(tokens: ArgToken[]): string {
 
 export function renderHeader<Options extends ArgOptions>(
   ctx: Readonly<CommandContext<Options>>
-): string {
+): Promise<string> {
   const title = ctx.env.description || ctx.env.name || ''
-  return title
-    ? `${title} (${ctx.env.name}${ctx.env.version ? ` v${ctx.env.version}` : ''})`
-    : title
+  return Promise.resolve(
+    title
+      ? `${title} (${ctx.env.name || ''}${ctx.env.version ? ` v${ctx.env.version}` : ''})`
+      : title
+  )
 }
 
 export function createCommandContext<Options extends ArgOptions, Values = ArgValues<Options>>(
@@ -162,7 +170,9 @@ export function createCommandContext<Options extends ArgOptions, Values = ArgVal
   positionals: string[],
   env: CommandEnvironment<Options>,
   command: Command<Options>,
-  commandOptions: Required<CommandOptions> = COMMAND_OPTIONS_DEFAULT
+  commandOptions: Required<CommandOptions<Options>> = COMMAND_OPTIONS_DEFAULT as Required<
+    CommandOptions<Options>
+  >
 ): Readonly<CommandContext<Options, Values>> {
   const usage = command.usage || nullObject<Options>()
   usage.options = Object.assign(nullObject<Options>(), usage.options, COMMON_OPTIONS_USAGE)
@@ -208,12 +218,17 @@ export async function renderUsageDefault<Options extends ArgOptions>(
     messages.push('')
     messages.push('COMMANDS:')
     const commandMaxLength = Math.max(...loadedCommands.map(cmd => cmd.name.length))
-    const commandsStr = loadedCommands.map(cmd => {
-      const key = cmd.name
-      const desc = resolveCommandUsageRender(ctx as CommandContext<Options>, cmd.description || '')
-      const command = `${key.padEnd(commandMaxLength + ctx.commandOptions.middleMargin)}${desc} `
-      return `${command.padStart(ctx.commandOptions.leftMargin + command.length)} `
-    })
+    const commandsStr = await Promise.all(
+      loadedCommands.map(async cmd => {
+        const key = cmd.name
+        const desc = await resolveCommandUsageRender(
+          ctx as CommandContext<Options>,
+          cmd.description || ''
+        )
+        const command = `${key.padEnd(commandMaxLength + ctx.commandOptions.middleMargin)}${desc} `
+        return `${command.padStart(ctx.commandOptions.leftMargin + command.length)} `
+      })
+    )
     messages.push(...commandsStr)
     messages.push('')
     messages.push(`For more info, run any command with the \`--help\` flag:`)
@@ -230,13 +245,13 @@ export async function renderUsageDefault<Options extends ArgOptions>(
   if (hasOptions(ctx)) {
     messages.push('OPTIONS:')
     const optionsPairs = getOptionsPairs(ctx)
-    messages.push(generateOptionsUsage(ctx, optionsPairs))
+    messages.push(await generateOptionsUsage(ctx, optionsPairs))
     messages.push('')
   }
 
   // render examples
   if (ctx.usage.examples) {
-    const examples = resolveCommandUsageRender(ctx, ctx.usage.examples)
+    const examples = (await resolveCommandUsageRender(ctx, ctx.usage.examples))
       .split('\n')
       .map(example => example.padStart(ctx.commandOptions.leftMargin + example.length))
     messages.push(`EXAMPLES:`)
@@ -250,15 +265,17 @@ export async function renderUsageDefault<Options extends ArgOptions>(
 async function showUsageDefault<Options extends ArgOptions>(
   ctx: CommandContext<Options>
 ): Promise<void> {
-  log(await renderUsageDefault(ctx))
+  const render = ctx.commandOptions.renderUsageDefault || renderUsageDefault
+  log(await render(ctx))
 }
 
 function resolveOptions<Options extends ArgOptions>(options?: Options): Options {
   return Object.assign(Object.create(null) as Options, options, COMMON_OPTIONS)
 }
 
-function showHeader<Options extends ArgOptions>(ctx: CommandContext<Options>): void {
-  const header = renderHeader(ctx)
+async function showHeader<Options extends ArgOptions>(ctx: CommandContext<Options>): Promise<void> {
+  const render = ctx.commandOptions.renderHeader || renderHeader
+  const header = await render(ctx)
   if (header) {
     log(pc.cyanBright(header))
     log()
@@ -272,21 +289,22 @@ function showVersion<Options extends ArgOptions>(ctx: CommandContext<Options>): 
 function renderValidationErrors<Options extends ArgOptions>(
   ctx: CommandContext<Options>,
   error: AggregateError
-): string {
+): Promise<string> {
   const messages = [] as string[]
   for (const err of error.errors as Error[]) {
     messages.push(err.message)
   }
   messages.push('')
   messages.push(`For more info, run \`${resolveEntry(ctx)} ${ctx.name} --help\``)
-  return messages.join('\n')
+  return Promise.resolve(messages.join('\n'))
 }
 
-function showValidationErrors<Options extends ArgOptions>(
+async function showValidationErrors<Options extends ArgOptions>(
   ctx: CommandContext<Options>,
   error: AggregateError
-): void {
-  log(renderValidationErrors(ctx, error))
+): Promise<void> {
+  const render = ctx.commandOptions.renderValidationErrors || renderValidationErrors
+  log(await render(ctx, error))
 }
 
 async function resolveCommand<Options extends ArgOptions>(
@@ -344,7 +362,7 @@ async function loadCommand<Options extends ArgOptions>(
   return await resolveLazyCommand(cmd)
 }
 
-const COMMAND_OPTIONS_DEFAULT: Required<CommandOptions> = {
+const COMMAND_OPTIONS_DEFAULT: CommandOptions<ArgOptions> = {
   leftMargin: 2,
   middleMargin: 10,
   usageOptionType: false
@@ -359,7 +377,7 @@ const COMMAND_OPTIONS_DEFAULT: Required<CommandOptions> = {
 export async function run<Options extends ArgOptions>(
   args: string[],
   env: CommandEnvironment<Options>,
-  opts: CommandOptions = COMMAND_OPTIONS_DEFAULT
+  opts: CommandOptions<Options> = COMMAND_OPTIONS_DEFAULT
 ): Promise<void> {
   const tokens = parseArgs(args)
 
@@ -379,14 +397,14 @@ export async function run<Options extends ArgOptions>(
     positionals,
     env,
     command,
-    opts as Required<CommandOptions>
+    opts as Required<CommandOptions<Options>>
   )
   if (values.version) {
     showVersion(ctx)
     return
   }
 
-  showHeader(ctx)
+  await showHeader(ctx)
 
   if (values.help) {
     if (!raw) {
@@ -394,13 +412,13 @@ export async function run<Options extends ArgOptions>(
       await showUsageDefault(ctx)
       return
     } else {
-      showUsage(ctx)
+      await showUsage(ctx)
       return
     }
   }
 
   if (error) {
-    showValidationErrors(ctx, error)
+    await showValidationErrors(ctx, error)
     fail() // TODO: should we fail?
     return
   }

@@ -4,7 +4,7 @@ import { defineMockLog } from '../test/utils'
 import { createCommandContext, renderHeader, renderUsage, renderUsageDefault, run } from './command'
 
 import type { ArgOptions } from 'args-tokens'
-import type { Command, LazyCommand } from './commands/types'
+import type { Command, CommandOptions, LazyCommand } from './commands/types'
 
 const NOOP = async () => {}
 
@@ -19,7 +19,7 @@ describe('renderHeader', () => {
     run: NOOP
   } as Command<ArgOptions>
 
-  test('basic', () => {
+  test('basic', async () => {
     const ctx = createCommandContext(
       command.options,
       {},
@@ -28,10 +28,10 @@ describe('renderHeader', () => {
       command
     )
 
-    expect(renderHeader(ctx)).toEqual('this is command line (cmd1 v0.0.0)')
+    expect(await renderHeader(ctx)).toEqual('this is command line (cmd1 v0.0.0)')
   })
 
-  test('no description', () => {
+  test('no description', async () => {
     const ctx = createCommandContext(
       command.options,
       {},
@@ -40,16 +40,16 @@ describe('renderHeader', () => {
       command
     )
 
-    expect(renderHeader(ctx)).toEqual('cmd1 (cmd1 v0.0.0)')
+    expect(await renderHeader(ctx)).toEqual('cmd1 (cmd1 v0.0.0)')
   })
 
-  test('no name & no description', () => {
+  test('no name & no description', async () => {
     const ctx = createCommandContext(command.options, {}, [], { cwd: '/path/to/cmd1' }, command)
 
-    expect(renderHeader(ctx)).toEqual('')
+    expect(await renderHeader(ctx)).toEqual('')
   })
 
-  test('no version', () => {
+  test('no version', async () => {
     const ctx = createCommandContext(
       command.options,
       {},
@@ -58,12 +58,12 @@ describe('renderHeader', () => {
       command
     )
 
-    expect(renderHeader(ctx)).toEqual('this is command line (cmd1)')
+    expect(await renderHeader(ctx)).toEqual('this is command line (cmd1)')
   })
 })
 
 describe('renderUsage', () => {
-  test('basic', () => {
+  test('basic', async () => {
     const command = {
       options: {
         foo: {
@@ -105,10 +105,10 @@ describe('renderUsage', () => {
       command
     )
 
-    expect(renderUsage(ctx)).toMatchSnapshot()
+    expect(await renderUsage(ctx)).toMatchSnapshot()
   })
 
-  test('no options', () => {
+  test('no options', async () => {
     const command = {
       name: 'test',
       description: 'A test command',
@@ -127,10 +127,10 @@ describe('renderUsage', () => {
       command
     )
 
-    expect(renderUsage(ctx)).toMatchSnapshot()
+    expect(await renderUsage(ctx)).toMatchSnapshot()
   })
 
-  test('no required options', () => {
+  test('no required options', async () => {
     const command = {
       options: {
         foo: {
@@ -165,10 +165,10 @@ describe('renderUsage', () => {
       command
     )
 
-    expect(renderUsage(ctx)).toMatchSnapshot()
+    expect(await renderUsage(ctx)).toMatchSnapshot()
   })
 
-  test('no examples', () => {
+  test('no examples', async () => {
     const command = {
       options: {
         foo: {
@@ -209,10 +209,10 @@ describe('renderUsage', () => {
       command
     )
 
-    expect(renderUsage(ctx)).toMatchSnapshot()
+    expect(await renderUsage(ctx)).toMatchSnapshot()
   })
 
-  test('enable usageOptionType', () => {
+  test('enable usageOptionType', async () => {
     const command = {
       options: {
         foo: {
@@ -252,10 +252,12 @@ describe('renderUsage', () => {
       [],
       { cwd: '/path/to/cmd1', version: '0.0.0', name: 'cmd1' },
       command,
-      { usageOptionType: true, leftMargin: 4, middleMargin: 12 }
+      { usageOptionType: true, leftMargin: 4, middleMargin: 12 } as Required<
+        CommandOptions<ArgOptions>
+      >
     )
 
-    expect(renderUsage(ctx)).toMatchSnapshot()
+    expect(await renderUsage(ctx)).toMatchSnapshot()
   })
 })
 
