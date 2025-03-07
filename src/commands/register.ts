@@ -6,8 +6,7 @@ import path from 'node:path'
 import writeYamlFile from 'write-yaml-file'
 import { fail, log } from '../utils.js'
 
-import type { ArgOptions } from 'args-tokens'
-import type { Command } from './types'
+import type { Command } from 'gunshi'
 
 const options = {
   catalog: {
@@ -25,7 +24,7 @@ const options = {
     short: 'a',
     required: true
   }
-} satisfies ArgOptions
+} as const
 
 export default {
   name: 'register',
@@ -43,7 +42,7 @@ pnpmc register --dependency typescript --alias ^5.7.9 --catalog tools`
   },
   async run(ctx) {
     const { dependency, alias, catalog } = ctx.values
-    await register(ctx.env.cwd, dependency, alias, catalog)
+    await register(ctx.env.cwd!, dependency, alias, catalog)
   }
 } satisfies Command<typeof options>
 

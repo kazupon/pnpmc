@@ -1,10 +1,10 @@
 import { findWorkspaceDir } from '@pnpm/find-workspace-dir'
 import { findWorkspacePackages } from '@pnpm/workspace.find-packages'
+import { createCommandContext } from 'gunshi/context'
 import path from 'node:path'
 import { afterEach, expect, test, vi } from 'vitest'
 import writeYamlFile from 'write-yaml-file'
 import { defineMockLog } from '../../test/utils'
-import { createCommandContext } from '../command'
 
 let _cacheProjects: Awaited<ReturnType<typeof findWorkspacePackages>> | undefined
 
@@ -45,17 +45,18 @@ test('basic', async () => {
   const mockWriteYamlFile = vi.mocked(writeYamlFile)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
-  const ctx = createCommandContext(
-    register.options,
-    {
+  const ctx = await createCommandContext({
+    options: register.options,
+    values: {
       dependency: 'typescript',
       alias: '^5.7.0',
       catalog: 'tools'
     },
-    [],
-    { cwd, version: '0.0.0', name: 'pnpmc' },
-    register
-  )
+    positionals: [],
+    command: register,
+    omitted: true,
+    commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' }
+  })
 
   // fire!
   await register.run(ctx)
@@ -103,17 +104,18 @@ test('default catalog', async () => {
   const mockWriteYamlFile = vi.mocked(writeYamlFile)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
-  const ctx = createCommandContext(
-    register.options,
-    {
+  const ctx = await createCommandContext({
+    options: register.options,
+    values: {
       dependency: 'typescript',
       alias: '^5.7.0',
       catalog: 'default'
     },
-    [],
-    { cwd, version: '0.0.0', name: 'pnpmc' },
-    register
-  )
+    positionals: [],
+    command: register,
+    omitted: true,
+    commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' }
+  })
 
   // fire!
   await register.run(ctx)

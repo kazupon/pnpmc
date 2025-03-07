@@ -5,8 +5,7 @@ import { analyzeDependencies } from '../analyze.js'
 import { fail, log } from '../utils.js'
 
 import type { WorkspaceManifest } from '@pnpm/workspace.read-manifest'
-import type { ArgOptions } from 'args-tokens'
-import type { Command } from './types'
+import type { Command } from 'gunshi'
 
 const options = {
   catalog: {
@@ -19,7 +18,7 @@ const options = {
     short: 'd',
     default: false
   }
-} satisfies ArgOptions
+} as const
 
 export default {
   name: 'show',
@@ -34,7 +33,7 @@ export default {
 pnpmc  # \`pnpmc\` is equivalent to \`pnpm show\``
   },
   async run({ values, env: { cwd } }) {
-    await display(cwd, {
+    await display(cwd!, {
       showCategory: !values.catalog && !values.dependency ? true : values.catalog,
       showDependency: !values.catalog && !values.dependency ? true : values.dependency
     })
