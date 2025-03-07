@@ -1,7 +1,7 @@
+import { createCommandContext } from 'gunshi/context'
 import path from 'node:path'
 import { afterEach, expect, test, vi } from 'vitest'
 import { defineMockLog } from '../../test/utils'
-import { createCommandContext } from '../command'
 
 afterEach(() => {
   vi.resetAllMocks()
@@ -13,16 +13,17 @@ test('default', async () => {
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
-  const ctx = createCommandContext(
-    show.options,
-    {
+  const ctx = await createCommandContext({
+    options: show.options,
+    values: {
       catalog: false,
       dependency: false
     },
-    [],
-    { cwd, version: '0.0.0', name: 'pnpmc' },
-    show
-  )
+    positionals: [],
+    command: show,
+    omitted: true,
+    commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' }
+  })
 
   await show.run(ctx)
 
@@ -38,16 +39,17 @@ test('catalog only', async () => {
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
-  const ctx = createCommandContext(
-    show.options,
-    {
+  const ctx = await createCommandContext({
+    options: show.options,
+    values: {
       catalog: true,
       dependency: false
     },
-    [],
-    { cwd, version: '0.0.0', name: 'pnpmc' },
-    show
-  )
+    positionals: [],
+    commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' },
+    command: show,
+    omitted: true
+  })
 
   await show.run(ctx)
 
@@ -63,16 +65,17 @@ test('dependency only', async () => {
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
-  const ctx = createCommandContext(
-    show.options,
-    {
+  const ctx = await createCommandContext({
+    options: show.options,
+    values: {
       catalog: false,
       dependency: true
     },
-    [],
-    { cwd, version: '0.0.0', name: 'pnpmc' },
-    show
-  )
+    positionals: [],
+    commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' },
+    command: show,
+    omitted: true
+  })
 
   await show.run(ctx)
 
@@ -88,16 +91,17 @@ test('both option enable', async () => {
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
-  const ctx = createCommandContext(
-    show.options,
-    {
+  const ctx = await createCommandContext({
+    options: show.options,
+    values: {
       catalog: true,
       dependency: true
     },
-    [],
-    { cwd, version: '0.0.0', name: 'pnpmc' },
-    show
-  )
+    positionals: [],
+    commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' },
+    command: show,
+    omitted: true
+  })
 
   await show.run(ctx)
 

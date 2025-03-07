@@ -26,9 +26,9 @@ importers:
       '@pnpm/workspace.read-manifest':
         specifier: ^1000.0.2
         version: 1000.0.2
-      args-tokens:
-        specifier: ^0.10.0
-        version: 0.10.0
+      gunshi:
+        specifier: ^0.2.1
+        version: 0.2.1
       picocolors:
         specifier: ^1.1.1
         version: 1.1.1
@@ -1205,8 +1205,8 @@ packages:
   args-tokenizer@0.3.0:
     resolution: {integrity: sha512-xXAd7G2Mll5W8uo37GETpQ2VrE84M181Z7ugHFGQnJZ50M2mbOv0osSZ9VsSgPfJQ+LVG0prSi0th+ELMsno7Q==}
 
-  args-tokens@0.10.0:
-    resolution: {integrity: sha512-IjjPsYg8OxfDjjoZki1QMebKBrU3GPP0/k4Rc/5/QsIRzOexQqvQIZ+7FsuOnx9R1hJ0pQDAwAvksCxq5PD2WQ==}
+  args-tokens@0.10.2:
+    resolution: {integrity: sha512-TmoGNFG7kH0o1z6WykoM0AkQrSTNUR52QcZdXAfugZUvhtiAv6q9ciiASwpwU7uR1IY/8U80QYwNry5ysuMdLA==}
     engines: {node: '>= 20'}
 
   as-table@1.0.55:
@@ -1697,6 +1697,10 @@ packages:
 
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
+
+  gunshi@0.2.1:
+    resolution: {integrity: sha512-KMeNP6MztO2MkxC7q1bEf2cOG7/GTdw+Csq4m6v4OkXVaKgu35iMhAbRzyf6dPSGk0aouz7lAlnMD8f+csNINw==}
+    engines: {node: '>= 20'}
 
   has-flag@4.0.0:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
@@ -3892,7 +3896,7 @@ snapshots:
 
   args-tokenizer@0.3.0: {}
 
-  args-tokens@0.10.0: {}
+  args-tokens@0.10.2: {}
 
   as-table@1.0.55:
     dependencies:
@@ -4418,6 +4422,10 @@ snapshots:
   graceful-fs@4.2.11: {}
 
   graphemer@1.4.0: {}
+
+  gunshi@0.2.1:
+    dependencies:
+      args-tokens: 0.10.2
 
   has-flag@4.0.0: {}
 
