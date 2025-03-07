@@ -26,7 +26,16 @@ async function main() {
     version: pkgJson.version as string,
     subCommands: commands,
     renderHeader: async ctx => pc.cyanBright(await renderHeaderBase(ctx)),
-    renderValidationErrors: async (ctx, e) => pc.redBright(await renderValidationErrorsBase(ctx, e))
+    renderValidationErrors: async (ctx, e) => {
+      const messages: string[] = []
+      messages.push(pc.redBright(await renderValidationErrorsBase(ctx, e)))
+      messages.push(
+        '',
+        `For more info, run \`${ctx.env.name || ctx.translation('COMMAND')} ${ctx.name || ctx.translation('SUBCOMMAND')} --help\``,
+        ''
+      )
+      return messages.join('\n')
+    }
   })
 }
 
