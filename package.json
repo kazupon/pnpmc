@@ -35,7 +35,8 @@
     "lib"
   ],
   "scripts": {
-    "build": "tsc -p ./tsconfig.build.json",
+    "_build": "tsc -p ./tsconfig.build.json",
+    "build": "tsdown",
     "changelog": "gh-changelogen --repo=kazupon/eslint-config",
     "dev": "pnpx @eslint/config-inspector --config eslint.config.ts",
     "dev:eslint": "pnpx @eslint/config-inspector --config eslint.config.ts",
@@ -78,6 +79,7 @@
     "lint-staged": "^15.4.3",
     "pkg-pr-new": "^0.0.39",
     "prettier": "^3.5.3",
+    "tsdown": "^0.6.8",
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.26.0",
     "vitest": "^3.0.8"
