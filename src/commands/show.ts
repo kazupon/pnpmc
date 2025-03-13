@@ -20,7 +20,7 @@ const options = {
   }
 } as const
 
-export default {
+const command: Command<typeof options> = {
   name: 'show',
   description: 'Show the catalog and catalogable dependencies (default command)',
   options,
@@ -38,7 +38,9 @@ pnpmc  # \`pnpmc\` is equivalent to \`pnpm show\``
       showDependency: !values.catalog && !values.dependency ? true : values.dependency
     })
   }
-} satisfies Command<typeof options>
+}
+
+export default command
 
 async function display(
   target: string,

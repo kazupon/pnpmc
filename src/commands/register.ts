@@ -26,7 +26,7 @@ const options = {
   }
 } as const
 
-export default {
+const command: Command<typeof options> = {
   name: 'register',
   description: 'Register the dependency to the catalog',
   options,
@@ -44,7 +44,9 @@ pnpmc register --dependency typescript --alias ^5.7.9 --catalog tools`
     const { dependency, alias, catalog } = ctx.values
     await register(ctx.env.cwd!, dependency, alias, catalog)
   }
-} satisfies Command<typeof options>
+}
+
+export default command
 
 async function register(
   target: string,

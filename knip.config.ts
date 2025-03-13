@@ -1,6 +1,8 @@
 import type { KnipConfig } from 'knip'
 
-export default {
-  entry: ['src/index.ts', 'eslint.config.ts'],
+const config: KnipConfig = {
+  entry: ['src/index.ts', 'eslint.config.ts', 'tsdown.config.ts'],
   ignoreDependencies: ['lint-staged']
-} satisfies KnipConfig
+}
+
+export default config
