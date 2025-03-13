@@ -27,8 +27,8 @@ importers:
         specifier: ^1000.1.1
         version: 1000.1.1
       gunshi:
-        specifier: ^0.2.2
-        version: 0.2.2
+        specifier: ^0.5.4
+        version: 0.5.4
       picocolors:
         specifier: ^1.1.1
         version: 1.1.1
@@ -1603,8 +1603,8 @@ packages:
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
 
-  gunshi@0.2.2:
-    resolution: {integrity: sha512-PBikGvfhkMFZHGqSjps/M26auG4ntCLVkrMVW1qdaZ9E8jCpvFQ8FjfnWTT8AsDo8IPTxuMmyPcqSaVhCskOlw==}
+  gunshi@0.5.4:
+    resolution: {integrity: sha512-vmvdFi3nb3oyr++4zMZHYzY6A0msLZdhtKrNSHgfdUlgkTIjt5B/YEWMmHN4hs9aAapbprSN0hKVFdkd3psclg==}
     engines: {node: '>= 20'}
 
   has-flag@4.0.0:
@@ -4272,7 +4272,7 @@ snapshots:
 
   graphemer@1.4.0: {}
 
-  gunshi@0.2.2:
+  gunshi@0.5.4:
     dependencies:
       args-tokens: 0.10.2
 
