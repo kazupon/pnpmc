@@ -10,16 +10,12 @@ import { commands } from './commands/index.js'
 import { default as show } from './commands/show.js'
 import { fail, readPackageJson } from './utils.js'
 
-import type { ArgOptions, Command } from 'gunshi'
-
-// import type { CommandEnvironment, ArgOptions } from 'gunshi'
-
 const __dirname = path.dirname(new URL(import.meta.url).pathname)
 
 async function main() {
   const pkgJson = await readPackageJson(path.resolve(__dirname, '../package.json'))
 
-  await cli<ArgOptions>(process.argv.slice(2), show as unknown as Command<ArgOptions>, {
+  await cli<typeof show.options>(process.argv.slice(2), show, {
     name: 'pnpmc',
     cwd: process.cwd(),
     description: pkgJson.description as string,
