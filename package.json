@@ -83,6 +83,11 @@
     "typescript-eslint": "^8.27.0",
     "vitest": "^3.0.9"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
   "prettier": "@kazupon/prettier-config",
   "lint-staged": {
     "*.ts?(x)": [
@@ -95,11 +100,6 @@
     ],
     "*.{json,jsonc,json5,md,yml,yaml}": [
       "prettier --write"
-    ]
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
     ]
   }
 }
