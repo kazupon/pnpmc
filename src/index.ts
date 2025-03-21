@@ -24,7 +24,7 @@ async function main() {
       messages.push(pc.redBright(await renderValidationErrorsBase(ctx, e)))
       messages.push(
         '',
-        `For more info, run \`${ctx.env.name || ctx.translation('COMMAND')} ${ctx.name || ctx.translation('SUBCOMMAND')} --help\``,
+        `For more info, run \`${ctx.env.name || ctx.translate('COMMAND')} ${ctx.name || ctx.translate('SUBCOMMAND')} --help\``,
         ''
       )
       return messages.join('\n')
