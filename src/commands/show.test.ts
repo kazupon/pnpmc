@@ -1,7 +1,7 @@
 import { createCommandContext } from 'gunshi/context'
 import path from 'node:path'
 import { afterEach, expect, test, vi } from 'vitest'
-import { defineMockLog } from '../../test/utils'
+import { defineMockLog } from '../../test/utils.js'
 
 afterEach(() => {
   vi.resetAllMocks()
@@ -13,8 +13,9 @@ test('default', async () => {
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
-  const ctx = await createCommandContext({
-    options: show.options,
+  type ShowOptions = NonNullable<typeof show.options>
+  const ctx = await createCommandContext<ShowOptions>({
+    options: show.options as ShowOptions,
     values: {
       catalog: false,
       dependency: false
@@ -39,8 +40,9 @@ test('catalog only', async () => {
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
-  const ctx = await createCommandContext({
-    options: show.options,
+  type ShowOptions = NonNullable<typeof show.options>
+  const ctx = await createCommandContext<ShowOptions>({
+    options: show.options as ShowOptions,
     values: {
       catalog: true,
       dependency: false
@@ -65,8 +67,9 @@ test('dependency only', async () => {
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
-  const ctx = await createCommandContext({
-    options: show.options,
+  type ShowOptions = NonNullable<typeof show.options>
+  const ctx = await createCommandContext<ShowOptions>({
+    options: show.options as ShowOptions,
     values: {
       catalog: false,
       dependency: true
@@ -91,8 +94,9 @@ test('both option enable', async () => {
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
-  const ctx = await createCommandContext({
-    options: show.options,
+  type ShowOptions = NonNullable<typeof show.options>
+  const ctx = await createCommandContext<ShowOptions>({
+    options: show.options as ShowOptions,
     values: {
       catalog: true,
       dependency: true

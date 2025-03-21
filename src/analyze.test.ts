@@ -6,7 +6,7 @@ import {
   analyzeDependencies,
   collectCatalogDependencies,
   collectProjectDependencies
-} from './analyze'
+} from './analyze.js'
 
 test('collectCatalogDependencies', async () => {
   const manifest = await readWorkspaceManifest(path.resolve(__dirname, '../test/fixtures/default'))

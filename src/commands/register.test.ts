@@ -4,7 +4,7 @@ import { createCommandContext } from 'gunshi/context'
 import path from 'node:path'
 import { afterEach, expect, test, vi } from 'vitest'
 import writeYamlFile from 'write-yaml-file'
-import { defineMockLog } from '../../test/utils'
+import { defineMockLog } from '../../test/utils.js'
 
 let _cacheProjects: Awaited<ReturnType<typeof findWorkspacePackages>> | undefined
 
@@ -45,8 +45,9 @@ test('basic', async () => {
   const mockWriteYamlFile = vi.mocked(writeYamlFile)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
-  const ctx = await createCommandContext({
-    options: register.options,
+  type RegisterOptions = NonNullable<typeof register.options>
+  const ctx = await createCommandContext<RegisterOptions>({
+    options: register.options as RegisterOptions,
     values: {
       dependency: 'typescript',
       alias: '^5.7.0',
@@ -104,8 +105,9 @@ test('default catalog', async () => {
   const mockWriteYamlFile = vi.mocked(writeYamlFile)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
-  const ctx = await createCommandContext({
-    options: register.options,
+  type RegisterOptions = NonNullable<typeof register.options>
+  const ctx = await createCommandContext<RegisterOptions>({
+    options: register.options as RegisterOptions,
     values: {
       dependency: 'typescript',
       alias: '^5.7.0',
