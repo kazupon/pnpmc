@@ -1,3 +1,4 @@
+import { interopDefault } from '@kazupon/jts-utils'
 import { cli } from 'gunshi'
 import {
   renderHeader as renderHeaderBase,
@@ -9,7 +10,7 @@ import { default as show } from './commands/show.js'
 import { fail } from './utils.js'
 
 async function main() {
-  const pkgJson = await import('../package.json', { with: { type: 'json' } })
+  const pkgJson = await interopDefault(import('../package.json', { with: { type: 'json' } }))
 
   await cli(process.argv.slice(2), show, {
     name: 'pnpmc',

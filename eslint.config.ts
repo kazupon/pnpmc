@@ -10,7 +10,11 @@ import {
 
 export default defineConfig(
   javascript(),
-  typescript(),
+  typescript({
+    rules: {
+      '@typescript-eslint/ban-ts-comment': 'off'
+    }
+  }),
   comments(),
   jsonc({
     json: true,
@@ -20,11 +24,7 @@ export default defineConfig(
   markdown(),
   prettier(),
   {
-    rules: {
-      '@typescript-eslint/ban-ts-comment': 'off'
-    }
-  },
-  {
+    name: 'ignores',
     ignores: [
       '.vscode',
       '.github',
