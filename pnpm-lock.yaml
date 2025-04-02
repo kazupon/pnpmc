@@ -40,8 +40,8 @@ importers:
         specifier: ^6.3.0
         version: 6.3.0
       '@kazupon/eslint-config':
-        specifier: ^0.23.0
-        version: 0.23.0(@eslint/markdown@6.3.0)(eslint-config-prettier@10.1.1(eslint@9.22.0(jiti@2.4.2)))(eslint-plugin-jsonc@2.19.1(eslint@9.22.0(jiti@2.4.2)))(eslint@9.22.0(jiti@2.4.2))(typescript-eslint@8.27.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2))(typescript@5.8.2)
+        specifier: ^0.26.0
+        version: 0.26.1(@eslint/markdown@6.3.0)(eslint-config-prettier@10.1.1(eslint@9.22.0(jiti@2.4.2)))(eslint-plugin-jsonc@2.19.1(eslint@9.22.0(jiti@2.4.2)))(eslint@9.22.0(jiti@2.4.2))(typescript-eslint@8.27.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2))(typescript@5.8.2)
       '@kazupon/prettier-config':
         specifier: ^0.1.1
         version: 0.1.1
@@ -354,8 +354,8 @@ packages:
     resolution: {integrity: sha512-f5DRIOZf7wxogefH03RjMPMdBF7ADTWUMoOs9kaJo06EfwF+aFhMZMDZxHg/Xe12hptN9xoZjGso2fdjapBRIA==}
     engines: {node: '>=10'}
 
-  '@kazupon/eslint-config@0.23.0':
-    resolution: {integrity: sha512-uenTpepL3/f61cCsy30Onppua08UxWS6SMOTKJIvvilEdov6vaiW/TRWW5up5ZdSo3Bf8ra25Qz6Eo918gxbOg==}
+  '@kazupon/eslint-config@0.26.1':
+    resolution: {integrity: sha512-RMZdI03wcuDiOZEtNP4AzJ49Jcqr1MEpK5/QcENoKRmyuJU+7OCRmAiw91X44qxA1NygIjo4z96a9MEZ8P0pEQ==}
     engines: {node: '>= 20'}
     peerDependencies:
       '@eslint/css': '>=0.4.0'
@@ -367,10 +367,11 @@ packages:
       eslint-plugin-import: '>=2.31.0'
       eslint-plugin-jsdoc: '>=48.5.0'
       eslint-plugin-jsonc: '>=2.16.0'
+      eslint-plugin-module-interop: '>=0.3.0'
       eslint-plugin-promise: '>=6.4.0'
       eslint-plugin-react: '>=7.35.0'
-      eslint-plugin-react-hooks: '>=4.6.0'
-      eslint-plugin-react-refresh: '>=0.4.0'
+      eslint-plugin-react-hooks: '>=5.2.0'
+      eslint-plugin-react-refresh: '>=0.4.19'
       eslint-plugin-regexp: '>=2.6.0'
       eslint-plugin-svelte: '>=2.43.0'
       eslint-plugin-toml: '>=0.11.0'
@@ -399,6 +400,8 @@ packages:
       eslint-plugin-jsdoc:
         optional: true
       eslint-plugin-jsonc:
+        optional: true
+      eslint-plugin-module-interop:
         optional: true
       eslint-plugin-promise:
         optional: true
@@ -1913,6 +1916,11 @@ packages:
     peerDependenciesMeta:
       '@eslint/json':
         optional: true
+
+  eslint-merge-processors@2.0.0:
+    resolution: {integrity: sha512-sUuhSf3IrJdGooquEUB5TNpGNpBoQccbnaLHsb1XkBLUPPqCNivCpY05ZcpCOiV9uHwO2yxXEWVczVclzMxYlA==}
+    peerDependencies:
+      eslint: '*'
 
   eslint-plugin-jsonc@2.19.1:
     resolution: {integrity: sha512-MmlAOaZK1+Lg7YoCZPGRjb88ZjT+ct/KTsvcsbZdBm+w8WMzGx+XEmexk0m40P1WV9G2rFV7X3klyRGRpFXEjA==}
@@ -3494,13 +3502,14 @@ snapshots:
       string-argv: 0.3.2
       type-detect: 4.1.0
 
-  '@kazupon/eslint-config@0.23.0(@eslint/markdown@6.3.0)(eslint-config-prettier@10.1.1(eslint@9.22.0(jiti@2.4.2)))(eslint-plugin-jsonc@2.19.1(eslint@9.22.0(jiti@2.4.2)))(eslint@9.22.0(jiti@2.4.2))(typescript-eslint@8.27.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2))(typescript@5.8.2)':
+  '@kazupon/eslint-config@0.26.1(@eslint/markdown@6.3.0)(eslint-config-prettier@10.1.1(eslint@9.22.0(jiti@2.4.2)))(eslint-plugin-jsonc@2.19.1(eslint@9.22.0(jiti@2.4.2)))(eslint@9.22.0(jiti@2.4.2))(typescript-eslint@8.27.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2))(typescript@5.8.2)':
     dependencies:
       '@eslint-community/eslint-plugin-eslint-comments': 4.4.1(eslint@9.22.0(jiti@2.4.2))
       '@eslint/js': 9.22.0
       '@kazupon/jts-utils': 0.6.0(typescript@5.8.2)
       eslint: 9.22.0(jiti@2.4.2)
       eslint-flat-config-utils: 2.0.1
+      eslint-merge-processors: 2.0.0(eslint@9.22.0(jiti@2.4.2))
       globals: 16.0.0
     optionalDependencies:
       '@eslint/markdown': 6.3.0
@@ -4869,6 +4878,10 @@ snapshots:
       eslint: 9.22.0(jiti@2.4.2)
       esquery: 1.6.0
       jsonc-eslint-parser: 2.4.0
+
+  eslint-merge-processors@2.0.0(eslint@9.22.0(jiti@2.4.2)):
+    dependencies:
+      eslint: 9.22.0(jiti@2.4.2)
 
   eslint-plugin-jsonc@2.19.1(eslint@9.22.0(jiti@2.4.2)):
     dependencies:
