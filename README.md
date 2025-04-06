@@ -64,6 +64,16 @@ pnpx pnpmc register --dependency typescript --alias ^5.7.0 --catalog tools
 
 If you are interested in contributing to `pnpmc`, I highly recommend checking out [the contributing guidelines](/CONTRIBUTING.md) here. You'll find all the relevant information such as [how to make a PR](/CONTRIBUTING.md#pull-request-guidelines), [how to setup development](/CONTRIBUTING.md#development-setup)) etc., there.
 
+## 🤝 Sponsors
+
+The development of Gunish is supported by my OSS sponsors!
+
+<p align="center">
+  <a href="https://cdn.jsdelivr.net/gh/kazupon/sponsors/sponsors.svg">
+    <img src='https://cdn.jsdelivr.net/gh/kazupon/sponsors/sponsors.svg'/>
+  </a>
+</p>
+
 ## ©️ License
 
 [MIT](http://opensource.org/licenses/MIT)
