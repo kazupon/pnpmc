@@ -78,7 +78,7 @@
     "lint-staged": "^15.5.0",
     "pkg-pr-new": "^0.0.43",
     "prettier": "^3.5.3",
-    "tsdown": "^0.7.0",
+    "tsdown": "^0.10.0",
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.27.0",
     "vitest": "^3.0.9"
