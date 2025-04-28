@@ -1,3 +1,8 @@
+/**
+ * @author kazuya kawaguchi (a.k.a @kazupon)
+ * @license MIT
+ */
+
 import { findWorkspacePackages } from '@pnpm/workspace.find-packages'
 
 import type { Project } from '@pnpm/workspace.find-packages'

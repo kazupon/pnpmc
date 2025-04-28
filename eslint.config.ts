@@ -7,6 +7,9 @@ import {
   prettier,
   typescript
 } from '@kazupon/eslint-config'
+import { globalIgnores } from 'eslint/config'
+
+import type { Linter } from 'eslint'
 
 export default defineConfig(
   javascript(),
@@ -15,7 +18,19 @@ export default defineConfig(
       '@typescript-eslint/ban-ts-comment': 'off'
     }
   }),
-  comments(),
+  comments({
+    kazupon: {
+      ignores: [
+        '**/*.test.ts',
+        '**/*.test.js',
+        '**/*.test-d.ts',
+        '**/*.spec.ts',
+        '**/*.spec.js',
+        'test/**.ts',
+        'bench/**.js'
+      ]
+    }
+  }),
   jsonc({
     json: true,
     json5: true,
@@ -23,17 +38,14 @@ export default defineConfig(
   }),
   markdown(),
   prettier(),
-  {
-    name: 'ignores',
-    ignores: [
-      '.vscode',
-      '.github',
-      'lib',
-      'bin',
-      'tsconfig.json',
-      'pnpm-lock.yaml',
-      'eslint.config.ts',
-      'test/fixtures'
-    ]
-  }
+  globalIgnores([
+    '.vscode',
+    '.github',
+    'lib',
+    'bin',
+    'tsconfig.json',
+    'pnpm-lock.yaml',
+    'eslint.config.ts',
+    'test/fixtures'
+  ]) as Linter.Config
 )

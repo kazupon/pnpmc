@@ -21,8 +21,12 @@ PNPM Catalogs Tooling
 pnpm add -D pnpmc
 ```
 
+<!-- eslint-disable markdown/no-missing-label-refs -->
+
 > [!IMPORTANT]
 > Notice that this tool is for pnpm workspace feature only.
+
+<!-- eslint-enable markdown/no-missing-label-refs -->
 
 ## 🚀 Usage
 

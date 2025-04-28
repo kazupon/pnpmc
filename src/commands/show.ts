@@ -1,3 +1,8 @@
+/**
+ * @author kazuya kawaguchi (a.k.a @kazupon)
+ * @license MIT
+ */
+
 import { WORKSPACE_MANIFEST_FILENAME } from '@pnpm/constants'
 import { findWorkspaceDir } from '@pnpm/find-workspace-dir'
 import { readWorkspaceManifest } from '@pnpm/workspace.read-manifest'

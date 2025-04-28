@@ -1,3 +1,8 @@
+/**
+ * @author kazuya kawaguchi (a.k.a @kazupon)
+ * @license MIT
+ */
+
 export function log(...args: unknown[]): void {
   console.log(...args)
 }
