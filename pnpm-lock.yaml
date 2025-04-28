@@ -27,8 +27,8 @@ importers:
         specifier: ^1000.1.4
         version: 1000.1.4
       gunshi:
-        specifier: ^0.8.0
-        version: 0.8.0
+        specifier: ^0.15.0
+        version: 0.15.0
       picocolors:
         specifier: ^1.1.1
         version: 1.1.1
@@ -1897,8 +1897,8 @@ packages:
   args-tokenizer@0.3.0:
     resolution: {integrity: sha512-xXAd7G2Mll5W8uo37GETpQ2VrE84M181Z7ugHFGQnJZ50M2mbOv0osSZ9VsSgPfJQ+LVG0prSi0th+ELMsno7Q==}
 
-  args-tokens@0.10.2:
-    resolution: {integrity: sha512-TmoGNFG7kH0o1z6WykoM0AkQrSTNUR52QcZdXAfugZUvhtiAv6q9ciiASwpwU7uR1IY/8U80QYwNry5ysuMdLA==}
+  args-tokens@0.15.1:
+    resolution: {integrity: sha512-4LXV2S40X0feWR43DEn3DP0iVM+pE2UprUVyYIzgvB5qFU1Gz6h4EcPE6+6waJwl6GpSssfIt05oAz8RmnEo3A==}
     engines: {node: '>= 20'}
 
   as-table@1.0.55:
@@ -2550,8 +2550,8 @@ packages:
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
 
-  gunshi@0.8.0:
-    resolution: {integrity: sha512-1ZD3iY/Yeh85e3lhX7XSf6Mun2y9pi6Z+NM06HVZN6Xyxpy0fa28DAbRRuRpCL5OWkGL+02TsGz3z/PhCr3T6g==}
+  gunshi@0.15.0:
+    resolution: {integrity: sha512-UroB1hpjp21bVxafFdyF7rgsMr+eVPxcho/JjjiMKk5oqvwQ/VfN/HNH8dcynSev7GQX/ro+JhGKfNC81x6GPA==}
     engines: {node: '>= 20'}
 
   has-flag@4.0.0:
@@ -6216,7 +6216,7 @@ snapshots:
 
   args-tokenizer@0.3.0: {}
 
-  args-tokens@0.10.2: {}
+  args-tokens@0.15.1: {}
 
   as-table@1.0.55:
     dependencies:
@@ -6890,9 +6890,9 @@ snapshots:
 
   graphemer@1.4.0: {}
 
-  gunshi@0.8.0:
+  gunshi@0.15.0:
     dependencies:
-      args-tokens: 0.10.2
+      args-tokens: 0.15.1
 
   has-flag@4.0.0: {}
 
