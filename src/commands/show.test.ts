@@ -13,14 +13,16 @@ test('default', async () => {
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
-  type ShowOptions = NonNullable<typeof show.options>
-  const ctx = await createCommandContext<ShowOptions>({
-    options: show.options as ShowOptions,
+  const ctx = await createCommandContext({
+    options: show.options as NonNullable<typeof show.options>,
     values: {
       catalog: false,
       dependency: false
     },
     positionals: [],
+    rest: [],
+    args: [],
+    tokens: [],
     command: show,
     omitted: true,
     commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' }
@@ -40,14 +42,16 @@ test('catalog only', async () => {
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
-  type ShowOptions = NonNullable<typeof show.options>
-  const ctx = await createCommandContext<ShowOptions>({
-    options: show.options as ShowOptions,
+  const ctx = await createCommandContext({
+    options: show.options as NonNullable<typeof show.options>,
     values: {
       catalog: true,
       dependency: false
     },
     positionals: [],
+    rest: [],
+    args: [],
+    tokens: [],
     commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' },
     command: show,
     omitted: true
@@ -67,14 +71,16 @@ test('dependency only', async () => {
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
-  type ShowOptions = NonNullable<typeof show.options>
-  const ctx = await createCommandContext<ShowOptions>({
-    options: show.options as ShowOptions,
+  const ctx = await createCommandContext({
+    options: show.options as NonNullable<typeof show.options>,
     values: {
       catalog: false,
       dependency: true
     },
     positionals: [],
+    rest: [],
+    args: [],
+    tokens: [],
     commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' },
     command: show,
     omitted: true
@@ -94,14 +100,16 @@ test('both option enable', async () => {
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
-  type ShowOptions = NonNullable<typeof show.options>
-  const ctx = await createCommandContext<ShowOptions>({
-    options: show.options as ShowOptions,
+  const ctx = await createCommandContext({
+    options: show.options as NonNullable<typeof show.options>,
     values: {
       catalog: true,
       dependency: true
     },
     positionals: [],
+    rest: [],
+    args: [],
+    tokens: [],
     commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' },
     command: show,
     omitted: true
