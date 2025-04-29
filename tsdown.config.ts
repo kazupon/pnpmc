@@ -1,11 +1,8 @@
 import { defineConfig } from 'tsdown'
 
-const config: ReturnType<typeof defineConfig> = defineConfig({
+export default defineConfig({
   outDir: 'lib',
   entry: 'src/index.ts',
   dts: true,
-  clean: true,
-  bundleDts: true
+  clean: true
 })
-
-export default config

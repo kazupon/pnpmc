@@ -45,15 +45,17 @@ test('basic', async () => {
   const mockWriteYamlFile = vi.mocked(writeYamlFile)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
-  type RegisterOptions = NonNullable<typeof register.options>
-  const ctx = await createCommandContext<RegisterOptions>({
-    options: register.options as RegisterOptions,
+  const ctx = await createCommandContext({
+    options: register.options as NonNullable<typeof register.options>,
     values: {
       dependency: 'typescript',
       alias: '^5.7.0',
       catalog: 'tools'
     },
     positionals: [],
+    rest: [],
+    args: [],
+    tokens: [],
     command: register,
     omitted: true,
     commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' }
@@ -105,15 +107,17 @@ test('default catalog', async () => {
   const mockWriteYamlFile = vi.mocked(writeYamlFile)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
-  type RegisterOptions = NonNullable<typeof register.options>
-  const ctx = await createCommandContext<RegisterOptions>({
-    options: register.options as RegisterOptions,
+  const ctx = await createCommandContext({
+    options: register.options as NonNullable<typeof register.options>,
     values: {
       dependency: 'typescript',
       alias: '^5.7.0',
       catalog: 'default'
     },
     positionals: [],
+    rest: [],
+    args: [],
+    tokens: [],
     command: register,
     omitted: true,
     commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' }

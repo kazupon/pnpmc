@@ -11,7 +11,7 @@ import { globalIgnores } from 'eslint/config'
 
 import type { Linter } from 'eslint'
 
-export default defineConfig(
+const config: ReturnType<typeof defineConfig> = defineConfig(
   javascript(),
   typescript({
     rules: {
@@ -49,3 +49,5 @@ export default defineConfig(
     'test/fixtures'
   ]) as Linter.Config
 )
+
+export default config
