@@ -60,7 +60,7 @@
     "@pnpm/logger": "^1001.0.0",
     "@pnpm/workspace.find-packages": "^1000.0.23",
     "@pnpm/workspace.read-manifest": "^1000.1.4",
-    "gunshi": "^0.16.0",
+    "gunshi": "^0.17.0",
     "picocolors": "^1.1.1",
     "write-yaml-file": "^5.0.0"
   },
