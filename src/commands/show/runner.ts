@@ -6,38 +6,19 @@
 import { WORKSPACE_MANIFEST_FILENAME } from '@pnpm/constants'
 import { findWorkspaceDir } from '@pnpm/find-workspace-dir'
 import { readWorkspaceManifest } from '@pnpm/workspace.read-manifest'
-import { define } from 'gunshi'
-import { analyzeDependencies } from '../analyze.js'
-import { fail, log } from '../utils.js'
+import { analyzeDependencies } from '../../analyze.js'
+import { fail, log } from '../../utils.js'
+import meta from './meta.js'
 
 import type { WorkspaceManifest } from '@pnpm/workspace.read-manifest'
+import type { CommandRunner } from 'gunshi'
 
-export default define({
-  name: 'show',
-  description: 'Show the catalog and catalogable dependencies (default command)',
-  options: {
-    catalog: {
-      type: 'boolean',
-      description: 'Display the catalog only',
-      short: 'c',
-      default: false
-    },
-    dependency: {
-      type: 'boolean',
-      description: 'Display the catalogable dependencies only',
-      short: 'd',
-      default: false
-    }
-  },
-  examples: `# Show the catalog and catalogable dependencies:
-pnpmc  # \`pnpmc\` is equivalent to \`pnpm show\``,
-  async run({ values, env: { cwd } }) {
-    await display(cwd!, {
-      showCategory: !values.catalog && !values.dependency ? true : values.catalog,
-      showDependency: !values.catalog && !values.dependency ? true : values.dependency
-    })
-  }
-})
+const run: CommandRunner<typeof meta.options> = async ({ values, env: { cwd } }) => {
+  await display(cwd!, {
+    showCategory: !values.catalog && !values.dependency ? true : values.catalog,
+    showDependency: !values.catalog && !values.dependency ? true : values.dependency
+  })
+}
 
 async function display(
   target: string,
@@ -123,3 +104,5 @@ function catalogableDependencies(
 
   return text
 }
+
+export default run

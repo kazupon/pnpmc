@@ -4,5 +4,6 @@ export default defineConfig({
   outDir: 'lib',
   entry: 'src/index.ts',
   dts: true,
-  clean: true
+  clean: true,
+  external: ['../package.json']
 })
