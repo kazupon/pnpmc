@@ -4,7 +4,7 @@ import { createCommandContext } from 'gunshi/context'
 import path from 'node:path'
 import { afterEach, expect, test, vi } from 'vitest'
 import writeYamlFile from 'write-yaml-file'
-import { defineMockLog } from '../../test/utils.js'
+import { defineMockLog } from '../../../test/utils.js'
 
 let _cacheProjects: Awaited<ReturnType<typeof findWorkspacePackages>> | undefined
 
@@ -39,14 +39,15 @@ afterEach(() => {
 })
 
 test('basic', async () => {
-  const { default: register } = await import('./register')
-  const utils = await import('../utils')
+  const meta = (await import('./meta')).default
+  const run = (await import('./runner')).default
+  const utils = await import('../../utils')
   const log = defineMockLog(utils)
   const mockWriteYamlFile = vi.mocked(writeYamlFile)
   // @ts-ignore
-  const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
+  const cwd = path.resolve(import.meta.dirname, '../../../test/fixtures/basic')
   const ctx = await createCommandContext({
-    options: register.options as NonNullable<typeof register.options>,
+    options: meta.options,
     values: {
       dependency: 'typescript',
       alias: '^5.7.0',
@@ -56,13 +57,13 @@ test('basic', async () => {
     rest: [],
     args: [],
     tokens: [],
-    command: register,
+    command: { ...meta, run },
     omitted: true,
     commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' }
   })
 
   // fire!
-  await register.run(ctx)
+  await run(ctx)
 
   // check console output
   const message = log()
@@ -101,14 +102,15 @@ test('basic', async () => {
 })
 
 test('default catalog', async () => {
-  const { default: register } = await import('./register')
-  const utils = await import('../utils')
+  const meta = (await import('./meta')).default
+  const run = (await import('./runner')).default
+  const utils = await import('../../utils')
   const log = defineMockLog(utils)
   const mockWriteYamlFile = vi.mocked(writeYamlFile)
   // @ts-ignore
-  const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
+  const cwd = path.resolve(import.meta.dirname, '../../../test/fixtures/basic')
   const ctx = await createCommandContext({
-    options: register.options as NonNullable<typeof register.options>,
+    options: meta.options,
     values: {
       dependency: 'typescript',
       alias: '^5.7.0',
@@ -118,13 +120,13 @@ test('default catalog', async () => {
     rest: [],
     args: [],
     tokens: [],
-    command: register,
+    command: { ...meta, run },
     omitted: true,
     commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' }
   })
 
   // fire!
-  await register.run(ctx)
+  await run(ctx)
 
   // check console output
   const message = log()

@@ -1,20 +1,21 @@
 import { createCommandContext } from 'gunshi/context'
 import path from 'node:path'
 import { afterEach, expect, test, vi } from 'vitest'
-import { defineMockLog } from '../../test/utils.js'
+import { defineMockLog } from '../../../test/utils.js'
 
 afterEach(() => {
   vi.resetAllMocks()
 })
 
 test('default', async () => {
-  const { default: show } = await import('./show')
-  const utils = await import('../utils')
+  const meta = (await import('./meta')).default
+  const run = (await import('./runner')).default
+  const utils = await import('../../utils')
   const log = defineMockLog(utils)
   // @ts-ignore
-  const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
+  const cwd = path.resolve(import.meta.dirname, '../../../test/fixtures/basic')
   const ctx = await createCommandContext({
-    options: show.options as NonNullable<typeof show.options>,
+    options: meta.options,
     values: {
       catalog: false,
       dependency: false
@@ -23,12 +24,12 @@ test('default', async () => {
     rest: [],
     args: [],
     tokens: [],
-    command: show,
+    command: { ...meta, run },
     omitted: true,
     commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' }
   })
 
-  await show.run(ctx)
+  await run(ctx)
 
   const message = log()
   expect(message).toContain('Defined catalogs')
@@ -37,13 +38,14 @@ test('default', async () => {
 })
 
 test('catalog only', async () => {
-  const { default: show } = await import('./show')
-  const utils = await import('../utils')
+  const meta = (await import('./meta')).default
+  const run = (await import('./runner')).default
+  const utils = await import('../../utils')
   const log = defineMockLog(utils)
   // @ts-ignore
-  const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
+  const cwd = path.resolve(import.meta.dirname, '../../../test/fixtures/basic')
   const ctx = await createCommandContext({
-    options: show.options as NonNullable<typeof show.options>,
+    options: meta.options,
     values: {
       catalog: true,
       dependency: false
@@ -53,11 +55,11 @@ test('catalog only', async () => {
     args: [],
     tokens: [],
     commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' },
-    command: show,
+    command: { ...meta, run },
     omitted: true
   })
 
-  await show.run(ctx)
+  await run(ctx)
 
   const message = log()
   expect(message).toContain('Defined catalogs')
@@ -66,13 +68,14 @@ test('catalog only', async () => {
 })
 
 test('dependency only', async () => {
-  const { default: show } = await import('./show')
-  const utils = await import('../utils')
+  const meta = (await import('./meta')).default
+  const run = (await import('./runner')).default
+  const utils = await import('../../utils')
   const log = defineMockLog(utils)
   // @ts-ignore
-  const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
+  const cwd = path.resolve(import.meta.dirname, '../../../test/fixtures/basic')
   const ctx = await createCommandContext({
-    options: show.options as NonNullable<typeof show.options>,
+    options: meta.options,
     values: {
       catalog: false,
       dependency: true
@@ -82,11 +85,11 @@ test('dependency only', async () => {
     args: [],
     tokens: [],
     commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' },
-    command: show,
+    command: { ...meta, run },
     omitted: true
   })
 
-  await show.run(ctx)
+  await run(ctx)
 
   const message = log()
   expect(message).not.toContain('Defined catalogs')
@@ -95,13 +98,14 @@ test('dependency only', async () => {
 })
 
 test('both option enable', async () => {
-  const { default: show } = await import('./show')
-  const utils = await import('../utils')
+  const meta = (await import('./meta')).default
+  const run = (await import('./runner')).default
+  const utils = await import('../../utils')
   const log = defineMockLog(utils)
   // @ts-ignore
-  const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
+  const cwd = path.resolve(import.meta.dirname, '../../../test/fixtures/basic')
   const ctx = await createCommandContext({
-    options: show.options as NonNullable<typeof show.options>,
+    options: meta.options,
     values: {
       catalog: true,
       dependency: true
@@ -111,11 +115,11 @@ test('both option enable', async () => {
     args: [],
     tokens: [],
     commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' },
-    command: show,
+    command: { ...meta, run },
     omitted: true
   })
 
-  await show.run(ctx)
+  await run(ctx)
 
   const message = log()
   expect(message).toContain('Defined catalogs')

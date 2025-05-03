@@ -11,7 +11,7 @@ import {
 } from 'gunshi/renderer'
 import pc from 'picocolors'
 import { commands } from './commands/index.js'
-import { default as show } from './commands/show.js'
+import { default as show } from './commands/show/index.js'
 import { fail } from './utils.js'
 
 async function main() {

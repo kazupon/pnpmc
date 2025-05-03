@@ -7,42 +7,17 @@ import { WORKSPACE_MANIFEST_FILENAME } from '@pnpm/constants'
 import { findWorkspaceDir } from '@pnpm/find-workspace-dir'
 import { findWorkspacePackages } from '@pnpm/workspace.find-packages'
 import { readWorkspaceManifest } from '@pnpm/workspace.read-manifest'
-import { define } from 'gunshi'
 import path from 'node:path'
 import writeYamlFile from 'write-yaml-file'
-import { fail, log } from '../utils.js'
+import { fail, log } from '../../utils.js'
+import meta from './meta.js'
 
-export default define({
-  name: 'register',
-  description: 'Register the dependency to the catalog',
-  options: {
-    catalog: {
-      type: 'string',
-      description:
-        "Register the catalog. Use with --dependency and --alias options. Default is 'default'",
-      short: 'c',
-      default: 'default'
-    },
-    dependency: {
-      type: 'string',
-      description: 'Register the dependency, required. use with --alias and --catalog options',
-      short: 'd',
-      required: true
-    },
-    alias: {
-      type: 'string',
-      description: 'Register the alias, required. Use with --dependency and --catalog options',
-      short: 'a',
-      required: true
-    }
-  },
-  examples: `# Register the dependency to the catalog:
-pnpmc register --dependency typescript --alias ^5.7.9 --catalog tools`,
-  async run(ctx) {
-    const { dependency, alias, catalog } = ctx.values
-    await register(ctx.env.cwd!, dependency, alias, catalog)
-  }
-})
+import type { CommandRunner } from 'gunshi'
+
+const run: CommandRunner<NonNullable<typeof meta.options>> = async ctx => {
+  const { dependency, alias, catalog } = ctx.values
+  await register(ctx.env.cwd!, dependency, alias, catalog)
+}
 
 async function register(
   target: string,
@@ -161,3 +136,5 @@ async function orverrideDependency(
 
   return ret
 }
+
+export default run
