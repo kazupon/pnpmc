@@ -3,9 +3,9 @@
  * @license MIT
  */
 
-import type { ArgOptions, Command } from 'gunshi'
+import type { Args, Command } from 'gunshi'
 
-const options = {
+const args = {
   catalog: {
     type: 'boolean',
     description: 'Display the catalog only',
@@ -18,12 +18,12 @@ const options = {
     short: 'd',
     default: false
   }
-} satisfies ArgOptions
+} satisfies Args
 
 export default {
   name: 'show',
   description: 'Show the catalog and catalogable dependencies (default command)',
-  options,
+  args,
   examples: `# Show the catalog and catalogable dependencies:
 pnpmc  # \`pnpmc\` is equivalent to \`pnpm show\``
-} satisfies Command<typeof options>
+} satisfies Command<typeof args>

@@ -3,9 +3,9 @@
  * @license MIT
  */
 
-import type { ArgOptions, Command } from 'gunshi'
+import type { Args, Command } from 'gunshi'
 
-const options = {
+const args = {
   catalog: {
     type: 'string',
     description: 'Register the catalog. Use with --dependency and --alias options.',
@@ -24,12 +24,12 @@ const options = {
     short: 'a',
     required: true
   }
-} satisfies ArgOptions
+} satisfies Args
 
 export default {
   name: 'register',
   description: 'Register the dependency to the catalog',
-  options,
+  args,
   examples: `# Register the dependency to the catalog:
 pnpmc register --dependency typescript --alias ^5.7.9 --catalog tools`
-} satisfies Command<typeof options>
+} satisfies Command<typeof args>

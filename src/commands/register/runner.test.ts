@@ -47,7 +47,7 @@ test('basic', async () => {
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../../test/fixtures/basic')
   const ctx = await createCommandContext({
-    options: meta.options,
+    args: meta.args,
     values: {
       dependency: 'typescript',
       alias: '^5.7.0',
@@ -55,7 +55,7 @@ test('basic', async () => {
     },
     positionals: [],
     rest: [],
-    args: [],
+    argv: [],
     tokens: [],
     command: { ...meta, run },
     omitted: true,
@@ -110,7 +110,7 @@ test('default catalog', async () => {
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../../test/fixtures/basic')
   const ctx = await createCommandContext({
-    options: meta.options,
+    args: meta.args,
     values: {
       dependency: 'typescript',
       alias: '^5.7.0',
@@ -118,7 +118,7 @@ test('default catalog', async () => {
     },
     positionals: [],
     rest: [],
-    args: [],
+    argv: [],
     tokens: [],
     command: { ...meta, run },
     omitted: true,
