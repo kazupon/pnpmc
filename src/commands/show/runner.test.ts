@@ -15,14 +15,14 @@ test('default', async () => {
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../../test/fixtures/basic')
   const ctx = await createCommandContext({
-    options: meta.options,
+    args: meta.args,
     values: {
       catalog: false,
       dependency: false
     },
     positionals: [],
     rest: [],
-    args: [],
+    argv: [],
     tokens: [],
     command: { ...meta, run },
     omitted: true,
@@ -45,14 +45,14 @@ test('catalog only', async () => {
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../../test/fixtures/basic')
   const ctx = await createCommandContext({
-    options: meta.options,
+    args: meta.args,
     values: {
       catalog: true,
       dependency: false
     },
     positionals: [],
     rest: [],
-    args: [],
+    argv: [],
     tokens: [],
     commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' },
     command: { ...meta, run },
@@ -75,14 +75,14 @@ test('dependency only', async () => {
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../../test/fixtures/basic')
   const ctx = await createCommandContext({
-    options: meta.options,
+    args: meta.args,
     values: {
       catalog: false,
       dependency: true
     },
     positionals: [],
     rest: [],
-    args: [],
+    argv: [],
     tokens: [],
     commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' },
     command: { ...meta, run },
@@ -105,14 +105,14 @@ test('both option enable', async () => {
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../../test/fixtures/basic')
   const ctx = await createCommandContext({
-    options: meta.options,
+    args: meta.args,
     values: {
       catalog: true,
       dependency: true
     },
     positionals: [],
     rest: [],
-    args: [],
+    argv: [],
     tokens: [],
     commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' },
     command: { ...meta, run },

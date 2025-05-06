@@ -7,4 +7,4 @@ import { interopDefault } from '@kazupon/jts-utils'
 import { lazy } from 'gunshi/definition'
 import meta from './meta.js'
 
-export default lazy<typeof meta.options>(async () => interopDefault(import('./runner.js')), meta)
+export default lazy<typeof meta.args>(async () => interopDefault(import('./runner.js')), meta)
