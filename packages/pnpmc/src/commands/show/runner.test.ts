@@ -8,9 +8,9 @@ afterEach(() => {
 })
 
 test('default', async () => {
-  const meta = (await import('./meta')).default
-  const run = (await import('./runner')).default
-  const utils = await import('../../utils')
+  const meta = (await import('./meta.js')).default
+  const run = (await import('./runner.js')).default
+  const utils = await import('../../utils.js')
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../../test/fixtures/basic')
@@ -38,9 +38,9 @@ test('default', async () => {
 })
 
 test('catalog only', async () => {
-  const meta = (await import('./meta')).default
-  const run = (await import('./runner')).default
-  const utils = await import('../../utils')
+  const meta = (await import('./meta.js')).default
+  const run = (await import('./runner.js')).default
+  const utils = await import('../../utils.js')
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../../test/fixtures/basic')
@@ -68,9 +68,9 @@ test('catalog only', async () => {
 })
 
 test('dependency only', async () => {
-  const meta = (await import('./meta')).default
-  const run = (await import('./runner')).default
-  const utils = await import('../../utils')
+  const meta = (await import('./meta.js')).default
+  const run = (await import('./runner.js')).default
+  const utils = await import('../../utils.js')
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../../test/fixtures/basic')
@@ -98,9 +98,9 @@ test('dependency only', async () => {
 })
 
 test('both option enable', async () => {
-  const meta = (await import('./meta')).default
-  const run = (await import('./runner')).default
-  const utils = await import('../../utils')
+  const meta = (await import('./meta.js')).default
+  const run = (await import('./runner.js')).default
+  const utils = await import('../../utils.js')
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../../../test/fixtures/basic')
