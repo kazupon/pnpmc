@@ -22,7 +22,7 @@
     "lint:knip": "knip",
     "lint:prettier": "prettier . --check",
     "prepare": "git config --local core.hooksPath .githooks",
-    "release": "bumpp --commit \"release: v%s\" --all --push --tag",
+    "release": "bumpp package.json packages/**/package.json --commit \"release: v\" --all --push --tag",
     "test": "vitest run",
     "typecheck": "pnpm run -r typecheck"
   },
