@@ -1,7 +1,7 @@
 import { createCommandContext } from 'gunshi/context'
 import path from 'node:path'
 import { afterEach, expect, test, vi } from 'vitest'
-import { defineMockLog } from '../../test/utils.js'
+import { defineMockLog } from '../test/utils.js'
 
 afterEach(() => {
   vi.resetAllMocks()
@@ -10,10 +10,10 @@ afterEach(() => {
 test('default', async () => {
   const meta = (await import('./meta.js')).default
   const run = (await import('./runner.js')).default
-  const utils = await import('../utils.js')
+  const utils = await import('./utils.js')
   const log = defineMockLog(utils)
   // @ts-ignore
-  const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
+  const cwd = path.resolve(import.meta.dirname, '../test/fixtures/basic')
   const ctx = await createCommandContext({
     args: meta.args,
     values: {
@@ -40,10 +40,10 @@ test('default', async () => {
 test('catalog only', async () => {
   const meta = (await import('./meta.js')).default
   const run = (await import('./runner.js')).default
-  const utils = await import('../utils.js')
+  const utils = await import('./utils.js')
   const log = defineMockLog(utils)
   // @ts-ignore
-  const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
+  const cwd = path.resolve(import.meta.dirname, '../test/fixtures/basic')
   const ctx = await createCommandContext({
     args: meta.args,
     values: {
@@ -70,10 +70,10 @@ test('catalog only', async () => {
 test('dependency only', async () => {
   const meta = (await import('./meta.js')).default
   const run = (await import('./runner.js')).default
-  const utils = await import('../utils.js')
+  const utils = await import('./utils.js')
   const log = defineMockLog(utils)
   // @ts-ignore
-  const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
+  const cwd = path.resolve(import.meta.dirname, '../test/fixtures/basic')
   const ctx = await createCommandContext({
     args: meta.args,
     values: {
@@ -100,10 +100,10 @@ test('dependency only', async () => {
 test('both option enable', async () => {
   const meta = (await import('./meta.js')).default
   const run = (await import('./runner.js')).default
-  const utils = await import('../utils.js')
+  const utils = await import('./utils.js')
   const log = defineMockLog(utils)
   // @ts-ignore
-  const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
+  const cwd = path.resolve(import.meta.dirname, '../test/fixtures/basic')
   const ctx = await createCommandContext({
     args: meta.args,
     values: {

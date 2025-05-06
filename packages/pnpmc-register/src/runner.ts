@@ -1,4 +1,9 @@
 /**
+ * Entry point module for runner of pnpmc-register command.
+ * @module
+ */
+
+/**
  * @author kazuya kawaguchi (a.k.a @kazupon)
  * @license MIT
  */
@@ -9,8 +14,8 @@ import { findWorkspacePackages } from '@pnpm/workspace.find-packages'
 import { readWorkspaceManifest } from '@pnpm/workspace.read-manifest'
 import path from 'node:path'
 import writeYamlFile from 'write-yaml-file'
-import { fail, log } from '../utils.js'
 import meta from './meta.js'
+import { fail, log } from './utils.js'
 
 import type { CommandRunner } from 'gunshi'
 

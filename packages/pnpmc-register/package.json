@@ -14,7 +14,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kazupon/pnpmc.git",
-    "directory": "packages/pnpmc-show"
+    "directory": "packages/pnpmc-register"
   },
   "keywords": [
     "pnpm",
@@ -34,29 +34,29 @@
     "bin",
     "lib"
   ],
-  "module": "lib/command/index.js",
+  "module": "lib/index.js",
   "exports": {
     ".": {
-      "types": "./lib/command/index.d.ts",
-      "import": "./lib/command/index.js",
-      "require": "./lib/command/index.js",
-      "default": "./lib/command/index.js"
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js",
+      "require": "./lib/index.js",
+      "default": "./lib/index.js"
     },
     "./meta": {
-      "types": "./lib/command/meta.d.ts",
-      "import": "./lib/command/meta.js",
-      "require": "./lib/command/meta.js",
-      "default": "./lib/command/meta.js"
+      "types": "./lib/meta.d.ts",
+      "import": "./lib/meta.js",
+      "require": "./lib/meta.js",
+      "default": "./lib/meta.js"
     },
     "./runner": {
-      "types": "./lib/command/runner.d.ts",
-      "import": "./lib/command/runner.js",
-      "require": "./lib/command/runner.js",
-      "default": "./lib/command/runner.js"
+      "types": "./lib/runner.d.ts",
+      "import": "./lib/runner.js",
+      "require": "./lib/runner.js",
+      "default": "./lib/runner.js"
     },
     "./package.json": "./package.json"
   },
-  "types": "lib/command/index.d.ts",
+  "types": "lib/index.d.ts",
   "typesVersions": {
     "*": {
       "*": [

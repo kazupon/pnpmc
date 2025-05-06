@@ -1,4 +1,9 @@
 /**
+ * Entry point module for meta of pnpmc-show command.
+ * @module
+ */
+
+/**
  * @author kazuya kawaguchi (a.k.a @kazupon)
  * @license MIT
  */

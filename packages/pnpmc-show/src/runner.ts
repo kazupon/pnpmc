@@ -1,4 +1,9 @@
 /**
+ * Entry point module for runner of pnpmc-show command.
+ * @module
+ */
+
+/**
  * @author kazuya kawaguchi (a.k.a @kazupon)
  * @license MIT
  */
@@ -6,9 +11,9 @@
 import { WORKSPACE_MANIFEST_FILENAME } from '@pnpm/constants'
 import { findWorkspaceDir } from '@pnpm/find-workspace-dir'
 import { readWorkspaceManifest } from '@pnpm/workspace.read-manifest'
-import { fail, log } from '../utils.js'
 import { analyzeDependencies } from './analyze.js'
 import meta from './meta.js'
+import { fail, log } from './utils.js'
 
 import type { WorkspaceManifest } from '@pnpm/workspace.read-manifest'
 import type { CommandRunner } from 'gunshi'

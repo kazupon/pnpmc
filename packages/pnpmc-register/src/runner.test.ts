@@ -4,7 +4,7 @@ import { createCommandContext } from 'gunshi/context'
 import path from 'node:path'
 import { afterEach, expect, test, vi } from 'vitest'
 import writeYamlFile from 'write-yaml-file'
-import { defineMockLog } from '../../test/utils.js'
+import { defineMockLog } from '../test/utils.js'
 
 let _cacheProjects: Awaited<ReturnType<typeof findWorkspacePackages>> | undefined
 
@@ -41,11 +41,11 @@ afterEach(() => {
 test('basic', async () => {
   const meta = (await import('./meta.js')).default
   const run = (await import('./runner.js')).default
-  const utils = await import('../utils.js')
+  const utils = await import('./utils.js')
   const log = defineMockLog(utils)
   const mockWriteYamlFile = vi.mocked(writeYamlFile)
   // @ts-ignore
-  const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
+  const cwd = path.resolve(import.meta.dirname, '../test/fixtures/basic')
   const ctx = await createCommandContext({
     args: meta.args,
     values: {
@@ -104,11 +104,11 @@ test('basic', async () => {
 test('default catalog', async () => {
   const meta = (await import('./meta.js')).default
   const run = (await import('./runner.js')).default
-  const utils = await import('../utils.js')
+  const utils = await import('./utils.js')
   const log = defineMockLog(utils)
   const mockWriteYamlFile = vi.mocked(writeYamlFile)
   // @ts-ignore
-  const cwd = path.resolve(import.meta.dirname, '../../test/fixtures/basic')
+  const cwd = path.resolve(import.meta.dirname, '../test/fixtures/basic')
   const ctx = await createCommandContext({
     args: meta.args,
     values: {
