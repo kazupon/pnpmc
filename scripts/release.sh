@@ -14,11 +14,6 @@ if [[ ! -z ${NPM_TOKEN} ]] ; then
 fi
 
 # Release packages
-TAG="latest"
-echo "⚡ Publishing $PKG with tag $TAG"
-pnpm publish --access public --no-git-checks --tag $TAG
-
-# Release packages
 for PKG in packages/* ; do
   if [[ -d $PKG ]]; then
     pushd $PKG
