@@ -26,8 +26,8 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
         '**/*.test-d.ts',
         '**/*.spec.ts',
         '**/*.spec.js',
-        'test/**.ts',
-        'bench/**.js'
+        '**/test/**.ts',
+        '**/bench/**.js'
       ]
     }
   }),
@@ -41,12 +41,13 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
   globalIgnores([
     '.vscode',
     '.github',
-    'lib',
-    'bin',
+    '**/lib/**',
+    '**/bin/**',
     'tsconfig.json',
     'pnpm-lock.yaml',
+    'pnpm-workspace.yaml',
     'eslint.config.ts',
-    'test/fixtures'
+    '**/test/fixtures/**'
   ]) as Linter.Config
 )
 

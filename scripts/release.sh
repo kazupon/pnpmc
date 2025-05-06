@@ -3,7 +3,7 @@
 set -e
 
 # Restore all git changes
-git restore --source=HEAD --staged --worktree -- package.json pnpm-lock.yaml
+git restore -s@ -SW  -- packages
 
 # Update token
 if [[ ! -z ${NPM_TOKEN} ]] ; then
@@ -14,6 +14,12 @@ if [[ ! -z ${NPM_TOKEN} ]] ; then
 fi
 
 # Release packages
-TAG="latest"
-echo "⚡ Publishing $PKG with tag $TAG"
-pnpm publish --access public --no-git-checks --tag $TAG
+for PKG in packages/* ; do
+  if [[ -d $PKG ]]; then
+    pushd $PKG
+    TAG="latest"
+    echo "⚡ Publishing $PKG with tag $TAG"
+    pnpm publish --access public --no-git-checks --tag $TAG
+    popd > /dev/null
+  fi
+done

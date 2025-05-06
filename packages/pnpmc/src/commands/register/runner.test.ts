@@ -39,9 +39,9 @@ afterEach(() => {
 })
 
 test('basic', async () => {
-  const meta = (await import('./meta')).default
-  const run = (await import('./runner')).default
-  const utils = await import('../../utils')
+  const meta = (await import('./meta.js')).default
+  const run = (await import('./runner.js')).default
+  const utils = await import('../../utils.js')
   const log = defineMockLog(utils)
   const mockWriteYamlFile = vi.mocked(writeYamlFile)
   // @ts-ignore
@@ -102,9 +102,9 @@ test('basic', async () => {
 })
 
 test('default catalog', async () => {
-  const meta = (await import('./meta')).default
-  const run = (await import('./runner')).default
-  const utils = await import('../../utils')
+  const meta = (await import('./meta.js')).default
+  const run = (await import('./runner.js')).default
+  const utils = await import('../../utils.js')
   const log = defineMockLog(utils)
   const mockWriteYamlFile = vi.mocked(writeYamlFile)
   // @ts-ignore
