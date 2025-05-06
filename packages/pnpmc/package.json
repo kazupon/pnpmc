@@ -36,8 +36,7 @@
   ],
   "scripts": {
     "build": "tsdown",
-    "prepack": "pnpm build",
-    "typecheck": "tsc --noEmit"
+    "prepack": "pnpm build"
   },
   "dependencies": {
     "@kazupon/jts-utils": "^0.6.0",
