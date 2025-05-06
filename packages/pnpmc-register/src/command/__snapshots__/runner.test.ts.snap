@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`basic 1`] = `
+"📙 Registered 'typescript' as '^5.7.0' in Catalog 'tools'
+
+📦 Overridden 'typescript' alias on /packages/package1 (package1) : ^5.7.3 -> catalog:tools 
+📦 Overridden 'typescript' alias on /packages/package2 (package2) : ^5.6.0 -> catalog:tools 
+"
+`;
+
+exports[`default catalog 1`] = `
+"📙 Registered 'typescript' as '^5.7.0' in Catalog 'default'
+
+📦 Overridden 'typescript' alias on /packages/package1 (package1) : ^5.7.3 -> catalog: 
+📦 Overridden 'typescript' alias on /packages/package2 (package2) : ^5.6.0 -> catalog: 
+"
+`;

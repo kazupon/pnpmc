@@ -1,0 +1,85 @@
+{
+  "name": "pnpmc-show",
+  "description": "PNPM Catalogs Tooling - show command",
+  "version": "0.13.2",
+  "author": {
+    "name": "kazuya kawaguchi",
+    "email": "kawakazu80@gmail.com"
+  },
+  "license": "MIT",
+  "funding": "https://github.com/sponsors/kazupon",
+  "bugs": {
+    "url": "https://github.com/kazupon/pnpmc/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kazupon/pnpmc.git",
+    "directory": "packages/pnpmc-show"
+  },
+  "keywords": [
+    "pnpm",
+    "catalogs"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">= 20"
+  },
+  "type": "module",
+  "bin": {
+    "pnpmc-show": "./bin/cli.js"
+  },
+  "files": [
+    "bin",
+    "lib"
+  ],
+  "module": "lib/command/index.js",
+  "exports": {
+    ".": {
+      "types": "./lib/command/index.d.ts",
+      "import": "./lib/command/index.js",
+      "require": "./lib/command/index.js",
+      "default": "./lib/command/index.js"
+    },
+    "./meta": {
+      "types": "./lib/command/meta.d.ts",
+      "import": "./lib/command/meta.js",
+      "require": "./lib/command/meta.js",
+      "default": "./lib/command/meta.js"
+    },
+    "./runner": {
+      "types": "./lib/command/runner.d.ts",
+      "import": "./lib/command/runner.js",
+      "require": "./lib/command/runner.js",
+      "default": "./lib/command/runner.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "types": "lib/command/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./lib/*",
+        "./*"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "tsdown",
+    "prepack": "pnpm build"
+  },
+  "dependencies": {
+    "@kazupon/jts-utils": "^0.6.0",
+    "@pnpm/constants": "^1001.1.0",
+    "@pnpm/find-workspace-dir": "^1000.1.0",
+    "@pnpm/logger": "^1001.0.0",
+    "@pnpm/workspace.find-packages": "^1000.0.23",
+    "@pnpm/workspace.read-manifest": "^1000.1.4",
+    "gunshi": "^0.19.0",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "tsdown": "^0.11.0"
+  }
+}
