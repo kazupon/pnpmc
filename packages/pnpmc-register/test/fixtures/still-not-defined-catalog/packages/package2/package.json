@@ -1,6 +1,0 @@
-{
-  "name": "package2",
-  "dependencies": {
-    "typescript": "^5.0.0"
-  }
-}

@@ -93,9 +93,6 @@ importers:
 
   packages/pnpmc-register:
     dependencies:
-      '@kazupon/jts-utils':
-        specifier: ^0.6.0
-        version: 0.6.0(typescript@5.8.3)
       '@pnpm/constants':
         specifier: ^1001.1.0
         version: 1001.1.0
@@ -114,22 +111,19 @@ importers:
       gunshi:
         specifier: ^0.19.0
         version: 0.19.0
-      picocolors:
-        specifier: ^1.1.1
-        version: 1.1.1
       write-yaml-file:
         specifier: ^5.0.0
         version: 5.0.0
     devDependencies:
+      pnpmc-utils:
+        specifier: workspace:*
+        version: link:../pnpmc-utils
       tsdown:
         specifier: ^0.11.0
         version: 0.11.0(typescript@5.8.3)(unplugin-lightningcss@0.3.3)
 
   packages/pnpmc-show:
     dependencies:
-      '@kazupon/jts-utils':
-        specifier: ^0.6.0
-        version: 0.6.0(typescript@5.8.3)
       '@pnpm/constants':
         specifier: ^1001.1.0
         version: 1001.1.0
@@ -148,13 +142,22 @@ importers:
       gunshi:
         specifier: ^0.19.0
         version: 0.19.0
-      picocolors:
-        specifier: ^1.1.1
-        version: 1.1.1
     devDependencies:
+      pnpmc-utils:
+        specifier: workspace:*
+        version: link:../pnpmc-utils
       tsdown:
         specifier: ^0.11.0
         version: 0.11.0(typescript@5.8.3)(unplugin-lightningcss@0.3.3)
+
+  packages/pnpmc-utils:
+    dependencies:
+      gunshi:
+        specifier: ^0.19.0
+        version: 0.19.0
+      picocolors:
+        specifier: ^1.1.1
+        version: 1.1.1
 
 packages:
 

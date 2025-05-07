@@ -4,7 +4,17 @@ import { createCommandContext } from 'gunshi/context'
 import path from 'node:path'
 import { afterEach, expect, test, vi } from 'vitest'
 import writeYamlFile from 'write-yaml-file'
-import { defineMockLog } from '../test/utils.js'
+
+vi.mock('pnpmc-utils')
+
+function defineMockLog(utils: typeof import('pnpmc-utils')): () => string {
+  const logs: unknown[] = []
+  vi.spyOn(utils, 'log').mockImplementation((...args: unknown[]) => {
+    logs.push(args)
+  })
+
+  return () => logs.join(`\n`)
+}
 
 let _cacheProjects: Awaited<ReturnType<typeof findWorkspacePackages>> | undefined
 
@@ -41,7 +51,7 @@ afterEach(() => {
 test('basic', async () => {
   const meta = (await import('./meta.js')).default
   const run = (await import('./runner.js')).default
-  const utils = await import('./utils.js')
+  const utils = await import('pnpmc-utils')
   const log = defineMockLog(utils)
   const mockWriteYamlFile = vi.mocked(writeYamlFile)
   // @ts-ignore
@@ -104,7 +114,7 @@ test('basic', async () => {
 test('default catalog', async () => {
   const meta = (await import('./meta.js')).default
   const run = (await import('./runner.js')).default
-  const utils = await import('./utils.js')
+  const utils = await import('pnpmc-utils')
   const log = defineMockLog(utils)
   const mockWriteYamlFile = vi.mocked(writeYamlFile)
   // @ts-ignore

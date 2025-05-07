@@ -1,7 +1,17 @@
 import { createCommandContext } from 'gunshi/context'
 import path from 'node:path'
 import { afterEach, expect, test, vi } from 'vitest'
-import { defineMockLog } from '../test/utils.js'
+
+vi.mock('pnpmc-utils')
+
+function defineMockLog(utils: typeof import('pnpmc-utils')): () => string {
+  const logs: unknown[] = []
+  vi.spyOn(utils, 'log').mockImplementation((...args: unknown[]) => {
+    logs.push(args)
+  })
+
+  return () => logs.join(`\n`)
+}
 
 afterEach(() => {
   vi.resetAllMocks()
@@ -10,7 +20,7 @@ afterEach(() => {
 test('default', async () => {
   const meta = (await import('./meta.js')).default
   const run = (await import('./runner.js')).default
-  const utils = await import('./utils.js')
+  const utils = await import('pnpmc-utils')
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../test/fixtures/basic')
@@ -40,7 +50,7 @@ test('default', async () => {
 test('catalog only', async () => {
   const meta = (await import('./meta.js')).default
   const run = (await import('./runner.js')).default
-  const utils = await import('./utils.js')
+  const utils = await import('pnpmc-utils')
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../test/fixtures/basic')
@@ -70,7 +80,7 @@ test('catalog only', async () => {
 test('dependency only', async () => {
   const meta = (await import('./meta.js')).default
   const run = (await import('./runner.js')).default
-  const utils = await import('./utils.js')
+  const utils = await import('pnpmc-utils')
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../test/fixtures/basic')
@@ -100,7 +110,7 @@ test('dependency only', async () => {
 test('both option enable', async () => {
   const meta = (await import('./meta.js')).default
   const run = (await import('./runner.js')).default
-  const utils = await import('./utils.js')
+  const utils = await import('pnpmc-utils')
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../test/fixtures/basic')

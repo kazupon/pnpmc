@@ -1,0 +1,32 @@
+{
+  "name": "pnpmc-utils",
+  "description": "PNPM Catalogs Tooling utils",
+  "private": true,
+  "version": "0.13.2",
+  "author": {
+    "name": "kazuya kawaguchi",
+    "email": "kawakazu80@gmail.com"
+  },
+  "license": "MIT",
+  "funding": "https://github.com/sponsors/kazupon",
+  "bugs": {
+    "url": "https://github.com/kazupon/pnpmc/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kazupon/pnpmc.git",
+    "directory": "packages/pnpmc-utils"
+  },
+  "keywords": [
+    "pnpm",
+    "catalogs"
+  ],
+  "engines": {
+    "node": ">= 20"
+  },
+  "type": "module",
+  "dependencies": {
+    "gunshi": "^0.19.0",
+    "picocolors": "^1.1.1"
+  }
+}
