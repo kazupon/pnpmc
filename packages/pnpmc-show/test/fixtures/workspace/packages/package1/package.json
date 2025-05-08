@@ -1,0 +1,6 @@
+{
+  "name": "package1",
+  "dependencies": {
+    "shared": "workspace:*"
+  }
+}
