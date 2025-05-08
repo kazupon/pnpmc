@@ -1,7 +1,7 @@
 {
   "name": "pnpmc-show",
   "description": "PNPM Catalogs Tooling - show command",
-  "version": "0.13.3",
+  "version": "0.13.4",
   "author": {
     "name": "kazuya kawaguchi",
     "email": "kawakazu80@gmail.com"
