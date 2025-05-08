@@ -35,6 +35,6 @@ export default {
   name: 'register',
   description: 'Register the dependency to the catalog',
   args,
-  examples: `# Register the dependency to the catalog:
-pnpmc register --dependency typescript --alias ^5.7.9 --catalog tools`
+  examples: async ctx => `# Register the dependency to the catalog:
+${ctx.callMode === 'entry' ? ctx.env.name : `${ctx.env.name} ${ctx.name}`} --dependency typescript --alias ^5.7.9 --catalog tools`
 } satisfies Command<typeof args>

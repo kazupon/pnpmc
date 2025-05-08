@@ -1,2 +1,5 @@
 packages:
-  - 'packages/*'
+  - packages/*
+catalog:
+  gunshi: ^0.21.0
+  tsdown: ^0.11.0

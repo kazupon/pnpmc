@@ -4,6 +4,15 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    gunshi:
+      specifier: ^0.21.0
+      version: 0.21.0
+    tsdown:
+      specifier: ^0.11.0
+      version: 0.11.0
+
 importers:
 
   .:
@@ -78,8 +87,8 @@ importers:
         specifier: ^1000.1.4
         version: 1000.1.4
       gunshi:
-        specifier: ^0.19.0
-        version: 0.19.0
+        specifier: 'catalog:'
+        version: 0.21.0
       picocolors:
         specifier: ^1.1.1
         version: 1.1.1
@@ -88,7 +97,7 @@ importers:
         version: 5.0.0
     devDependencies:
       tsdown:
-        specifier: ^0.11.0
+        specifier: 'catalog:'
         version: 0.11.0(typescript@5.8.3)(unplugin-lightningcss@0.3.3)
 
   packages/pnpmc-register:
@@ -109,8 +118,8 @@ importers:
         specifier: ^1000.1.4
         version: 1000.1.4
       gunshi:
-        specifier: ^0.19.0
-        version: 0.19.0
+        specifier: 'catalog:'
+        version: 0.21.0
       write-yaml-file:
         specifier: ^5.0.0
         version: 5.0.0
@@ -119,7 +128,7 @@ importers:
         specifier: workspace:*
         version: link:../pnpmc-utils
       tsdown:
-        specifier: ^0.11.0
+        specifier: 'catalog:'
         version: 0.11.0(typescript@5.8.3)(unplugin-lightningcss@0.3.3)
 
   packages/pnpmc-show:
@@ -140,21 +149,21 @@ importers:
         specifier: ^1000.1.4
         version: 1000.1.4
       gunshi:
-        specifier: ^0.19.0
-        version: 0.19.0
+        specifier: 'catalog:'
+        version: 0.21.0
     devDependencies:
       pnpmc-utils:
         specifier: workspace:*
         version: link:../pnpmc-utils
       tsdown:
-        specifier: ^0.11.0
+        specifier: 'catalog:'
         version: 0.11.0(typescript@5.8.3)(unplugin-lightningcss@0.3.3)
 
   packages/pnpmc-utils:
     dependencies:
       gunshi:
-        specifier: ^0.19.0
-        version: 0.19.0
+        specifier: 'catalog:'
+        version: 0.21.0
       picocolors:
         specifier: ^1.1.1
         version: 1.1.1
@@ -2676,8 +2685,8 @@ packages:
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
 
-  gunshi@0.19.0:
-    resolution: {integrity: sha512-C75B5FcnBKXQRDXM/xTwPauhLgpf+LXEwDFtc4uPU09IaAy/Kj9JIp5vCmtthKQpL6oEbnLzv7x16Y/WZSUWJg==}
+  gunshi@0.21.0:
+    resolution: {integrity: sha512-Tmaxg3qdD2BDo/aKmrrhnL1mPi3AlLVI5hJ7P6qVRLm//KJ7X9P4ne0gD/T9OKDYpeCcDnnLhz/uBVF+SEZ+/A==}
     engines: {node: '>= 20'}
 
   has-flag@4.0.0:
@@ -7245,7 +7254,7 @@ snapshots:
 
   graphemer@1.4.0: {}
 
-  gunshi@0.19.0:
+  gunshi@0.21.0:
     dependencies:
       args-tokens: 0.17.1
 

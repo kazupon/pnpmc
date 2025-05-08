@@ -69,6 +69,7 @@ test('basic', async () => {
     tokens: [],
     command: { ...meta, run },
     omitted: true,
+    callMode: 'entry',
     commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' }
   })
 
@@ -132,6 +133,7 @@ test('default catalog', async () => {
     tokens: [],
     command: { ...meta, run },
     omitted: true,
+    callMode: 'entry',
     commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' }
   })
 
