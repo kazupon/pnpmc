@@ -15,5 +15,5 @@ export default {
       project: '**/*.ts'
     }
   },
-  ignoreDependencies: ['lint-staged']
+  ignoreDependencies: ['lint-staged', '@pnpm/logger']
 } satisfies KnipConfig

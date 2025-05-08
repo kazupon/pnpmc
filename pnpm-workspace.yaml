@@ -3,3 +3,4 @@ packages:
 catalog:
   gunshi: ^0.21.0
   tsdown: ^0.11.0
+  '@pnpm/logger': '>=5.1.0 =<1001.0.0'

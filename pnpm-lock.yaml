@@ -6,6 +6,9 @@ settings:
 
 catalogs:
   default:
+    '@pnpm/logger':
+      specifier: '>=5.1.0 =<1001.0.0'
+      version: 1001.0.0
     gunshi:
       specifier: ^0.21.0
       version: 0.21.0
@@ -78,7 +81,7 @@ importers:
         specifier: ^1000.1.0
         version: 1000.1.0
       '@pnpm/logger':
-        specifier: ^1001.0.0
+        specifier: 'catalog:'
         version: 1001.0.0
       '@pnpm/workspace.find-packages':
         specifier: ^1000.0.23
@@ -109,7 +112,7 @@ importers:
         specifier: ^1000.1.0
         version: 1000.1.0
       '@pnpm/logger':
-        specifier: ^1001.0.0
+        specifier: 'catalog:'
         version: 1001.0.0
       '@pnpm/workspace.find-packages':
         specifier: ^1000.0.23
@@ -140,7 +143,7 @@ importers:
         specifier: ^1000.1.0
         version: 1000.1.0
       '@pnpm/logger':
-        specifier: ^1001.0.0
+        specifier: 'catalog:'
         version: 1001.0.0
       '@pnpm/workspace.find-packages':
         specifier: ^1000.0.23
