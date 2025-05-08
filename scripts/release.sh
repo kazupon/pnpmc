@@ -16,6 +16,9 @@ fi
 # Release packages
 for PKG in packages/* ; do
   if [[ -d $PKG ]]; then
+    if [[ $PKG == packages/pnpmc-utils ]]; then
+      continue
+    fi
     pushd $PKG
     TAG="latest"
     echo "⚡ Publishing $PKG with tag $TAG"
