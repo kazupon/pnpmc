@@ -71,24 +71,9 @@ importers:
 
   packages/pnpmc:
     dependencies:
-      '@kazupon/jts-utils':
-        specifier: ^0.6.0
-        version: 0.6.0(typescript@5.8.3)
-      '@pnpm/constants':
-        specifier: ^1001.1.0
-        version: 1001.1.0
-      '@pnpm/find-workspace-dir':
-        specifier: ^1000.1.0
-        version: 1000.1.0
       '@pnpm/logger':
         specifier: 'catalog:'
         version: 1001.0.0
-      '@pnpm/workspace.find-packages':
-        specifier: ^1000.0.23
-        version: 1000.0.23(@pnpm/logger@1001.0.0)(@pnpm/worker@1000.1.5(@pnpm/logger@1001.0.0)(@types/node@22.15.17))(typanion@3.14.0)
-      '@pnpm/workspace.read-manifest':
-        specifier: ^1000.1.4
-        version: 1000.1.4
       gunshi:
         specifier: 'catalog:'
         version: 0.22.0
@@ -98,9 +83,6 @@ importers:
       pnpmc-show:
         specifier: workspace:*
         version: link:../pnpmc-show
-      write-yaml-file:
-        specifier: ^5.0.0
-        version: 5.0.0
     devDependencies:
       pnpmc-utils:
         specifier: workspace:*
