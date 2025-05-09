@@ -5,5 +5,6 @@ export default defineConfig({
   entry: 'src/index.ts',
   dts: true,
   clean: true,
+  noExternal: ['pnpmc-utils', 'pnpmc-show/meta', 'pnpmc-register/meta'],
   external: ['../package.json']
 })

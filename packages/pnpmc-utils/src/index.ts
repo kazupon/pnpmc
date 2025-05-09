@@ -10,7 +10,7 @@ import {
 } from 'gunshi/renderer'
 import pc from 'picocolors'
 
-import type { Args, Command } from 'gunshi'
+import type { Args, Command, LazyCommand } from 'gunshi'
 
 export function log(...args: unknown[]): void {
   console.log(...args)
@@ -26,6 +26,8 @@ export async function runCli<A extends Args = Args>(
   entry: Command<A>,
   options: {
     pkgJson: { name: string; description: string; version: string }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    subCommands?: Map<string, Command<any> | LazyCommand<any>>
     cwd: string
   }
 ) {
@@ -33,6 +35,7 @@ export async function runCli<A extends Args = Args>(
     name: options.pkgJson.name,
     description: options.pkgJson.description,
     version: options.pkgJson.version,
+    subCommands: options.subCommands,
     cwd: options.cwd,
     renderHeader: async ctx => pc.cyanBright(await renderHeaderBase(ctx)),
     renderValidationErrors: async (ctx, e) => {
