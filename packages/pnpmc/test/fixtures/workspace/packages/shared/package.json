@@ -1,6 +1,0 @@
-{
-  "name": "shared",
-  "dependencies": {
-    "typescript": "catalog:"
-  }
-}

@@ -1,5 +1,0 @@
-packages:
-  - 'packages/*'
-
-catalog:
-  typescript: ^5.7.0

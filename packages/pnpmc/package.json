@@ -39,25 +39,27 @@
     "prepack": "pnpm build"
   },
   "dependencies": {
-    "@kazupon/jts-utils": "^0.6.0",
-    "@pnpm/constants": "^1001.1.0",
-    "@pnpm/find-workspace-dir": "^1000.1.0",
     "@pnpm/logger": "catalog:",
-    "@pnpm/workspace.find-packages": "^1000.0.23",
-    "@pnpm/workspace.read-manifest": "^1000.1.4",
-    "gunshi": "catalog:",
-    "picocolors": "^1.1.1",
-    "write-yaml-file": "^5.0.0"
+    "gunshi": "catalog:"
   },
   "peerDependencies": {
-    "@pnpm/logger": "catalog:"
+    "@pnpm/logger": "catalog:",
+    "pnpmc-register": "workspace:*",
+    "pnpmc-show": "workspace:*"
   },
   "peerDependenciesMeta": {
     "@pnpm/logger": {
       "optional": true
+    },
+    "pnpmc-register": {
+      "optional": true
+    },
+    "pnpmc-show": {
+      "optional": true
     }
   },
   "devDependencies": {
+    "pnpmc-utils": "workspace:*",
     "tsdown": "catalog:"
   }
 }

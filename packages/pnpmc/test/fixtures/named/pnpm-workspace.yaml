@@ -1,6 +1,0 @@
-packages:
-  - 'packages/*'
-
-catalogs:
-  group1:
-    typescript: ^5.7.0
