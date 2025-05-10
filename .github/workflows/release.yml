@@ -57,6 +57,9 @@ jobs:
           file_pattern: CHANGELOG.md
           commit_message: 'chore: generate changelog'
 
+      - name: Build pacakge
+        run: pnpm run build
+
       - name: Publish package
         run: ./scripts/release.sh
         env:

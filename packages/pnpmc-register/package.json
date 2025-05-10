@@ -67,8 +67,7 @@
     }
   },
   "scripts": {
-    "build": "tsdown",
-    "prepack": "pnpm build"
+    "build": "tsdown"
   },
   "dependencies": {
     "@pnpm/constants": "^1001.1.0",
