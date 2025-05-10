@@ -9,7 +9,10 @@
   },
   "type": "module",
   "scripts": {
-    "build": "pnpm run -r --if-present --stream --color build",
+    "build": "pnpm run build:show && pnpm run build:register && pnpm run build:pnpmc",
+    "build:pnpmc": "pnpm run --filter pnpmc build",
+    "build:register": "pnpm run --filter pnpmc-register build",
+    "build:show": "pnpm run --filter pnpmc-show build",
     "changelog": "gh-changelogen --repo=kazupon/eslint-config",
     "dev": "pnpx @eslint/config-inspector --config eslint.config.ts",
     "dev:eslint": "pnpx @eslint/config-inspector --config eslint.config.ts",
