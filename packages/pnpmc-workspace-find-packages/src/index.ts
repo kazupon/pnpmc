@@ -2,11 +2,11 @@
  * Forked from @pnpm/workspace.find-packages
  * ref: https://github.com/pnpm/pnpm/tree/main/workspace/find-packages
  *
- * Diferences the following:
+ * Differences the following:
  * - check root field warning
- * - wheather to be able to install workspace packages
+ * - whether to be able to install workspace packages
  *
- * This package is designed to reduce dependecies.
+ * This package is designed to reduce dependencies.
  *
  * @module
  */
