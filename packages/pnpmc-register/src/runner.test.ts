@@ -70,7 +70,7 @@ test('basic', async () => {
     command: { ...meta, run },
     omitted: true,
     callMode: 'entry',
-    commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' }
+    cliOptions: { cwd, version: '0.0.0', name: 'pnpmc' }
   })
 
   // fire!
@@ -134,7 +134,7 @@ test('default catalog', async () => {
     command: { ...meta, run },
     omitted: true,
     callMode: 'entry',
-    commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' }
+    cliOptions: { cwd, version: '0.0.0', name: 'pnpmc' }
   })
 
   // fire!

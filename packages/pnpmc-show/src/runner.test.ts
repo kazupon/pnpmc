@@ -37,7 +37,7 @@ test('default', async () => {
     command: { ...meta, run },
     omitted: true,
     callMode: 'entry',
-    commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' }
+    cliOptions: { cwd, version: '0.0.0', name: 'pnpmc' }
   })
 
   await run(ctx)
@@ -65,7 +65,7 @@ test('catalog only', async () => {
     rest: [],
     argv: [],
     tokens: [],
-    commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' },
+    cliOptions: { cwd, version: '0.0.0', name: 'pnpmc' },
     command: { ...meta, run },
     omitted: true,
     callMode: 'entry'
@@ -96,7 +96,7 @@ test('dependency only', async () => {
     rest: [],
     argv: [],
     tokens: [],
-    commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' },
+    cliOptions: { cwd, version: '0.0.0', name: 'pnpmc' },
     command: { ...meta, run },
     omitted: true,
     callMode: 'entry'
@@ -127,7 +127,7 @@ test('both option enable', async () => {
     rest: [],
     argv: [],
     tokens: [],
-    commandOptions: { cwd, version: '0.0.0', name: 'pnpmc' },
+    cliOptions: { cwd, version: '0.0.0', name: 'pnpmc' },
     command: { ...meta, run },
     omitted: true,
     callMode: 'entry'
