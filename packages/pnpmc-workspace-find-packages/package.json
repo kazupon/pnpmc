@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "@pnpm/fs.find-packages": "1000.0.10",
-    "@pnpm/util.lex-comparator": "3.0.1"
+    "@pnpm/util.lex-comparator": "3.0.2"
   },
   "devDependencies": {
     "@pnpm/types": "1000.5.0",
