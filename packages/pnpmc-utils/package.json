@@ -2,7 +2,7 @@
   "name": "pnpmc-utils",
   "description": "PNPM Catalogs Tooling utils",
   "private": true,
-  "version": "0.14.0-beta.7",
+  "version": "0.14.0-beta.8",
   "author": {
     "name": "kazuya kawaguchi",
     "email": "kawakazu80@gmail.com"
