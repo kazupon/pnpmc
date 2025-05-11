@@ -30,5 +30,5 @@ export default {
   description: 'Show the catalog and catalogable dependencies (default command)',
   args,
   examples: async ctx => `# Show the catalog and catalogable dependencies:
-${ctx.env.name} # \`pnpmc\` is equivalent to \`pnpm show\``
+${ctx.callMode === 'entry' ? ctx.env.name : `${ctx.env.name} ${ctx.name}`} # \`pnpmc\` is equivalent to \`pnpm show\``
 } satisfies Command<typeof args>
