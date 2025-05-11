@@ -70,21 +70,12 @@
     "build": "tsdown"
   },
   "dependencies": {
-    "@pnpm/constants": "^1001.1.0",
-    "@pnpm/find-workspace-dir": "^1000.1.0",
-    "@pnpm/logger": "catalog:",
-    "@pnpm/workspace.find-packages": "^1000.0.23",
-    "@pnpm/workspace.read-manifest": "^1000.1.4",
+    "@pnpm/constants": "catalog:",
+    "@pnpm/find-workspace-dir": "catalog:",
+    "@pnpm/workspace.read-manifest": "catalog:",
     "gunshi": "catalog:",
+    "pnpmc-workspace-find-packages": "workspace:*",
     "write-yaml-file": "^5.0.0"
-  },
-  "peerDependencies": {
-    "@pnpm/logger": "catalog:"
-  },
-  "peerDependenciesMeta": {
-    "@pnpm/logger": {
-      "optional": true
-    }
   },
   "devDependencies": {
     "pnpmc-utils": "workspace:*",

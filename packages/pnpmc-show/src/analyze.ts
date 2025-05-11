@@ -3,10 +3,10 @@
  * @license MIT
  */
 
-import { findWorkspacePackages } from '@pnpm/workspace.find-packages'
+import { findWorkspacePackages } from 'pnpmc-workspace-find-packages'
 
-import type { Project } from '@pnpm/workspace.find-packages'
 import type { WorkspaceManifest } from '@pnpm/workspace.read-manifest'
+import type { Project } from 'pnpmc-workspace-find-packages'
 
 export function collectCatalogDependencies(manifest: WorkspaceManifest): Set<string> {
   const deps = new Set<string>()

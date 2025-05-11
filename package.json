@@ -9,10 +9,11 @@
   },
   "type": "module",
   "scripts": {
-    "build": "pnpm run build:show && pnpm run build:register && pnpm run build:pnpmc",
+    "build": "pnpm run build:workspace-find-packages && pnpm run build:show && pnpm run build:register && pnpm run build:pnpmc",
     "build:pnpmc": "pnpm run --filter pnpmc build",
     "build:register": "pnpm run --filter pnpmc-register build",
     "build:show": "pnpm run --filter pnpmc-show build",
+    "build:workspace-find-packages": "pnpm run --filter pnpmc-workspace-find-packages build",
     "changelog": "gh-changelogen --repo=kazupon/eslint-config",
     "dev": "pnpx @eslint/config-inspector --config eslint.config.ts",
     "dev:eslint": "pnpx @eslint/config-inspector --config eslint.config.ts",
