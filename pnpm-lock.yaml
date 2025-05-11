@@ -162,8 +162,8 @@ importers:
         specifier: 1000.0.10
         version: 1000.0.10
       '@pnpm/util.lex-comparator':
-        specifier: 3.0.1
-        version: 3.0.1
+        specifier: 3.0.2
+        version: 3.0.2
     devDependencies:
       '@pnpm/types':
         specifier: 1000.5.0
@@ -948,6 +948,10 @@ packages:
 
   '@pnpm/util.lex-comparator@3.0.1':
     resolution: {integrity: sha512-jUR0XFKlYcwexqNl+Qbkw8XqQw3+wjwKz72uREqVf4OiV9Hi67IoVu8q1gz0LvHgZmqruisiar+873HcJW9dHw==}
+    engines: {node: '>=18.12'}
+
+  '@pnpm/util.lex-comparator@3.0.2':
+    resolution: {integrity: sha512-blFO4Ws97tWv/SNE6N39ZdGmZBrocXnBOfVp0ln4kELmns4pGPZizqyRtR8EjfOLMLstbmNCTReBoDvLz1isVg==}
     engines: {node: '>=18.12'}
 
   '@pnpm/workspace.read-manifest@1000.1.4':
@@ -3701,6 +3705,8 @@ snapshots:
   '@pnpm/types@1000.5.0': {}
 
   '@pnpm/util.lex-comparator@3.0.1': {}
+
+  '@pnpm/util.lex-comparator@3.0.2': {}
 
   '@pnpm/workspace.read-manifest@1000.1.4':
     dependencies:
