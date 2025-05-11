@@ -72,19 +72,10 @@
   "dependencies": {
     "@pnpm/constants": "catalog:",
     "@pnpm/find-workspace-dir": "catalog:",
-    "@pnpm/logger": "catalog:",
-    "@pnpm/workspace.find-packages": "catalog:",
     "@pnpm/workspace.read-manifest": "catalog:",
     "gunshi": "catalog:",
+    "pnpmc-workspace-find-packages": "workspace:*",
     "write-yaml-file": "^5.0.0"
-  },
-  "peerDependencies": {
-    "@pnpm/logger": "catalog:"
-  },
-  "peerDependenciesMeta": {
-    "@pnpm/logger": {
-      "optional": true
-    }
   },
   "devDependencies": {
     "pnpmc-utils": "workspace:*",

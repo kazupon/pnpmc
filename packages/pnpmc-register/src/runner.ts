@@ -10,10 +10,10 @@
 
 import { WORKSPACE_MANIFEST_FILENAME } from '@pnpm/constants'
 import { findWorkspaceDir } from '@pnpm/find-workspace-dir'
-import { findWorkspacePackages } from '@pnpm/workspace.find-packages'
 import { readWorkspaceManifest } from '@pnpm/workspace.read-manifest'
 import path from 'node:path'
 import { fail, log } from 'pnpmc-utils'
+import { findWorkspacePackages } from 'pnpmc-workspace-find-packages'
 import writeYamlFile from 'write-yaml-file'
 import meta from './meta.js'
 

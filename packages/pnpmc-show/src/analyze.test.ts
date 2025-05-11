@@ -1,6 +1,6 @@
-import { findWorkspacePackages } from '@pnpm/workspace.find-packages'
 import { readWorkspaceManifest } from '@pnpm/workspace.read-manifest'
 import path from 'node:path'
+import { findWorkspacePackages } from 'pnpmc-workspace-find-packages'
 import { describe, expect, test } from 'vitest'
 import {
   analyzeDependencies,

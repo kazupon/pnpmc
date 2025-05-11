@@ -1,6 +1,6 @@
 {
-  "name": "pnpmc",
-  "description": "PNPM Catalogs Tooling",
+  "name": "pnpmc-workspace-find-packages",
+  "description": "Finds packages inside a workspace",
   "version": "0.14.0-beta.8",
   "author": {
     "name": "kazuya kawaguchi",
@@ -14,10 +14,11 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kazupon/pnpmc.git",
-    "directory": "packages/pnpmc"
+    "directory": "packages/pnpmc-workspace-find-packages"
   },
   "keywords": [
     "pnpm",
+    "pnpmc",
     "catalogs"
   ],
   "publishConfig": {
@@ -27,33 +28,37 @@
     "node": ">= 20"
   },
   "type": "module",
-  "bin": {
-    "pnpmc": "./bin/cli.js"
-  },
   "files": [
-    "bin",
     "lib"
   ],
+  "module": "lib/index.js",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js",
+      "require": "./lib/index.js",
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "types": "lib/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./lib/*",
+        "./*"
+      ]
+    }
+  },
   "scripts": {
     "build": "tsdown"
   },
   "dependencies": {
-    "gunshi": "catalog:"
-  },
-  "peerDependencies": {
-    "pnpmc-register": "workspace:*",
-    "pnpmc-show": "workspace:*"
-  },
-  "peerDependenciesMeta": {
-    "pnpmc-register": {
-      "optional": true
-    },
-    "pnpmc-show": {
-      "optional": true
-    }
+    "@pnpm/fs.find-packages": "1000.0.10",
+    "@pnpm/util.lex-comparator": "3.0.1"
   },
   "devDependencies": {
-    "pnpmc-utils": "workspace:*",
+    "@pnpm/types": "1000.5.0",
     "tsdown": "catalog:"
   }
 }

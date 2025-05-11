@@ -1,7 +1,7 @@
 import { findWorkspaceDir } from '@pnpm/find-workspace-dir'
-import { findWorkspacePackages } from '@pnpm/workspace.find-packages'
 import { createCommandContext } from 'gunshi/context'
 import path from 'node:path'
+import { findWorkspacePackages } from 'pnpmc-workspace-find-packages'
 import { afterEach, expect, test, vi } from 'vitest'
 import writeYamlFile from 'write-yaml-file'
 
@@ -19,8 +19,8 @@ function defineMockLog(utils: typeof import('pnpmc-utils')): () => string {
 let _cacheProjects: Awaited<ReturnType<typeof findWorkspacePackages>> | undefined
 
 vi.mock('write-yaml-file')
-vi.mock('@pnpm/workspace.find-packages', async original => {
-  const mod = await original<typeof import('@pnpm/workspace.find-packages')>()
+vi.mock('pnpmc-workspace-find-packages', async original => {
+  const mod = await original<typeof import('pnpmc-workspace-find-packages')>()
   async function findWorkspacePackages(
     workspaceRoot: string,
     opts?: Parameters<typeof mod.findWorkspacePackages>[1]
