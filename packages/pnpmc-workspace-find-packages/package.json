@@ -54,7 +54,7 @@
     "build": "tsdown"
   },
   "dependencies": {
-    "@pnpm/fs.find-packages": "1000.0.10",
+    "@pnpm/fs.find-packages": "1000.0.11",
     "@pnpm/util.lex-comparator": "3.0.2"
   },
   "devDependencies": {
