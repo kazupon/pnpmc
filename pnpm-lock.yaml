@@ -166,8 +166,8 @@ importers:
         version: 3.0.2
     devDependencies:
       '@pnpm/types':
-        specifier: 1000.5.0
-        version: 1000.5.0
+        specifier: 1000.6.0
+        version: 1000.6.0
       tsdown:
         specifier: 'catalog:'
         version: 0.11.1(typescript@5.8.3)(unplugin-lightningcss@0.3.3)
