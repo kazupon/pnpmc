@@ -80,12 +80,18 @@ importers:
       gunshi:
         specifier: 'catalog:'
         version: 0.23.1
+      package-manager-detector:
+        specifier: ^1.3.0
+        version: 1.3.0
       pnpmc-register:
         specifier: workspace:*
         version: link:../pnpmc-register
       pnpmc-show:
         specifier: workspace:*
         version: link:../pnpmc-show
+      tinyexec:
+        specifier: ^1.0.1
+        version: 1.0.1
     devDependencies:
       pnpmc-utils:
         specifier: workspace:*
@@ -2441,8 +2447,8 @@ packages:
     resolution: {integrity: sha512-y3b8Kpd8OAN444hxfBbFfj1FY/RjtTd8tzYwhUqNYXx0fXx2iX4maP4Qr6qhIKbQXI02wTLAda4fYUbDagTUFw==}
     engines: {node: '>=6'}
 
-  package-manager-detector@1.0.0:
-    resolution: {integrity: sha512-7elnH+9zMsRo7aS72w6MeRugTpdRvInmEB4Kmm9BVvPw/SLG8gXUGQ+4wF0Mys0RSWPz0B9nuBbDe8vFeA2sfg==}
+  package-manager-detector@1.3.0:
+    resolution: {integrity: sha512-ZsEbbZORsyHuO00lY1kV3/t72yp6Ysay6Pd17ZAlNGuGwmWDLCJxFpRs0IzfXfj1o4icJOkUEioexFHzyPurSQ==}
 
   parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
@@ -4144,7 +4150,7 @@ snapshots:
       cac: 6.7.14
       escalade: 3.2.0
       jsonc-parser: 3.3.1
-      package-manager-detector: 1.0.0
+      package-manager-detector: 1.3.0
       semver: 7.7.1
       tinyexec: 0.3.2
       tinyglobby: 0.2.12
@@ -5411,7 +5417,7 @@ snapshots:
 
   p-map@2.1.0: {}
 
-  package-manager-detector@1.0.0: {}
+  package-manager-detector@1.3.0: {}
 
   parent-module@1.0.1:
     dependencies:

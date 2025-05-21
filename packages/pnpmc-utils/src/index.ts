@@ -37,7 +37,9 @@ export async function runCli<A extends Args = Args>(
     version: options.pkgJson.version,
     subCommands: options.subCommands,
     cwd: options.cwd,
-    renderHeader: async ctx => pc.cyanBright(await renderHeaderBase(ctx)),
+    renderHeader: !!process.env.PMPMC_LOADED
+      ? null
+      : async ctx => pc.cyanBright(await renderHeaderBase(ctx)),
     renderValidationErrors: async (ctx, e) => {
       const messages: string[] = []
       messages.push(pc.redBright(await renderValidationErrorsBase(ctx, e)))
