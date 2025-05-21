@@ -46,14 +46,6 @@
     "pnpmc-register": "workspace:*",
     "pnpmc-show": "workspace:*"
   },
-  "peerDependenciesMeta": {
-    "pnpmc-register": {
-      "optional": true
-    },
-    "pnpmc-show": {
-      "optional": true
-    }
-  },
   "devDependencies": {
     "pnpmc-utils": "workspace:*",
     "tsdown": "catalog:"
