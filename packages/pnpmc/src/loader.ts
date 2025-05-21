@@ -50,7 +50,7 @@ async function loadCommandRunner<A extends Args = Args>(
     }
   }
   if (mod === undefined) {
-    throw new Error(`Fatal Error: '${pkg}' Commnad Runner loading failed`)
+    throw new Error(`Fatal Error: '${pkg}' Command Runner loading failed`)
   }
   return mod
 }
