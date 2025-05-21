@@ -27,10 +27,7 @@ export async function load<A extends Args = Args>(pkg: string): Promise<CommandR
         nodeOptions: {
           cwd: ctx.env.cwd,
           stdio: 'inherit',
-          env: {
-            ...process.env,
-            PMPMC_LOADED: 'true'
-          }
+          env: Object.assign(Object.create(null), process.env, { PMPMC_LOADED: 'true' })
         }
       })
     }
@@ -50,7 +47,7 @@ async function loadCommandRunner<A extends Args = Args>(
     }
   }
   if (mod === undefined) {
-    throw new Error(`Fatal Error: '${pkg}' Command Runner loading failed`)
+    throw new Error(`Fatal Error: '${pkg}' Commnad Runner loading failed`)
   }
   return mod
 }
