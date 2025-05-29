@@ -35,7 +35,7 @@
     "@kazupon/eslint-config": "^0.29.0",
     "@kazupon/prettier-config": "^0.1.1",
     "@types/node": "^22.15.17",
-    "@typescript/native-preview": "7.0.0-dev.20250527.1",
+    "@typescript/native-preview": "7.0.0-dev.20250529.1",
     "bumpp": "^10.1.0",
     "eslint": "^9.26.0",
     "eslint-config-prettier": "^10.1.5",
