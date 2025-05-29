@@ -28,13 +28,14 @@
     "prepare": "git config --local core.hooksPath .githooks",
     "release": "bumpp package.json packages/**/package.json --commit \"release: v\" --all --push --tag",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsgo --noEmit --diagnostics"
   },
   "devDependencies": {
     "@eslint/markdown": "^6.4.0",
     "@kazupon/eslint-config": "^0.29.0",
     "@kazupon/prettier-config": "^0.1.1",
     "@types/node": "^22.15.17",
+    "@typescript/native-preview": "7.0.0-dev.20250527.1",
     "bumpp": "^10.1.0",
     "eslint": "^9.26.0",
     "eslint-config-prettier": "^10.1.5",
