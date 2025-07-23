@@ -175,8 +175,8 @@ importers:
         version: 3.0.2
     devDependencies:
       '@pnpm/types':
-        specifier: 1000.6.0
-        version: 1000.6.0
+        specifier: 1000.7.0
+        version: 1000.7.0
       tsdown:
         specifier: 'catalog:'
         version: 0.13.0(@typescript/native-preview@7.0.0-dev.20250529.1)(typescript@5.8.3)
@@ -905,10 +905,6 @@ packages:
 
   '@pnpm/types@1000.5.0':
     resolution: {integrity: sha512-R8yOeAfqTXW+REWa8UZ9KtDibpfybYhCKwvEtAp3HXcm8GHCg0JN4guZUybwh1yV9dYN354Kz9uAvd7VON2/WQ==}
-    engines: {node: '>=18.12'}
-
-  '@pnpm/types@1000.6.0':
-    resolution: {integrity: sha512-6PsMNe98VKPGcg6LnXSW/LE3YfJ77nj+bPKiRjYRWAQLZ+xXjEQRaR0dAuyjCmchlv4wR/hpnMVRS21/fCod5w==}
     engines: {node: '>=18.12'}
 
   '@pnpm/types@1000.7.0':
@@ -3748,8 +3744,6 @@ snapshots:
       strip-comments-strings: 1.2.0
 
   '@pnpm/types@1000.5.0': {}
-
-  '@pnpm/types@1000.6.0': {}
 
   '@pnpm/types@1000.7.0': {}
 
