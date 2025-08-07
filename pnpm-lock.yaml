@@ -168,8 +168,8 @@ importers:
   packages/pnpmc-workspace-find-packages:
     dependencies:
       '@pnpm/fs.find-packages':
-        specifier: 1000.0.12
-        version: 1000.0.12(@pnpm/logger@1001.0.0)
+        specifier: 1000.0.13
+        version: 1000.0.13(@pnpm/logger@1001.0.0)
       '@pnpm/util.lex-comparator':
         specifier: 3.0.2
         version: 3.0.2
@@ -865,24 +865,24 @@ packages:
     resolution: {integrity: sha512-xb9dfSGi1qfUKY3r4Zy9JdC9+ZeaDxwfE7HrrGIEsBVY1hvIn6ntbR7A97z3nk44yX7vwbINNf9sizTp0WEtEw==}
     engines: {node: '>=18.12'}
 
-  '@pnpm/constants@1001.2.0':
-    resolution: {integrity: sha512-ohlStawRU3+C1AvUPtfkK+HfZ/5UbDGO79dujS2dbTpzl3O03L3Ggk7nnH361ubbMYZqp4yWlX030xhMGpr8Nw==}
+  '@pnpm/constants@1001.3.0':
+    resolution: {integrity: sha512-ZFRekNHbDlu//67Byg+mG8zmtmCsfBhNsg1wKBLRtF7VjH+Q5TDGMX0+8aJYSikQDuzM2FOhvQcDwyjILKshJQ==}
     engines: {node: '>=18.12'}
 
   '@pnpm/error@1000.0.2':
     resolution: {integrity: sha512-2SfE4FFL73rE1WVIoESbqlj4sLy5nWW4M/RVdHvCRJPjlQHa9MH7m7CVJM204lz6I+eHoB+E7rL3zmpJR5wYnQ==}
     engines: {node: '>=18.12'}
 
-  '@pnpm/error@1000.0.3':
-    resolution: {integrity: sha512-Sr1wmJitZ768J+9MJVXXyd7tRaX3qThEiFH1K0AQovy2sIbLqo73MITphfVZH3YWIElt+Y1uMDnUZa676ZDA8g==}
+  '@pnpm/error@1000.0.4':
+    resolution: {integrity: sha512-22mG/Mq4u2r7gr2+XY5j4GlN7J4Mg4WiCfT9flvsUc1uZecShocv6WkyoA20qs14M64f6I+aaWB6b6xsDiITlg==}
     engines: {node: '>=18.12'}
 
   '@pnpm/find-workspace-dir@1000.1.0':
     resolution: {integrity: sha512-K5iG/z0SLV6bVW1jIYvbNBI6vWAD6ETJKyWj/wwHr7hxloxtm9xJCGbe/41pmM9nfFFUPbr1Z0YOi4q9yWkj6g==}
     engines: {node: '>=18.12'}
 
-  '@pnpm/fs.find-packages@1000.0.12':
-    resolution: {integrity: sha512-Hgriu6Xwz+Yq6H9ErnHcPhasC5xTO5DWsRIdfps1y0AgHM89K84/6AGW1z63hMy6xULO4Xn9UiydvFya/EvdhQ==}
+  '@pnpm/fs.find-packages@1000.0.13':
+    resolution: {integrity: sha512-YxQRYJ/xvcMhTz9ubLFgdweT5lXDuSFrU4VCxU8i0usmCI4P7s+MwjEsgGPxh2pluYrlEhVrz9DHmhp/JN7gmA==}
     engines: {node: '>=18.12'}
 
   '@pnpm/graceful-fs@1000.0.0':
@@ -893,8 +893,8 @@ packages:
     resolution: {integrity: sha512-nj80XtTHHt7T+b5stLWszzd166MbGx4eTOu9+6h6RdelKMlSWhrb7KUb0j90tYk+yoGx8TeMVdJCaoBnkLp8xw==}
     engines: {node: '>=18.12'}
 
-  '@pnpm/read-project-manifest@1001.0.0':
-    resolution: {integrity: sha512-N5QKnuibtv6bJnmnNbI98D0unz4tSF6sLxQcKi3nIZjWTHSdWHwHAUPx2idw1mVtt39PWwZAOtRVIbystY8uLA==}
+  '@pnpm/read-project-manifest@1001.1.0':
+    resolution: {integrity: sha512-1pZGgfRhYfcUTqpI4KyylQRNAPKerdrzGiTvqNu7TVur4vTnmeaSuqcDcJRNeKhbsIFMZXcn3ByZo/KUOrSBUw==}
     engines: {node: '>=18.12'}
     peerDependencies:
       '@pnpm/logger': '>=1001.0.0 <1002.0.0'
@@ -3689,24 +3689,24 @@ snapshots:
 
   '@pnpm/constants@1001.1.0': {}
 
-  '@pnpm/constants@1001.2.0': {}
+  '@pnpm/constants@1001.3.0': {}
 
   '@pnpm/error@1000.0.2':
     dependencies:
       '@pnpm/constants': 1001.1.0
 
-  '@pnpm/error@1000.0.3':
+  '@pnpm/error@1000.0.4':
     dependencies:
-      '@pnpm/constants': 1001.2.0
+      '@pnpm/constants': 1001.3.0
 
   '@pnpm/find-workspace-dir@1000.1.0':
     dependencies:
       '@pnpm/error': 1000.0.2
       find-up: 5.0.0
 
-  '@pnpm/fs.find-packages@1000.0.12(@pnpm/logger@1001.0.0)':
+  '@pnpm/fs.find-packages@1000.0.13(@pnpm/logger@1001.0.0)':
     dependencies:
-      '@pnpm/read-project-manifest': 1001.0.0(@pnpm/logger@1001.0.0)
+      '@pnpm/read-project-manifest': 1001.1.0(@pnpm/logger@1001.0.0)
       '@pnpm/types': 1000.7.0
       '@pnpm/util.lex-comparator': 3.0.2
       p-filter: 2.1.0
@@ -3723,10 +3723,10 @@ snapshots:
       bole: 5.0.19
       ndjson: 2.0.0
 
-  '@pnpm/read-project-manifest@1001.0.0(@pnpm/logger@1001.0.0)':
+  '@pnpm/read-project-manifest@1001.1.0(@pnpm/logger@1001.0.0)':
     dependencies:
       '@gwhitney/detect-indent': 7.0.1
-      '@pnpm/error': 1000.0.3
+      '@pnpm/error': 1000.0.4
       '@pnpm/graceful-fs': 1000.0.0
       '@pnpm/logger': 1001.0.0
       '@pnpm/text.comments-parser': 1000.0.0
