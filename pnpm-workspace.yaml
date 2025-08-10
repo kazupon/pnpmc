@@ -2,7 +2,7 @@ packages:
   - packages/*
 catalog:
   gunshi: ^0.26.0
-  tsdown: ^0.13.0
+  tsdown: ^0.14.0
   '@pnpm/constants': ^1001.1.0
   '@pnpm/find-workspace-dir': ^1000.1.0
   '@pnpm/workspace.read-manifest': ^1000.1.4
