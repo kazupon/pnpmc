@@ -23,7 +23,7 @@ jobs:
     name: Lint on Node.js ${{ matrix.node-version }}
     steps:
       - name: Checkout codes
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -52,7 +52,7 @@ jobs:
     name: Test on Node.js ${{ matrix.node-version }}
     steps:
       - name: Checkout codes
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -79,7 +79,7 @@ jobs:
     name: Build on Node.js ${{ matrix.node-version }}
     steps:
       - name: Checkout codes
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -106,7 +106,7 @@ jobs:
     name: Test on Node.js ${{ matrix.node-version }}
     steps:
       - name: Checkout codes
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
