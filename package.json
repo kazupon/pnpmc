@@ -31,7 +31,7 @@
     "typecheck": "tsgo --noEmit --diagnostics"
   },
   "devDependencies": {
-    "@eslint/markdown": "^6.4.0",
+    "@eslint/markdown": "^7.0.0",
     "@kazupon/eslint-config": "^0.32.0",
     "@kazupon/prettier-config": "^0.1.1",
     "@types/node": "^22.15.17",
