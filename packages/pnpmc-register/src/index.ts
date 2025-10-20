@@ -8,7 +8,5 @@
  * @license MIT
  */
 
-import meta from './meta.js'
-import run from './runner.js'
-
-export default { ...meta, run }
+export { default as meta } from './meta.js'
+export { default as run } from './runner.js'

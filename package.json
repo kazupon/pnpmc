@@ -62,7 +62,8 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild",
-      "rolldown"
+      "rolldown",
+      "unrs-resolver"
     ]
   },
   "prettier": "@kazupon/prettier-config",
