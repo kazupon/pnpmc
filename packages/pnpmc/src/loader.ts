@@ -10,9 +10,7 @@ import type { Args, CommandContext, CommandRunner } from 'gunshi'
 
 export async function load<A extends Args = Args>(pkg: string): Promise<CommandRunner<A>> {
   const mod = await loadCommandRunner<A>(`${pkg}/runner`)
-  if (mod != null) {
-    return mod
-  } else {
+  if (mod == null) {
     const pm = await detect()
     if (pm == null) {
       throw new Error('Fatal Error: Cannot detect package manager')
@@ -32,6 +30,8 @@ export async function load<A extends Args = Args>(pkg: string): Promise<CommandR
       })
     }
     return runner
+  } else {
+    return mod
   }
 }
 
@@ -41,8 +41,8 @@ async function loadCommandRunner<A extends Args = Args>(
   let mod: Promise<CommandRunner<A> | null> | undefined
   try {
     mod = await import(pkg).then(m => m.default || m)
-  } catch (e: unknown) {
-    if (isErrorModuleNotFound(e)) {
+  } catch (error: unknown) {
+    if (isErrorModuleNotFound(error)) {
       mod = Promise.resolve(null)
     }
   }

@@ -61,6 +61,20 @@ interface WritableWorkspaceManifest {
   catalogs?: WorkspaceNamedCatalogs
 }
 
+function override(
+  catalog: WorkspaceCatalog,
+  catalogName: string,
+  alias: string,
+  dependency: string
+): string {
+  if (catalog[dependency] === alias) {
+    return ''
+  } else {
+    catalog[dependency] = alias
+    return `📙 Registered '${dependency}' as '${alias}' in Catalog '${catalogName}'`
+  }
+}
+
 async function registerCatalog(
   workspaceDir: string,
   dependency: string,
@@ -70,20 +84,6 @@ async function registerCatalog(
   const manifest = await readWorkspaceManifest(workspaceDir)
   if (manifest == null) {
     fail('No workspace manifest found')
-  }
-
-  function override(
-    catalog: WorkspaceCatalog,
-    catalogName: string,
-    alias: string,
-    dependency: string
-  ): string {
-    if (catalog[dependency] !== alias) {
-      catalog[dependency] = alias
-      return `📙 Registered '${dependency}' as '${alias}' in Catalog '${catalogName}'`
-    } else {
-      return ''
-    }
   }
 
   const writableManifest = structuredClone(manifest) as unknown as WritableWorkspaceManifest
@@ -97,7 +97,7 @@ async function registerCatalog(
     ret = override(_catalog, catalog, alias, dependency)
   }
 
-  if (!ret.length) {
+  if (ret.length === 0) {
     return `📙 No update, '${catalog}' is already registered in Catalog`
   }
 

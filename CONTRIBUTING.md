@@ -28,7 +28,6 @@
 - It's OK to have multiple small commits as you work on the PR - we will let GitHub automatically squash it before merging.
 
 - If adding new feature:
-
   - Provide convincing reason to add this feature. Ideally you should open a suggestion issue first and have it greenlighted before working on it.
 
 - If fixing a bug:
@@ -46,15 +45,19 @@
 
 After cloning the repo, run:
 
-    $ pnpm install
+```sh
+pnpm install
+```
 
 ### Commonly used NPM scripts
 
-    # lint source codes
-    $ pnpm lint
+```sh
+# lint source codes
+pnpm lint
 
-    # code format and lint fix
-    $ pnpm fix
+# code format and lint fix
+pnpm fix
+```
 
 There are some other scripts available in the `scripts` section of the `package.json` file.
 

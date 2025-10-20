@@ -74,7 +74,7 @@ The development of Gunish is supported by my OSS sponsors!
 
 <p align="center">
   <a href="https://cdn.jsdelivr.net/gh/kazupon/sponsors/sponsors.svg">
-    <img src='https://cdn.jsdelivr.net/gh/kazupon/sponsors/sponsors.svg'/>
+    <img alt="sponsor" src='https://cdn.jsdelivr.net/gh/kazupon/sponsors/sponsors.svg'/>
   </a>
 </p>
 

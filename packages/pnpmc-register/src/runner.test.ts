@@ -49,8 +49,8 @@ afterEach(() => {
 })
 
 test('basic', async () => {
-  const meta = (await import('./meta.js')).default
-  const run = (await import('./runner.js')).default
+  const { default: meta } = await import('./meta.js')
+  const { default: run } = await import('./runner.js')
   const utils = await import('pnpmc-utils')
   const log = defineMockLog(utils)
   const mockWriteYamlFile = vi.mocked(writeYamlFile)
@@ -113,8 +113,8 @@ test('basic', async () => {
 })
 
 test('default catalog', async () => {
-  const meta = (await import('./meta.js')).default
-  const run = (await import('./runner.js')).default
+  const { default: meta } = await import('./meta.js')
+  const { default: run } = await import('./runner.js')
   const utils = await import('pnpmc-utils')
   const log = defineMockLog(utils)
   const mockWriteYamlFile = vi.mocked(writeYamlFile)

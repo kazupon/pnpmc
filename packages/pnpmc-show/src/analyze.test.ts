@@ -9,14 +9,16 @@ import {
 } from './analyze.js'
 
 test('collectCatalogDependencies', async () => {
-  const manifest = await readWorkspaceManifest(path.resolve(__dirname, '../test/fixtures/default'))
+  const manifest = await readWorkspaceManifest(
+    path.resolve(import.meta.dirname, '../test/fixtures/default')
+  )
   const deps = collectCatalogDependencies(manifest!)
   expect([...deps]).toEqual(['typescript'])
 })
 
 test('collectProjectDependencies', async () => {
   const projects = await findWorkspacePackages(
-    path.resolve(__dirname, '../test/fixtures/no-catalog')
+    path.resolve(import.meta.dirname, '../test/fixtures/no-catalog')
   )
   const deps = collectProjectDependencies(projects)
   const [root, package1, package2] = projects
@@ -27,7 +29,7 @@ test('collectProjectDependencies', async () => {
 
 describe('analyzeDependencies', () => {
   test('no catalog', async () => {
-    const workspaceDir = path.resolve(__dirname, '../test/fixtures/no-catalog')
+    const workspaceDir = path.resolve(import.meta.dirname, '../test/fixtures/no-catalog')
     const manifest = await readWorkspaceManifest(workspaceDir)
     const deps = await analyzeDependencies(workspaceDir, manifest!)
 
@@ -46,7 +48,7 @@ describe('analyzeDependencies', () => {
   })
 
   test('defined catalog', async () => {
-    const workspaceDir = path.resolve(__dirname, '../test/fixtures/defined-catalog')
+    const workspaceDir = path.resolve(import.meta.dirname, '../test/fixtures/defined-catalog')
     const manifest = await readWorkspaceManifest(workspaceDir)
     const deps = await analyzeDependencies(workspaceDir, manifest!)
 
@@ -54,7 +56,7 @@ describe('analyzeDependencies', () => {
   })
 
   test('defined with named catalog', async () => {
-    const workspaceDir = path.resolve(__dirname, '../test/fixtures/named')
+    const workspaceDir = path.resolve(import.meta.dirname, '../test/fixtures/named')
     const manifest = await readWorkspaceManifest(workspaceDir)
     const deps = await analyzeDependencies(workspaceDir, manifest!)
 
@@ -62,7 +64,10 @@ describe('analyzeDependencies', () => {
   })
 
   test('dep still is not yet in the catalog', async () => {
-    const workspaceDir = path.resolve(__dirname, '../test/fixtures/still-not-defined-catalog')
+    const workspaceDir = path.resolve(
+      import.meta.dirname,
+      '../test/fixtures/still-not-defined-catalog'
+    )
     const manifest = await readWorkspaceManifest(workspaceDir)
     const deps = await analyzeDependencies(workspaceDir, manifest!)
 
@@ -81,7 +86,7 @@ describe('analyzeDependencies', () => {
   })
 
   test('dep in root', async () => {
-    const workspaceDir = path.resolve(__dirname, '../test/fixtures/root')
+    const workspaceDir = path.resolve(import.meta.dirname, '../test/fixtures/root')
     const manifest = await readWorkspaceManifest(workspaceDir)
     const deps = await analyzeDependencies(workspaceDir, manifest!)
 
@@ -105,7 +110,7 @@ describe('analyzeDependencies', () => {
   })
 
   test('workspace', async () => {
-    const workspaceDir = path.resolve(__dirname, '../test/fixtures/workspace')
+    const workspaceDir = path.resolve(import.meta.dirname, '../test/fixtures/workspace')
     const manifest = await readWorkspaceManifest(workspaceDir)
     const deps = await analyzeDependencies(workspaceDir, manifest!)
 
@@ -113,7 +118,7 @@ describe('analyzeDependencies', () => {
   })
 
   test('devDependencies', async () => {
-    const workspaceDir = path.resolve(__dirname, '../test/fixtures/dev-deps')
+    const workspaceDir = path.resolve(import.meta.dirname, '../test/fixtures/dev-deps')
     const manifest = await readWorkspaceManifest(workspaceDir)
     const deps = await analyzeDependencies(workspaceDir, manifest!)
 

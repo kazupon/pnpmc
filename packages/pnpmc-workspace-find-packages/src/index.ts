@@ -22,7 +22,6 @@ import { lexCompare } from '@pnpm/util.lex-comparator'
 import type { Project, SupportedArchitectures } from '@pnpm/types'
 
 export type WorkspacePackagesPatterns = 'all-packages' | string[]
-export type { Project }
 
 export interface FindWorkspacePackagesOpts {
   /**
@@ -62,3 +61,5 @@ export async function findWorkspacePackagesNoCheck(
   )
   return pkgs
 }
+
+export { type Project } from '@pnpm/types'

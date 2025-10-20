@@ -64,7 +64,7 @@ function catalogs(manifest: WorkspaceManifest): string {
   if (manifest.catalog) {
     catalogs += '  default:\n'
     const sortedCatalog = new Map(
-      [...Object.entries(manifest.catalog)].sort((a, b) => a[0].localeCompare(b[0]))
+      [...Object.entries(manifest.catalog)].toSorted((a, b) => a[0].localeCompare(b[0]))
     )
     for (const [dep, ver] of sortedCatalog.entries()) {
       catalogs += `    ${dep}: ${ver}\n`
@@ -89,7 +89,7 @@ function catalogableDependencies(
   let text = `📦 Catalogable Dependencies (${catalogableDeps.size}):\n`
 
   const sortedCatalogableDeps = new Map(
-    [...catalogableDeps.entries()].sort((a, b) => a[0].localeCompare(b[0]))
+    [...catalogableDeps.entries()].toSorted((a, b) => a[0].localeCompare(b[0]))
   )
   for (const [depName, deps] of sortedCatalogableDeps.entries()) {
     text += `  ${depName}:\n`
@@ -97,12 +97,8 @@ function catalogableDependencies(
     const depsNameMaxLength = Math.max(...deps.map(dep => dep.name?.length || 0))
     for (const dep of deps) {
       text += `    ${dep.path.padEnd(depsPathMaxLength)}`
-      if (dep.name) {
-        // NOTE: padEnd with 3 spaces for `()`
-        text += ` ${`(${dep.name})`.padEnd(depsNameMaxLength + 3)}: `
-      } else {
-        text += ': '
-      }
+      // NOTE: padEnd with 3 spaces for `()`
+      text += dep.name ? ` ${`(${dep.name})`.padEnd(depsNameMaxLength + 3)}: ` : ': '
       text += `${dep.alias}\n`
     }
   }

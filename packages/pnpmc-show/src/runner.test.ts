@@ -18,8 +18,8 @@ afterEach(() => {
 })
 
 test('default', async () => {
-  const meta = (await import('./meta.js')).default
-  const run = (await import('./runner.js')).default
+  const { default: meta } = await import('./meta.js')
+  const { default: run } = await import('./runner.js')
   const utils = await import('pnpmc-utils')
   const log = defineMockLog(utils)
   // @ts-ignore
@@ -49,8 +49,8 @@ test('default', async () => {
 })
 
 test('catalog only', async () => {
-  const meta = (await import('./meta.js')).default
-  const run = (await import('./runner.js')).default
+  const { default: meta } = await import('./meta.js')
+  const { default: run } = await import('./runner.js')
   const utils = await import('pnpmc-utils')
   const log = defineMockLog(utils)
   // @ts-ignore
@@ -80,8 +80,8 @@ test('catalog only', async () => {
 })
 
 test('dependency only', async () => {
-  const meta = (await import('./meta.js')).default
-  const run = (await import('./runner.js')).default
+  const { default: meta } = await import('./meta.js')
+  const { default: run } = await import('./runner.js')
   const utils = await import('pnpmc-utils')
   const log = defineMockLog(utils)
   // @ts-ignore
@@ -111,8 +111,8 @@ test('dependency only', async () => {
 })
 
 test('both option enable', async () => {
-  const meta = (await import('./meta.js')).default
-  const run = (await import('./runner.js')).default
+  const { default: meta } = await import('./meta.js')
+  const { default: run } = await import('./runner.js')
   const utils = await import('pnpmc-utils')
   const log = defineMockLog(utils)
   // @ts-ignore

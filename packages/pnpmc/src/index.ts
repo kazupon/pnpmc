@@ -3,11 +3,11 @@
  * @license MIT
  */
 
-import { fail, runCli } from 'pnpmc-utils'
+import { runCli } from 'pnpmc-utils'
 import { commands, showLazy } from './commands.js'
 
 async function main() {
-  const pkgJson = (await import('../package.json', { with: { type: 'json' } })).default
+  const { default: pkgJson } = await import('../package.json', { with: { type: 'json' } })
   await runCli(process.argv.slice(2), showLazy, {
     pkgJson,
     cwd: process.cwd(),
@@ -15,6 +15,4 @@ async function main() {
   })
 }
 
-main().catch(error => {
-  fail(error)
-})
+await main()
