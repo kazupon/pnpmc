@@ -10,7 +10,12 @@ import {
 } from 'gunshi/renderer'
 import pc from 'picocolors'
 
-import type { Args, Command, LazyCommand } from 'gunshi'
+import type { PluginId as RendererId, UsageRendererExtension } from '@gunshi/plugin-renderer'
+import type { Args, CliOptions, Command, DefaultGunshiParams, GunshiParams } from 'gunshi'
+
+const rendererId: RendererId = 'g:renderer'
+
+type PnpmcExtension = Record<RendererId, UsageRendererExtension>
 
 export function log(...args: unknown[]): void {
   console.log(...args)
@@ -22,17 +27,12 @@ export function fail(...messages: unknown[]): never {
   process.exit(1)
 }
 
-export async function runCli<A extends Args = Args>(
+export async function runCli<G extends GunshiParams = DefaultGunshiParams>(
   args: string[],
-  entry: Command<A>,
-  options: {
-    pkgJson: { name: string; description: string; version: string }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- NOTE: This is a workaround for the lack of a proper type
-    subCommands?: Map<string, Command<any> | LazyCommand<any>>
-    cwd: string
-  }
+  entry: Command<G>,
+  options: CliOptions<G> & { pkgJson: { name: string; description: string; version: string } }
 ) {
-  await cli(args, entry, {
+  await cli<GunshiParams<{ extensions: PnpmcExtension; args: Args }>>(args, entry, {
     name: options.pkgJson.name,
     description: options.pkgJson.description,
     version: options.pkgJson.version,
@@ -42,14 +42,17 @@ export async function runCli<A extends Args = Args>(
       ? null
       : async ctx => pc.cyanBright(await renderHeaderBase(ctx)),
     renderValidationErrors: async (ctx, e) => {
+      const renderer = ctx.extensions[rendererId]
       const messages: string[] = []
+
+      // render validation errors of gunshi core
       messages.push(pc.redBright(await renderValidationErrorsBase(ctx, e)))
-      // eslint-disable-next-line unicorn/prefer-single-call -- NOTE: readability
-      messages.push(
-        '',
-        `For more info, run \`${ctx.env.name || ctx.translate('COMMAND')} ${ctx.name || ctx.translate('SUBCOMMAND')} --help\``,
-        ''
-      )
+
+      // render help suggestion
+      const cmdName = ctx.env.name ?? renderer?.text('_:COMMAND') ?? '<command>'
+      const subCmdName = ctx.name ?? renderer?.text('_:SUBCOMMAND') ?? '<subcommand>'
+      messages.push('', `For more info, run \`${cmdName} ${subCmdName} --help\``, '')
+
       return messages.join('\n')
     }
   })

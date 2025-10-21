@@ -19,7 +19,7 @@ import meta from './meta.js'
 
 import type { CommandRunner } from 'gunshi'
 
-const run: CommandRunner<NonNullable<typeof meta.args>> = async ctx => {
+const run: CommandRunner<{ args: typeof meta.args }> = async ctx => {
   const { dependency, alias, catalog } = ctx.values
   await register(ctx.env.cwd!, dependency, alias, catalog)
 }

@@ -8,7 +8,7 @@
  * @license MIT
  */
 
-import type { Args, Command } from 'gunshi'
+import { defineWithTypes } from 'gunshi/definition'
 
 const args = {
   catalog: {
@@ -23,12 +23,12 @@ const args = {
     short: 'd',
     default: false
   }
-} satisfies Args
+} as const
 
-export default {
+export default defineWithTypes<{ args: typeof args }>()({
   name: 'show',
-  description: 'Show the catalog and catalogable dependencies (default command)',
   args,
+  description: 'Show the catalog and catalogable dependencies (default command)',
   examples: async ctx => `# Show the catalog and catalogable dependencies:
 ${ctx.callMode === 'entry' ? ctx.env.name : `${ctx.env.name} ${ctx.name}`} # \`pnpmc\` is equivalent to \`pnpm show\``
-} satisfies Command<typeof args>
+})

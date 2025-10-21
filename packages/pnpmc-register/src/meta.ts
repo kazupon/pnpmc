@@ -8,7 +8,7 @@
  * @license MIT
  */
 
-import type { Args, Command } from 'gunshi'
+import { defineWithTypes } from 'gunshi/definition'
 
 const args = {
   catalog: {
@@ -29,12 +29,12 @@ const args = {
     short: 'a',
     required: true
   }
-} satisfies Args
+} as const
 
-export default {
+export default defineWithTypes<{ args: typeof args }>()({
   name: 'register',
   description: 'Register the dependency to the catalog',
   args,
   examples: async ctx => `# Register the dependency to the catalog:
 ${ctx.callMode === 'entry' ? ctx.env.name : `${ctx.env.name} ${ctx.name}`} --dependency typescript --alias ^5.7.9 --catalog tools`
-} satisfies Command<typeof args>
+})
