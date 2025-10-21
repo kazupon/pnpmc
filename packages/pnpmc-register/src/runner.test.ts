@@ -56,7 +56,7 @@ test('basic', async () => {
   const mockWriteYamlFile = vi.mocked(writeYamlFile)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../test/fixtures/basic')
-  const ctx = await createCommandContext({
+  const ctx = await createCommandContext<{ args: typeof meta.args }>({
     args: meta.args,
     values: {
       dependency: 'typescript',
@@ -120,7 +120,7 @@ test('default catalog', async () => {
   const mockWriteYamlFile = vi.mocked(writeYamlFile)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../test/fixtures/basic')
-  const ctx = await createCommandContext({
+  const ctx = await createCommandContext<{ args: typeof meta.args }>({
     args: meta.args,
     values: {
       dependency: 'typescript',

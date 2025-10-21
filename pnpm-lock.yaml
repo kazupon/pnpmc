@@ -44,9 +44,6 @@ importers:
       '@types/node':
         specifier: ^22.18.11
         version: 22.18.11
-      '@typescript/native-preview':
-        specifier: 7.0.0-dev.20251019.1
-        version: 7.0.0-dev.20251019.1
       bumpp:
         specifier: ^10.3.1
         version: 10.3.1
@@ -4517,6 +4514,7 @@ snapshots:
       '@typescript/native-preview-linux-x64': 7.0.0-dev.20251019.1
       '@typescript/native-preview-win32-arm64': 7.0.0-dev.20251019.1
       '@typescript/native-preview-win32-x64': 7.0.0-dev.20251019.1
+    optional: true
 
   '@unrs/resolver-binding-android-arm-eabi@1.11.1':
     optional: true

@@ -28,7 +28,7 @@
     "prepare": "git config --local core.hooksPath .githooks",
     "release": "bumpp package.json packages/**/package.json --commit \"release: v\" --all --push --tag",
     "test": "vitest run",
-    "typecheck": "tsgo --noEmit --diagnostics"
+    "typecheck": "tsc --noEmit --diagnostics"
   },
   "devDependencies": {
     "@eslint/compat": "^1.4.0",
@@ -36,7 +36,6 @@
     "@kazupon/eslint-config": "^0.37.2",
     "@kazupon/prettier-config": "^0.1.1",
     "@types/node": "^22.18.11",
-    "@typescript/native-preview": "7.0.0-dev.20251019.1",
     "bumpp": "^10.3.1",
     "eslint": "^9.38.0",
     "eslint-config-prettier": "^10.1.8",

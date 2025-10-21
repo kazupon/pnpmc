@@ -10,7 +10,6 @@ catalog:
   '@pnpm/workspace.read-manifest': ^1000.2.4
 minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
-  - '@typescript/native-preview'
   - '@kazupon/eslint-config'
   - knip
   - eslint
