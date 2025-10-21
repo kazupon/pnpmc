@@ -13,7 +13,7 @@ import pc from 'picocolors'
 import type { PluginId as RendererId, UsageRendererExtension } from '@gunshi/plugin-renderer'
 import type { Args, CliOptions, Command, DefaultGunshiParams, GunshiParams } from 'gunshi'
 
-const rendererId = 'g:renderer'
+const rendererId: RendererId = 'g:renderer'
 
 type PnpmcExtension = Record<RendererId, UsageRendererExtension>
 
@@ -30,11 +30,7 @@ export function fail(...messages: unknown[]): never {
 export async function runCli<G extends GunshiParams = DefaultGunshiParams>(
   args: string[],
   entry: Command<G>,
-  options: {
-    pkgJson: { name: string; description: string; version: string }
-    subCommands?: CliOptions['subCommands']
-    cwd: string
-  }
+  options: CliOptions<G> & { pkgJson: { name: string; description: string; version: string } }
 ) {
   await cli<GunshiParams<{ extensions: PnpmcExtension; args: Args }>>(args, entry, {
     name: options.pkgJson.name,
@@ -48,13 +44,15 @@ export async function runCli<G extends GunshiParams = DefaultGunshiParams>(
     renderValidationErrors: async (ctx, e) => {
       const renderer = ctx.extensions[rendererId]
       const messages: string[] = []
+
+      // render validation errors of gunshi core
       messages.push(pc.redBright(await renderValidationErrorsBase(ctx, e)))
-      // eslint-disable-next-line unicorn/prefer-single-call -- NOTE: readability
-      messages.push(
-        '',
-        `For more info, run \`${ctx.env.name || renderer.text('_:COMMAND')} ${ctx.name || renderer.text('_:SUBCOMMAND')} --help\``,
-        ''
-      )
+
+      // render help suggestion
+      const cmdName = ctx.env.name ?? renderer?.text('_:COMMAND') ?? '<command>'
+      const subCmdName = ctx.name ?? renderer?.text('_:SUBCOMMAND') ?? '<subcommand>'
+      messages.push('', `For more info, run \`${cmdName} ${subCmdName} --help\``, '')
+
       return messages.join('\n')
     }
   })
