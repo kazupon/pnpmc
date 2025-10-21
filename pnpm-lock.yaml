@@ -209,9 +209,6 @@ importers:
       '@pnpm/util.lex-comparator':
         specifier: 3.0.2
         version: 3.0.2
-      gunshi:
-        specifier: 'catalog:'
-        version: 0.27.0-beta.2
     devDependencies:
       '@pnpm/types':
         specifier: 1000.8.0
