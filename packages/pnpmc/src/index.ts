@@ -4,14 +4,17 @@
  */
 
 import { runCli } from 'pnpmc-utils'
-import { commands, showLazy } from './commands.js'
+import { registerLazy as register, showLazy as show } from './commands.js'
 
 async function main() {
   const { default: pkgJson } = await import('../package.json', { with: { type: 'json' } })
-  await runCli(process.argv.slice(2), showLazy, {
+  await runCli(process.argv.slice(2), show, {
     pkgJson,
     cwd: process.cwd(),
-    subCommands: commands
+    subCommands: {
+      register,
+      show
+    }
   })
 }
 

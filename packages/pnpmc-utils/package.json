@@ -26,6 +26,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@gunshi/plugin-renderer": "catalog:",
     "gunshi": "catalog:",
     "picocolors": "^1.1.1"
   }

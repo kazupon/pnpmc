@@ -6,16 +6,18 @@
 import { detect, resolveCommand } from 'package-manager-detector'
 import { x } from 'tinyexec'
 
-import type { Args, CommandContext, CommandRunner } from 'gunshi'
+import type { CommandContext, CommandRunner, GunshiParamsConstraint } from 'gunshi'
 
-export async function load<A extends Args = Args>(pkg: string): Promise<CommandRunner<A>> {
-  const mod = await loadCommandRunner<A>(`${pkg}/runner`)
+export async function load<G extends GunshiParamsConstraint>(
+  pkg: string
+): Promise<CommandRunner<G>> {
+  const mod = await loadCommandRunner<G>(`${pkg}/runner`)
   if (mod == null) {
     const pm = await detect()
     if (pm == null) {
       throw new Error('Fatal Error: Cannot detect package manager')
     }
-    async function runner<A extends Args>(ctx: CommandContext<A>): Promise<void> {
+    async function runner<G extends GunshiParamsConstraint>(ctx: CommandContext<G>): Promise<void> {
       const subCommand = ctx.env.version ? `${pkg}@${ctx.env.version}` : pkg
       const resolvedCommand = resolveCommand(pm!.agent, 'execute', [subCommand, ...ctx._.slice(1)]) // resolved args with removed the sub-command of parent command
       if (resolvedCommand == null) {
@@ -35,10 +37,10 @@ export async function load<A extends Args = Args>(pkg: string): Promise<CommandR
   }
 }
 
-async function loadCommandRunner<A extends Args = Args>(
+async function loadCommandRunner<G extends GunshiParamsConstraint>(
   pkg: string
-): Promise<CommandRunner<A> | null> {
-  let mod: Promise<CommandRunner<A> | null> | undefined
+): Promise<CommandRunner<G> | null> {
+  let mod: Promise<CommandRunner<G> | null> | undefined
   try {
     mod = await import(pkg).then(m => m.default || m)
   } catch (error: unknown) {

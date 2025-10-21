@@ -24,7 +24,7 @@ test('default', async () => {
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../test/fixtures/basic')
-  const ctx = await createCommandContext({
+  const ctx = await createCommandContext<{ args: typeof meta.args }>({
     args: meta.args,
     values: {
       catalog: false,
@@ -55,7 +55,7 @@ test('catalog only', async () => {
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../test/fixtures/basic')
-  const ctx = await createCommandContext({
+  const ctx = await createCommandContext<{ args: typeof meta.args }>({
     args: meta.args,
     values: {
       catalog: true,
@@ -86,7 +86,7 @@ test('dependency only', async () => {
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../test/fixtures/basic')
-  const ctx = await createCommandContext({
+  const ctx = await createCommandContext<{ args: typeof meta.args }>({
     args: meta.args,
     values: {
       catalog: false,
@@ -117,7 +117,7 @@ test('both option enable', async () => {
   const log = defineMockLog(utils)
   // @ts-ignore
   const cwd = path.resolve(import.meta.dirname, '../test/fixtures/basic')
-  const ctx = await createCommandContext({
+  const ctx = await createCommandContext<{ args: typeof meta.args }>({
     args: meta.args,
     values: {
       catalog: true,

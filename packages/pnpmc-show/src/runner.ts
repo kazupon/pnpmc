@@ -18,7 +18,7 @@ import meta from './meta.js'
 import type { WorkspaceManifest } from '@pnpm/workspace.read-manifest'
 import type { CommandRunner } from 'gunshi'
 
-const run: CommandRunner<typeof meta.args> = async ({ values, env: { cwd } }) => {
+const run: CommandRunner<{ args: typeof meta.args }> = async ({ values, env: { cwd } }) => {
   await display(cwd!, {
     showCategory: !values.catalog && !values.dependency ? true : values.catalog,
     showDependency: !values.catalog && !values.dependency ? true : values.dependency
