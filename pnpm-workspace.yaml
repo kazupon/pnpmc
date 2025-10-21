@@ -18,3 +18,7 @@ minimumReleaseAgeExclude:
   - '@gunshi/plugin-i18n'
   - '@gunshi/plugin'
   - '@gunshi/plugin-renderer'
+  - pnpmc
+  - pnpmc-show
+  - pnpmc-register
+  - pnpmc-workspace-find-packages
