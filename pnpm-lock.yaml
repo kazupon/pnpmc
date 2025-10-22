@@ -7,8 +7,8 @@ settings:
 catalogs:
   default:
     '@gunshi/plugin-renderer':
-      specifier: 0.27.0-beta.2
-      version: 0.27.0-beta.2
+      specifier: 0.27.0-beta.3
+      version: 0.27.0-beta.3
     '@pnpm/constants':
       specifier: ^1001.3.1
       version: 1001.3.1
@@ -193,7 +193,7 @@ importers:
     dependencies:
       '@gunshi/plugin-renderer':
         specifier: 'catalog:'
-        version: 0.27.0-beta.2(@gunshi/plugin-i18n@0.27.0-beta.2)
+        version: 0.27.0-beta.3(@gunshi/plugin-i18n@0.27.0-beta.2)
       gunshi:
         specifier: 'catalog:'
         version: 0.27.0-beta.2
@@ -503,14 +503,18 @@ packages:
       '@gunshi/plugin-global':
         optional: true
 
-  '@gunshi/plugin-renderer@0.27.0-beta.2':
-    resolution: {integrity: sha512-ZaFp6Y/07ids0kbbNiUHEGvzenJMKakeBieD6JFWosLHBRf7OB3JrdW0gVBlB80ixqDgwwc20/EiWslIuYvvbg==}
+  '@gunshi/plugin-renderer@0.27.0-beta.3':
+    resolution: {integrity: sha512-BJAY/yVuM7d+YUYB23rNIwttZ2ItSRie8hFnkvrny9WtEWXD7DXuxFlnYnyRZSLruStCu3LkqfgI67q2aIVc9g==}
     engines: {node: '>= 20'}
     peerDependencies:
-      '@gunshi/plugin-i18n': 0.27.0-beta.2
+      '@gunshi/plugin-i18n': 0.27.0-beta.3
 
   '@gunshi/plugin@0.27.0-beta.2':
     resolution: {integrity: sha512-7fxclUW0/Vc+jtv5jPgb1PqP3U1T3s5hjKE/SYFUvjQSXa1QiB2KJXEf4BCzxNnA3jO/uGLAh6aFukEpOeRDsg==}
+    engines: {node: '>= 20'}
+
+  '@gunshi/plugin@0.27.0-beta.3':
+    resolution: {integrity: sha512-+7W4uqqWuHv6IpdpFs9kJaisQe2H91z06fHcDjSpqp1PKCJsh85Lf2MizaXa/PnQ6n/D1DJsmMJamefyyHc7FA==}
     engines: {node: '>= 20'}
 
   '@gwhitney/detect-indent@7.0.1':
@@ -3607,12 +3611,14 @@ snapshots:
     dependencies:
       '@gunshi/plugin': 0.27.0-beta.2
 
-  '@gunshi/plugin-renderer@0.27.0-beta.2(@gunshi/plugin-i18n@0.27.0-beta.2)':
+  '@gunshi/plugin-renderer@0.27.0-beta.3(@gunshi/plugin-i18n@0.27.0-beta.2)':
     dependencies:
-      '@gunshi/plugin': 0.27.0-beta.2
+      '@gunshi/plugin': 0.27.0-beta.3
       '@gunshi/plugin-i18n': 0.27.0-beta.2
 
   '@gunshi/plugin@0.27.0-beta.2': {}
+
+  '@gunshi/plugin@0.27.0-beta.3': {}
 
   '@gwhitney/detect-indent@7.0.1': {}
 
