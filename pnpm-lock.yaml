@@ -211,8 +211,8 @@ importers:
         version: 3.0.2
     devDependencies:
       '@pnpm/types':
-        specifier: 1000.8.0
-        version: 1000.8.0
+        specifier: 1000.9.0
+        version: 1000.9.0
       tsdown:
         specifier: 'catalog:'
         version: 0.15.9(oxc-resolver@11.10.0)(typescript@5.9.3)
