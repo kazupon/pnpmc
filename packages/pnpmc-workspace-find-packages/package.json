@@ -58,7 +58,7 @@
     "@pnpm/util.lex-comparator": "3.0.2"
   },
   "devDependencies": {
-    "@pnpm/types": "1000.8.0",
+    "@pnpm/types": "1000.9.0",
     "tsdown": "catalog:"
   }
 }
