@@ -39,8 +39,8 @@ importers:
         specifier: ^7.4.0
         version: 7.4.0
       '@kazupon/eslint-config':
-        specifier: ^0.37.2
-        version: 0.37.2(@eslint/markdown@7.4.0)(eslint-config-prettier@10.1.8(eslint@9.38.0(jiti@2.6.1)))(eslint-import-resolver-typescript@4.4.4)(eslint-plugin-import@2.32.0)(eslint-plugin-jsonc@2.21.0(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-markdown-preferences@0.36.2(@eslint/markdown@7.4.0)(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-module-interop@0.3.1(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-promise@7.2.1(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-regexp@2.10.0(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-unicorn@61.0.2(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-unused-imports@4.3.0(@typescript-eslint/eslint-plugin@8.46.1(@typescript-eslint/parser@8.46.1(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-yml@1.19.0(eslint@9.38.0(jiti@2.6.1)))(eslint@9.38.0(jiti@2.6.1))(typescript-eslint@8.46.1(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.3))(typescript@5.9.3)
+        specifier: ^0.38.0
+        version: 0.38.0(@eslint/markdown@7.4.0)(eslint-config-prettier@10.1.8(eslint@9.38.0(jiti@2.6.1)))(eslint-import-resolver-typescript@4.4.4)(eslint-plugin-import@2.32.0)(eslint-plugin-jsonc@2.21.0(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-markdown-preferences@0.36.2(@eslint/markdown@7.4.0)(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-module-interop@0.3.1(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-promise@7.2.1(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-regexp@2.10.0(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-unicorn@61.0.2(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-unused-imports@4.3.0(@typescript-eslint/eslint-plugin@8.46.1(@typescript-eslint/parser@8.46.1(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-yml@1.19.0(eslint@9.38.0(jiti@2.6.1)))(eslint@9.38.0(jiti@2.6.1))(typescript-eslint@8.46.1(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.3))(typescript@5.9.3)
       '@kazupon/prettier-config':
         specifier: ^0.1.1
         version: 0.1.1
@@ -554,8 +554,8 @@ packages:
     resolution: {integrity: sha512-f5DRIOZf7wxogefH03RjMPMdBF7ADTWUMoOs9kaJo06EfwF+aFhMZMDZxHg/Xe12hptN9xoZjGso2fdjapBRIA==}
     engines: {node: '>=10'}
 
-  '@kazupon/eslint-config@0.37.2':
-    resolution: {integrity: sha512-JGjzfJ6AZjofUctFbqCGGjxbLRz8pyJS+ZzNaNdsXgaB0IoHL0At2+EdI2HijLUh0/6AooyRmLffGzbDNWBhXQ==}
+  '@kazupon/eslint-config@0.38.0':
+    resolution: {integrity: sha512-8iVUGPxugce76TWoVHLZisgf5pwSf2Vd6tweSyCXO7iLjS+Usf2SlgdDz3hAo3LulJWGV3d6AtPeIDgohNPzIg==}
     engines: {node: '>= 20'}
     peerDependencies:
       '@eslint/css': '>=0.13.0'
@@ -3658,7 +3658,7 @@ snapshots:
       string-argv: 0.3.2
       type-detect: 4.1.0
 
-  '@kazupon/eslint-config@0.37.2(@eslint/markdown@7.4.0)(eslint-config-prettier@10.1.8(eslint@9.38.0(jiti@2.6.1)))(eslint-import-resolver-typescript@4.4.4)(eslint-plugin-import@2.32.0)(eslint-plugin-jsonc@2.21.0(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-markdown-preferences@0.36.2(@eslint/markdown@7.4.0)(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-module-interop@0.3.1(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-promise@7.2.1(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-regexp@2.10.0(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-unicorn@61.0.2(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-unused-imports@4.3.0(@typescript-eslint/eslint-plugin@8.46.1(@typescript-eslint/parser@8.46.1(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-yml@1.19.0(eslint@9.38.0(jiti@2.6.1)))(eslint@9.38.0(jiti@2.6.1))(typescript-eslint@8.46.1(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.3))(typescript@5.9.3)':
+  '@kazupon/eslint-config@0.38.0(@eslint/markdown@7.4.0)(eslint-config-prettier@10.1.8(eslint@9.38.0(jiti@2.6.1)))(eslint-import-resolver-typescript@4.4.4)(eslint-plugin-import@2.32.0)(eslint-plugin-jsonc@2.21.0(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-markdown-preferences@0.36.2(@eslint/markdown@7.4.0)(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-module-interop@0.3.1(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-promise@7.2.1(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-regexp@2.10.0(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-unicorn@61.0.2(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-unused-imports@4.3.0(@typescript-eslint/eslint-plugin@8.46.1(@typescript-eslint/parser@8.46.1(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.38.0(jiti@2.6.1)))(eslint-plugin-yml@1.19.0(eslint@9.38.0(jiti@2.6.1)))(eslint@9.38.0(jiti@2.6.1))(typescript-eslint@8.46.1(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.3))(typescript@5.9.3)':
     dependencies:
       '@eslint-community/eslint-plugin-eslint-comments': 4.5.0(eslint@9.38.0(jiti@2.6.1))
       '@eslint/js': 9.38.0
