@@ -204,8 +204,8 @@ importers:
   packages/pnpmc-workspace-find-packages:
     dependencies:
       '@pnpm/fs.find-packages':
-        specifier: 1000.0.17
-        version: 1000.0.17(@pnpm/logger@1001.0.1)
+        specifier: 1000.0.18
+        version: 1000.0.18(@pnpm/logger@1001.0.1)
       '@pnpm/util.lex-comparator':
         specifier: 3.0.2
         version: 3.0.2
@@ -875,6 +875,12 @@ packages:
     resolution: {integrity: sha512-2hf0s4pVrVEH8RvdJJ7YRKjQdiG8m0iAT26TTqXnCbK30kKwJW69VLmP5tED5zstmDRXcOeH5eRcrpkdwczQ9g==}
     engines: {node: '>=18.12'}
 
+  '@pnpm/core-loggers@1001.0.5':
+    resolution: {integrity: sha512-aigaE/Bm/3aYOokxLlsNfZhPRsuQk54/9wT0+ie4SnTRBZ+Zh+BMYQ1/Uvv0RpXknFs2zmfcoX1fpvAvrt6khw==}
+    engines: {node: '>=18.12'}
+    peerDependencies:
+      '@pnpm/logger': '>=1001.0.0 <1002.0.0'
+
   '@pnpm/error@1000.0.5':
     resolution: {integrity: sha512-GjH0TPjbVNrPnl/BAGoFuBLJ2sFfXNKbS33lll/Ehe9yw0fyc8Kdw7kO9if37yQqn6vaa4dAHKkPllum7f/IPQ==}
     engines: {node: '>=18.12'}
@@ -883,8 +889,8 @@ packages:
     resolution: {integrity: sha512-4rdu8GPY9TeQwsYp5D2My74dC3dSVS3tghAvisG80ybK4lqa0gvlrglaSTBxogJbxqHRw/NjI/liEtb3+SD+Bw==}
     engines: {node: '>=18.12'}
 
-  '@pnpm/fs.find-packages@1000.0.17':
-    resolution: {integrity: sha512-IMPptQU6h0svrqVfLAqJSft3k7DkhsmmVoucbnGRjbg0E4CRP6ZPXzHQWO8cqRL9BEzbqoPZSYJUiZU9WrymqA==}
+  '@pnpm/fs.find-packages@1000.0.18':
+    resolution: {integrity: sha512-BOVdZta7jBiGM3IS90ywkrEsgTuHTCKptqjWam7aYmGT7NPnC7qQzDCU/d9t6RVCwzhaDugjGBO1RYB7sZoHag==}
     engines: {node: '>=18.12'}
 
   '@pnpm/graceful-fs@1000.0.1':
@@ -895,8 +901,14 @@ packages:
     resolution: {integrity: sha512-gdwlAMXC4Wc0s7Dmg/4wNybMEd/4lSd9LsXQxeg/piWY0PPXjgz1IXJWnVScx6dZRaaodWP3c1ornrw8mZdFZw==}
     engines: {node: '>=18.12'}
 
-  '@pnpm/read-project-manifest@1001.1.4':
-    resolution: {integrity: sha512-9MjtBhrMqUJRbUuCWT5SgE9esvIbnh5H6KbS+YDjFW7NDQ9kXbVULjM8IheuMris27bgF84pzfQkCBPBtqftqg==}
+  '@pnpm/manifest-utils@1002.0.0':
+    resolution: {integrity: sha512-6518JwuJazitdXQKqxRwiyVUkwYN5le8f+clMgEuVoKTvWzOMfXdKOIABW53lfx3FETvAZ/x0n+9kX4qnFAmrA==}
+    engines: {node: '>=18.12'}
+    peerDependencies:
+      '@pnpm/logger': '>=1001.0.0 <1002.0.0'
+
+  '@pnpm/read-project-manifest@1001.2.0':
+    resolution: {integrity: sha512-01y/BcwNsPMPdIsauYN85V1svYEkPXK0NWbh6S8fdE1fC3EEiuuOk11nfyflmRhwz2OWkTgStZ4O+I0wxm7EHA==}
     engines: {node: '>=18.12'}
     peerDependencies:
       '@pnpm/logger': '>=1001.0.0 <1002.0.0'
@@ -913,6 +925,10 @@ packages:
     resolution: {integrity: sha512-UvDTCxnbyqkTg2X0dBOuZ4IdFJ8g4UFu0Ybv/5/cZAxCWVhNl1hC/Xc9hR4tZrlBL0NRFePLRhO/iw9LmA1lbw==}
     engines: {node: '>=18.12'}
 
+  '@pnpm/types@1001.0.0':
+    resolution: {integrity: sha512-9P7I8Zv8hvAO81+D5KVmwveH4nmxhBNFEEeb77YYPV72bkyqzKTR6I8OGEs7TNZ6gPHufF+lIyBVEqO6SMFpJA==}
+    engines: {node: '>=18.12'}
+
   '@pnpm/util.lex-comparator@3.0.2':
     resolution: {integrity: sha512-blFO4Ws97tWv/SNE6N39ZdGmZBrocXnBOfVp0ln4kELmns4pGPZizqyRtR8EjfOLMLstbmNCTReBoDvLz1isVg==}
     engines: {node: '>=18.12'}
@@ -921,8 +937,8 @@ packages:
     resolution: {integrity: sha512-MxzprPLd17yNKs/w5a2+c+Cg9hfB0VAjFxcrR+McI49IYoWA17rViDyXDOX595xy2ntycUCkq6ZgQeWpfgl89w==}
     engines: {node: '>=18.12'}
 
-  '@pnpm/write-project-manifest@1000.0.11':
-    resolution: {integrity: sha512-UbOsTIW9lVqR6nXQzvYOvTJg8uGaXorlU7V4zIBPFsGff/PfCakQRIL6Y8klvGBPwarjjqLaZ5SHdm55G4I4wA==}
+  '@pnpm/write-project-manifest@1000.0.12':
+    resolution: {integrity: sha512-UbJeiLQtQQMbnYjp1ivqvhdmKzN/G5hBD1wCcOQWBSyqj9TU27IUbkDqaz3wSye0ZpbrtrJIhQXyVKyUHpqDXg==}
     engines: {node: '>=18.12'}
 
   '@quansync/fs@0.1.5':
@@ -3471,7 +3487,7 @@ snapshots:
 
   '@babel/code-frame@7.27.1':
     dependencies:
-      '@babel/helper-validator-identifier': 7.27.1
+      '@babel/helper-validator-identifier': 7.28.5
       js-tokens: 4.0.0
       picocolors: 1.1.1
 
@@ -3971,6 +3987,11 @@ snapshots:
 
   '@pnpm/constants@1001.3.1': {}
 
+  '@pnpm/core-loggers@1001.0.5(@pnpm/logger@1001.0.1)':
+    dependencies:
+      '@pnpm/logger': 1001.0.1
+      '@pnpm/types': 1001.0.0
+
   '@pnpm/error@1000.0.5':
     dependencies:
       '@pnpm/constants': 1001.3.1
@@ -3980,10 +4001,10 @@ snapshots:
       '@pnpm/error': 1000.0.5
       find-up: 5.0.0
 
-  '@pnpm/fs.find-packages@1000.0.17(@pnpm/logger@1001.0.1)':
+  '@pnpm/fs.find-packages@1000.0.18(@pnpm/logger@1001.0.1)':
     dependencies:
-      '@pnpm/read-project-manifest': 1001.1.4(@pnpm/logger@1001.0.1)
-      '@pnpm/types': 1000.9.0
+      '@pnpm/read-project-manifest': 1001.2.0(@pnpm/logger@1001.0.1)
+      '@pnpm/types': 1001.0.0
       '@pnpm/util.lex-comparator': 3.0.2
       p-filter: 2.1.0
       tinyglobby: 0.2.15
@@ -3999,15 +4020,23 @@ snapshots:
       bole: 5.0.22
       split2: 4.2.0
 
-  '@pnpm/read-project-manifest@1001.1.4(@pnpm/logger@1001.0.1)':
+  '@pnpm/manifest-utils@1002.0.0(@pnpm/logger@1001.0.1)':
+    dependencies:
+      '@pnpm/core-loggers': 1001.0.5(@pnpm/logger@1001.0.1)
+      '@pnpm/error': 1000.0.5
+      '@pnpm/logger': 1001.0.1
+      '@pnpm/types': 1001.0.0
+
+  '@pnpm/read-project-manifest@1001.2.0(@pnpm/logger@1001.0.1)':
     dependencies:
       '@gwhitney/detect-indent': 7.0.1
       '@pnpm/error': 1000.0.5
       '@pnpm/graceful-fs': 1000.0.1
       '@pnpm/logger': 1001.0.1
+      '@pnpm/manifest-utils': 1002.0.0(@pnpm/logger@1001.0.1)
       '@pnpm/text.comments-parser': 1000.0.0
-      '@pnpm/types': 1000.9.0
-      '@pnpm/write-project-manifest': 1000.0.11
+      '@pnpm/types': 1001.0.0
+      '@pnpm/write-project-manifest': 1000.0.12
       fast-deep-equal: 3.1.3
       is-windows: 1.0.2
       json5: 2.2.3
@@ -4023,6 +4052,8 @@ snapshots:
 
   '@pnpm/types@1000.9.0': {}
 
+  '@pnpm/types@1001.0.0': {}
+
   '@pnpm/util.lex-comparator@3.0.2': {}
 
   '@pnpm/workspace.read-manifest@1000.2.4':
@@ -4032,10 +4063,10 @@ snapshots:
       '@pnpm/types': 1000.8.0
       read-yaml-file: 2.1.0
 
-  '@pnpm/write-project-manifest@1000.0.11':
+  '@pnpm/write-project-manifest@1000.0.12':
     dependencies:
       '@pnpm/text.comments-parser': 1000.0.0
-      '@pnpm/types': 1000.9.0
+      '@pnpm/types': 1001.0.0
       json5: 2.2.3
       write-file-atomic: 5.0.1
       write-yaml-file: 5.0.0
