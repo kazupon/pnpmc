@@ -52,7 +52,7 @@
     "gh-changelogen": "^0.2.8",
     "knip": "^5.66.1",
     "lint-staged": "^16.2.4",
-    "pkg-pr-new": "^0.0.60",
+    "pkg-pr-new": "^0.0.62",
     "prettier": "^3.6.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.1",
