@@ -7,8 +7,8 @@ settings:
 catalogs:
   default:
     '@gunshi/plugin-renderer':
-      specifier: 0.27.0
-      version: 0.27.0
+      specifier: 0.27.3
+      version: 0.27.3
     '@pnpm/constants':
       specifier: ^1001.3.1
       version: 1001.3.1
@@ -193,7 +193,7 @@ importers:
     dependencies:
       '@gunshi/plugin-renderer':
         specifier: 'catalog:'
-        version: 0.27.0(@gunshi/plugin-i18n@0.27.0-beta.2)
+        version: 0.27.3(@gunshi/plugin-i18n@0.27.0-beta.2)
       gunshi:
         specifier: 'catalog:'
         version: 0.27.0
@@ -513,18 +513,18 @@ packages:
       '@gunshi/plugin-global':
         optional: true
 
-  '@gunshi/plugin-renderer@0.27.0':
-    resolution: {integrity: sha512-y/47ZNmVwikXkexMIuNostB1izxfvuSPNMJn9/5NZIN84MlvQE/NchgLtut3hqfqMmbvHsVv2MMby0oYdW1oAw==}
+  '@gunshi/plugin-renderer@0.27.3':
+    resolution: {integrity: sha512-7fC5otH8w1qM40ErT9KN2Rx7IIggN6sIE1MYyXKUd6vpolqH8sgadm+XOTQMuGCHy+vfUIdZ9MKwrw+Xtn9kIw==}
     engines: {node: '>= 20'}
     peerDependencies:
-      '@gunshi/plugin-i18n': 0.27.0
-
-  '@gunshi/plugin@0.27.0':
-    resolution: {integrity: sha512-lO9Sy2KOR5YkZfsdLqWVy4G4cMKLooNfureVttzz3WLJOm5dsWQvZ9hD800kNNCYA/TlfP3gU+Kq/Cmhui/hhw==}
-    engines: {node: '>= 20'}
+      '@gunshi/plugin-i18n': 0.27.3
 
   '@gunshi/plugin@0.27.0-beta.2':
     resolution: {integrity: sha512-7fxclUW0/Vc+jtv5jPgb1PqP3U1T3s5hjKE/SYFUvjQSXa1QiB2KJXEf4BCzxNnA3jO/uGLAh6aFukEpOeRDsg==}
+    engines: {node: '>= 20'}
+
+  '@gunshi/plugin@0.27.3':
+    resolution: {integrity: sha512-GYF9LVlJ6ealqGFkTn9MXmmjVvdfqLb5KDjwoFRBrXIOiO30UUMF1BnDdgRN6epm/jlfoN1E2hkksu8ZFt4BRw==}
     engines: {node: '>= 20'}
 
   '@gwhitney/detect-indent@7.0.1':
@@ -3826,14 +3826,14 @@ snapshots:
     dependencies:
       '@gunshi/plugin': 0.27.0-beta.2
 
-  '@gunshi/plugin-renderer@0.27.0(@gunshi/plugin-i18n@0.27.0-beta.2)':
+  '@gunshi/plugin-renderer@0.27.3(@gunshi/plugin-i18n@0.27.0-beta.2)':
     dependencies:
-      '@gunshi/plugin': 0.27.0
+      '@gunshi/plugin': 0.27.3
       '@gunshi/plugin-i18n': 0.27.0-beta.2
 
-  '@gunshi/plugin@0.27.0': {}
-
   '@gunshi/plugin@0.27.0-beta.2': {}
+
+  '@gunshi/plugin@0.27.3': {}
 
   '@gwhitney/detect-indent@7.0.1': {}
 
