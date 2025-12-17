@@ -1,7 +1,7 @@
 packages:
   - packages/*
 catalog:
-  gunshi: 0.27.0
+  gunshi: 0.27.3
   '@gunshi/plugin-i18n': 0.27.3
   '@gunshi/plugin-renderer': 0.27.3
   tsdown: ^0.18.0
