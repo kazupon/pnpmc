@@ -3,7 +3,7 @@ packages:
 catalog:
   gunshi: 0.27.4
   '@gunshi/plugin-i18n': 0.27.5
-  '@gunshi/plugin-renderer': 0.27.4
+  '@gunshi/plugin-renderer': 0.27.5
   tsdown: ^0.18.0
   '@pnpm/constants': ^1001.3.1
   '@pnpm/find-workspace-dir': ^1000.1.3
