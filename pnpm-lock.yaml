@@ -204,8 +204,8 @@ importers:
   packages/pnpmc-workspace-find-packages:
     dependencies:
       '@pnpm/fs.find-packages':
-        specifier: 1000.0.21
-        version: 1000.0.21(@pnpm/logger@1001.0.1)
+        specifier: 1000.0.22
+        version: 1000.0.22(@pnpm/logger@1001.0.1)
       '@pnpm/util.lex-comparator':
         specifier: 3.0.2
         version: 3.0.2
@@ -874,8 +874,8 @@ packages:
     resolution: {integrity: sha512-2hf0s4pVrVEH8RvdJJ7YRKjQdiG8m0iAT26TTqXnCbK30kKwJW69VLmP5tED5zstmDRXcOeH5eRcrpkdwczQ9g==}
     engines: {node: '>=18.12'}
 
-  '@pnpm/core-loggers@1001.0.8':
-    resolution: {integrity: sha512-uQOhMKaym12a3Yk1vYhp6T1NecgS7YACex6VXYZaasmBq5D0iCIz/ZFgaDEWPsNPehKb8v9BJmElT1nHHsNWEQ==}
+  '@pnpm/core-loggers@1001.0.9':
+    resolution: {integrity: sha512-pW58m3ssrwVjwhlmTXDW1dh1sv2y6R2Gl5YvQInjM2d01/5mre/sYAY4MK3XfgEShZJQxv6wVXDUvyHHJ0oizg==}
     engines: {node: '>=18.12'}
     peerDependencies:
       '@pnpm/logger': '>=1001.0.0 <1002.0.0'
@@ -888,8 +888,8 @@ packages:
     resolution: {integrity: sha512-4rdu8GPY9TeQwsYp5D2My74dC3dSVS3tghAvisG80ybK4lqa0gvlrglaSTBxogJbxqHRw/NjI/liEtb3+SD+Bw==}
     engines: {node: '>=18.12'}
 
-  '@pnpm/fs.find-packages@1000.0.21':
-    resolution: {integrity: sha512-x9FOzwcFyONOplMg/WoIDIwOSlETyF0C196ZCZ4Iru4zzYAmGsW+qcvHevjUo5wOTkz/0Ll8s1/Nl1mP1pY0gQ==}
+  '@pnpm/fs.find-packages@1000.0.22':
+    resolution: {integrity: sha512-p/o8Dq5Ba0WLLE2xqwJ7US5YBkjCXRVrKYhZDIFYuuWM+aLjUVGDz2D4HB5R1nQU2vOnChSVUBcOXY2Ss6hKBg==}
     engines: {node: '>=18.12'}
 
   '@pnpm/graceful-fs@1000.0.1':
@@ -900,17 +900,21 @@ packages:
     resolution: {integrity: sha512-gdwlAMXC4Wc0s7Dmg/4wNybMEd/4lSd9LsXQxeg/piWY0PPXjgz1IXJWnVScx6dZRaaodWP3c1ornrw8mZdFZw==}
     engines: {node: '>=18.12'}
 
-  '@pnpm/manifest-utils@1002.0.3':
-    resolution: {integrity: sha512-YgYm1zR6Ae1SyGb2jEmdL4r5gMpVcJp9Uh9tWgouzz5TvhnR9MIJ+fnCTlrKTa/nEG7pJC/eoPbfG0Ubf7DxIA==}
+  '@pnpm/manifest-utils@1002.0.4':
+    resolution: {integrity: sha512-0wRtGVvIHqnRKL2DeiktSNvbGiH/DZ2e/Wn+7BNN09zICTIcd9nhiFAepGrXd4bT3/ru6zJMwGGbvqEE/HtI+A==}
     engines: {node: '>=18.12'}
     peerDependencies:
       '@pnpm/logger': '>=1001.0.0 <1002.0.0'
 
-  '@pnpm/read-project-manifest@1001.2.3':
-    resolution: {integrity: sha512-46XPWpg3RYGLmlIRYjsG40ob6ZigMoyKXEqMDpmgF2YsejTCHrThnkm6QvLbc2fCCIfENrzhs0wVzvUt3miV8w==}
+  '@pnpm/read-project-manifest@1001.2.4':
+    resolution: {integrity: sha512-NDQkxWeShMHFPLT5APc/6IkO4q7Y6Wugzh+hhSs2tlRBTOuR5UN//ETZPw43SRQuSmrYQQj+awdUiRjsLQZw2w==}
     engines: {node: '>=18.12'}
     peerDependencies:
       '@pnpm/logger': '>=1001.0.0 <1002.0.0'
+
+  '@pnpm/semver.peer-range@1000.0.0':
+    resolution: {integrity: sha512-r6VzkrdH7ZKjPmAogTNvxuV/UyS/xwHNme+ZuEFiG0UthZgqudDftYtKmG20fcfrjG1lgJbbWICA8KvZy7mmbw==}
+    engines: {node: '>=18.12'}
 
   '@pnpm/text.comments-parser@1000.0.0':
     resolution: {integrity: sha512-ivv/esrETOq9uMiKOC0ddVZ1BktEGsfsMQ9RWmrDpwPiqFSqWsIspnquxTBmm5GflC5N06fbqjGOpulZVYo3vQ==}
@@ -924,8 +928,8 @@ packages:
     resolution: {integrity: sha512-UvDTCxnbyqkTg2X0dBOuZ4IdFJ8g4UFu0Ybv/5/cZAxCWVhNl1hC/Xc9hR4tZrlBL0NRFePLRhO/iw9LmA1lbw==}
     engines: {node: '>=18.12'}
 
-  '@pnpm/types@1001.2.0':
-    resolution: {integrity: sha512-UIju+OadUVS0q5q/MbRAzMS5M9HZcZyT6evyrgPUH0DV9przkcW7/LH1Sj33Q2MpJO9Nzqw4b4w72x8mvtUAew==}
+  '@pnpm/types@1001.3.0':
+    resolution: {integrity: sha512-NLTXheat/u7OEGg5M5vF6Z85zx8uKUZE0+whtX/sbFV2XL48RdnOWGPTKYuVVkv8M+launaLUTgGEXNs/ess2w==}
     engines: {node: '>=18.12'}
 
   '@pnpm/util.lex-comparator@3.0.2':
@@ -936,8 +940,8 @@ packages:
     resolution: {integrity: sha512-MxzprPLd17yNKs/w5a2+c+Cg9hfB0VAjFxcrR+McI49IYoWA17rViDyXDOX595xy2ntycUCkq6ZgQeWpfgl89w==}
     engines: {node: '>=18.12'}
 
-  '@pnpm/write-project-manifest@1000.0.15':
-    resolution: {integrity: sha512-DdAA22UDbn784Ow3WbX+5AchZAX80lib9wmtqUo+qouskpiKwGEHYMdKLeG9m6wwXyowraXOBvt0TamGDmRueQ==}
+  '@pnpm/write-project-manifest@1000.0.16':
+    resolution: {integrity: sha512-zG68fk03ryot7TWUl9S/ShQ91uHWzIL9sVr2aQCuNHJo8G9kjsG6S0p58Zj/voahdDQeakZYYBSJ0mjNZeiJnw==}
     engines: {node: '>=18.12'}
 
   '@quansync/fs@0.1.5':
@@ -4105,10 +4109,10 @@ snapshots:
 
   '@pnpm/constants@1001.3.1': {}
 
-  '@pnpm/core-loggers@1001.0.8(@pnpm/logger@1001.0.1)':
+  '@pnpm/core-loggers@1001.0.9(@pnpm/logger@1001.0.1)':
     dependencies:
       '@pnpm/logger': 1001.0.1
-      '@pnpm/types': 1001.2.0
+      '@pnpm/types': 1001.3.0
 
   '@pnpm/error@1000.0.5':
     dependencies:
@@ -4119,10 +4123,10 @@ snapshots:
       '@pnpm/error': 1000.0.5
       find-up: 5.0.0
 
-  '@pnpm/fs.find-packages@1000.0.21(@pnpm/logger@1001.0.1)':
+  '@pnpm/fs.find-packages@1000.0.22(@pnpm/logger@1001.0.1)':
     dependencies:
-      '@pnpm/read-project-manifest': 1001.2.3(@pnpm/logger@1001.0.1)
-      '@pnpm/types': 1001.2.0
+      '@pnpm/read-project-manifest': 1001.2.4(@pnpm/logger@1001.0.1)
+      '@pnpm/types': 1001.3.0
       '@pnpm/util.lex-comparator': 3.0.2
       p-filter: 2.1.0
       tinyglobby: 0.2.15
@@ -4138,29 +4142,35 @@ snapshots:
       bole: 5.0.22
       split2: 4.2.0
 
-  '@pnpm/manifest-utils@1002.0.3(@pnpm/logger@1001.0.1)':
+  '@pnpm/manifest-utils@1002.0.4(@pnpm/logger@1001.0.1)':
     dependencies:
-      '@pnpm/core-loggers': 1001.0.8(@pnpm/logger@1001.0.1)
+      '@pnpm/core-loggers': 1001.0.9(@pnpm/logger@1001.0.1)
       '@pnpm/error': 1000.0.5
       '@pnpm/logger': 1001.0.1
-      '@pnpm/types': 1001.2.0
+      '@pnpm/semver.peer-range': 1000.0.0
+      '@pnpm/types': 1001.3.0
+      semver: 7.7.3
 
-  '@pnpm/read-project-manifest@1001.2.3(@pnpm/logger@1001.0.1)':
+  '@pnpm/read-project-manifest@1001.2.4(@pnpm/logger@1001.0.1)':
     dependencies:
       '@gwhitney/detect-indent': 7.0.1
       '@pnpm/error': 1000.0.5
       '@pnpm/graceful-fs': 1000.0.1
       '@pnpm/logger': 1001.0.1
-      '@pnpm/manifest-utils': 1002.0.3(@pnpm/logger@1001.0.1)
+      '@pnpm/manifest-utils': 1002.0.4(@pnpm/logger@1001.0.1)
       '@pnpm/text.comments-parser': 1000.0.0
-      '@pnpm/types': 1001.2.0
-      '@pnpm/write-project-manifest': 1000.0.15
+      '@pnpm/types': 1001.3.0
+      '@pnpm/write-project-manifest': 1000.0.16
       fast-deep-equal: 3.1.3
       is-windows: 1.0.2
       json5: 2.2.3
       parse-json: 5.2.0
       read-yaml-file: 2.1.0
       strip-bom: 4.0.0
+
+  '@pnpm/semver.peer-range@1000.0.0':
+    dependencies:
+      semver: 7.7.3
 
   '@pnpm/text.comments-parser@1000.0.0':
     dependencies:
@@ -4170,7 +4180,7 @@ snapshots:
 
   '@pnpm/types@1000.9.0': {}
 
-  '@pnpm/types@1001.2.0': {}
+  '@pnpm/types@1001.3.0': {}
 
   '@pnpm/util.lex-comparator@3.0.2': {}
 
@@ -4181,10 +4191,10 @@ snapshots:
       '@pnpm/types': 1000.8.0
       read-yaml-file: 2.1.0
 
-  '@pnpm/write-project-manifest@1000.0.15':
+  '@pnpm/write-project-manifest@1000.0.16':
     dependencies:
       '@pnpm/text.comments-parser': 1000.0.0
-      '@pnpm/types': 1001.2.0
+      '@pnpm/types': 1001.3.0
       json5: 2.2.3
       write-file-atomic: 5.0.1
       write-yaml-file: 5.0.0
