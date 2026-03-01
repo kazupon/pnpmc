@@ -35,7 +35,7 @@
     "@eslint/markdown": "^7.4.0",
     "@kazupon/eslint-config": "^0.37.2",
     "@kazupon/prettier-config": "^0.2.0",
-    "@types/node": "^22.18.11",
+    "@types/node": "^24.0.0",
     "bumpp": "^10.3.1",
     "eslint": "^9.38.0",
     "eslint-config-prettier": "^10.1.8",
