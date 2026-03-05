@@ -211,8 +211,8 @@ importers:
         version: 3.0.2
     devDependencies:
       '@pnpm/types':
-        specifier: 1000.9.0
-        version: 1000.9.0
+        specifier: 1001.3.0
+        version: 1001.3.0
       tsdown:
         specifier: 'catalog:'
         version: 0.19.0(oxc-resolver@11.10.0)(synckit@0.11.11)(typescript@5.9.3)
@@ -920,12 +920,12 @@ packages:
     resolution: {integrity: sha512-yx86CGHHquWAI0GgKIuV/RnYewcf5fVFZemC45C/K2cX0uV8GB8TUP541ZrokWola2fZx5sn1vL7xzbceRZfoQ==}
     engines: {node: '>=18.12'}
 
-  '@pnpm/types@1000.9.0':
-    resolution: {integrity: sha512-UvDTCxnbyqkTg2X0dBOuZ4IdFJ8g4UFu0Ybv/5/cZAxCWVhNl1hC/Xc9hR4tZrlBL0NRFePLRhO/iw9LmA1lbw==}
-    engines: {node: '>=18.12'}
-
   '@pnpm/types@1001.2.0':
     resolution: {integrity: sha512-UIju+OadUVS0q5q/MbRAzMS5M9HZcZyT6evyrgPUH0DV9przkcW7/LH1Sj33Q2MpJO9Nzqw4b4w72x8mvtUAew==}
+    engines: {node: '>=18.12'}
+
+  '@pnpm/types@1001.3.0':
+    resolution: {integrity: sha512-NLTXheat/u7OEGg5M5vF6Z85zx8uKUZE0+whtX/sbFV2XL48RdnOWGPTKYuVVkv8M+launaLUTgGEXNs/ess2w==}
     engines: {node: '>=18.12'}
 
   '@pnpm/util.lex-comparator@3.0.2':
@@ -4168,9 +4168,9 @@ snapshots:
 
   '@pnpm/types@1000.8.0': {}
 
-  '@pnpm/types@1000.9.0': {}
-
   '@pnpm/types@1001.2.0': {}
+
+  '@pnpm/types@1001.3.0': {}
 
   '@pnpm/util.lex-comparator@3.0.2': {}
 
