@@ -31,7 +31,7 @@
     "typecheck": "tsc --noEmit --diagnostics"
   },
   "devDependencies": {
-    "@eslint/compat": "^1.4.0",
+    "@eslint/compat": "^2.0.0",
     "@eslint/markdown": "^7.4.0",
     "@kazupon/eslint-config": "^0.37.2",
     "@kazupon/prettier-config": "^0.2.0",
