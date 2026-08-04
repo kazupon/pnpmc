@@ -7,8 +7,8 @@ settings:
 catalogs:
   default:
     '@gunshi/plugin-renderer':
-      specifier: 0.35.1
-      version: 0.35.1
+      specifier: 0.37.1
+      version: 0.37.1
     '@pnpm/constants':
       specifier: ^1001.3.1
       version: 1001.3.1
@@ -193,7 +193,7 @@ importers:
     dependencies:
       '@gunshi/plugin-renderer':
         specifier: 'catalog:'
-        version: 0.35.1(@gunshi/plugin-i18n@0.35.1)
+        version: 0.37.1(@gunshi/plugin-i18n@0.37.1)
       gunshi:
         specifier: 'catalog:'
         version: 0.35.1
@@ -516,23 +516,23 @@ packages:
     resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
     engines: {node: '>=14'}
 
-  '@gunshi/plugin-i18n@0.35.1':
-    resolution: {integrity: sha512-fmLDCceUnpx/O/6/CZKve2JB9sSAEPE7ZU6zcyjfohQiU9XeOVGIJXj3VBYx5VDJzT9DxjzXTnWcwKxUW5cE+Q==}
+  '@gunshi/plugin-i18n@0.37.1':
+    resolution: {integrity: sha512-K5L5IDeaD5JIGEPn4Wcl0cXyPggmmtj4sSQwCsqzAYc30VfJu+BQscoEt7wIoJ3UR6gnjY7BJh5dxGcmBcUvaA==}
     engines: {node: '>= 22'}
     peerDependencies:
-      '@gunshi/plugin-global': 0.35.1
+      '@gunshi/plugin-global': 0.37.1
     peerDependenciesMeta:
       '@gunshi/plugin-global':
         optional: true
 
-  '@gunshi/plugin-renderer@0.35.1':
-    resolution: {integrity: sha512-C5PJmSDIuvda3DzgSYG8QmdCRNvwv+pdO+ZWmpybpb2ycn/KHpx10uXCqpntZCPZbEHVydui20jWp5W69cs3vg==}
+  '@gunshi/plugin-renderer@0.37.1':
+    resolution: {integrity: sha512-G25KDRpw4ki9/jguQJ9Kaq7AntFEofAhIjC7dyKheU/TjMozwSxVzDsceogXyHcYZLvx0+7d4i8oeI5VZiYQRA==}
     engines: {node: '>= 22'}
     peerDependencies:
-      '@gunshi/plugin-i18n': 0.35.1
+      '@gunshi/plugin-i18n': 0.37.1
 
-  '@gunshi/plugin@0.35.1':
-    resolution: {integrity: sha512-N6q4zIDiuRU0CM1CpTPFLUzxOW3T2XsUtnEjxFCIp+sTGfbH0jkejUKeUWynZfX5Blao5Ww45K4f66giQ6AJFA==}
+  '@gunshi/plugin@0.37.1':
+    resolution: {integrity: sha512-ljjBaL15jCwX6tEtWRdmAQ/y/svGcMZa5mVhMPgXFeQFQ++srK/x5dx8uchQFrE2MTqaFhMMjNK9AQowCyRv9A==}
     engines: {node: '>= 22'}
 
   '@gwhitney/detect-indent@7.0.1':
@@ -3799,16 +3799,16 @@ snapshots:
 
   '@fastify/busboy@2.1.1': {}
 
-  '@gunshi/plugin-i18n@0.35.1':
+  '@gunshi/plugin-i18n@0.37.1':
     dependencies:
-      '@gunshi/plugin': 0.35.1
+      '@gunshi/plugin': 0.37.1
 
-  '@gunshi/plugin-renderer@0.35.1(@gunshi/plugin-i18n@0.35.1)':
+  '@gunshi/plugin-renderer@0.37.1(@gunshi/plugin-i18n@0.37.1)':
     dependencies:
-      '@gunshi/plugin': 0.35.1
-      '@gunshi/plugin-i18n': 0.35.1
+      '@gunshi/plugin': 0.37.1
+      '@gunshi/plugin-i18n': 0.37.1
 
-  '@gunshi/plugin@0.35.1': {}
+  '@gunshi/plugin@0.37.1': {}
 
   '@gwhitney/detect-indent@7.0.1': {}
 
