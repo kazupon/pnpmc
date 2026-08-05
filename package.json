@@ -60,7 +60,7 @@
   },
   "pnpm": {
     "overrides": {
-      "tsdown>rolldown": "1.1.2"
+      "tsdown>rolldown": "1.2.2"
     },
     "onlyBuiltDependencies": [
       "esbuild",
