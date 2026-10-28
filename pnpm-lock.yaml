@@ -7,8 +7,8 @@ settings:
 catalogs:
   default:
     '@gunshi/plugin-renderer':
-      specifier: 0.37.1
-      version: 0.37.1
+      specifier: 0.37.3
+      version: 0.37.3
     '@pnpm/constants':
       specifier: ^1001.3.1
       version: 1001.3.1
@@ -193,7 +193,7 @@ importers:
     dependencies:
       '@gunshi/plugin-renderer':
         specifier: 'catalog:'
-        version: 0.37.1(@gunshi/plugin-i18n@0.37.1)
+        version: 0.37.3(@gunshi/plugin-i18n@0.37.3)
       gunshi:
         specifier: 'catalog:'
         version: 0.37.1
@@ -516,23 +516,23 @@ packages:
     resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
     engines: {node: '>=14'}
 
-  '@gunshi/plugin-i18n@0.37.1':
-    resolution: {integrity: sha512-K5L5IDeaD5JIGEPn4Wcl0cXyPggmmtj4sSQwCsqzAYc30VfJu+BQscoEt7wIoJ3UR6gnjY7BJh5dxGcmBcUvaA==}
+  '@gunshi/plugin-i18n@0.37.3':
+    resolution: {integrity: sha512-gR2RT7BfC6YY1D/0oY+4bQbQUHJYm1pyn1sV8TWBj4ZcdIW/1ue6ZdaCQ8HhofxZqRu61bUkfrn+tE8hKETmKA==}
     engines: {node: '>= 22'}
     peerDependencies:
-      '@gunshi/plugin-global': 0.37.1
+      '@gunshi/plugin-global': 0.37.3
     peerDependenciesMeta:
       '@gunshi/plugin-global':
         optional: true
 
-  '@gunshi/plugin-renderer@0.37.1':
-    resolution: {integrity: sha512-G25KDRpw4ki9/jguQJ9Kaq7AntFEofAhIjC7dyKheU/TjMozwSxVzDsceogXyHcYZLvx0+7d4i8oeI5VZiYQRA==}
+  '@gunshi/plugin-renderer@0.37.3':
+    resolution: {integrity: sha512-Sgsll7MrQxSrzUPhF4ALy06zpUQLl+9SZzmxDPEG8GIbz1GKvOV3+iFUCizenc4hFly+rZjfj+yG2+368jWvuw==}
     engines: {node: '>= 22'}
     peerDependencies:
-      '@gunshi/plugin-i18n': 0.37.1
+      '@gunshi/plugin-i18n': 0.37.3
 
-  '@gunshi/plugin@0.37.1':
-    resolution: {integrity: sha512-ljjBaL15jCwX6tEtWRdmAQ/y/svGcMZa5mVhMPgXFeQFQ++srK/x5dx8uchQFrE2MTqaFhMMjNK9AQowCyRv9A==}
+  '@gunshi/plugin@0.37.3':
+    resolution: {integrity: sha512-f/P3qigd7P9BW/R4siYzR2WPJ1TPNmKvnN4ZuAQc0GFDn+wtfRGk/Osus9QJVUKR+s0qrrPweP91WI2X3Lq8WA==}
     engines: {node: '>= 22'}
 
   '@gwhitney/detect-indent@7.0.1':
@@ -2042,6 +2042,7 @@ packages:
   eslint@9.38.0:
     resolution: {integrity: sha512-t5aPOpmtJcZcz5UJyY2GbvpDlsK5E8JqRqoKtfiKE3cNh437KIqfJr3A3AKf5k64NPx6d0G3dno6XDY05PqPtw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+    deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
     peerDependencies:
       jiti: '*'
@@ -3794,16 +3795,16 @@ snapshots:
 
   '@fastify/busboy@2.1.1': {}
 
-  '@gunshi/plugin-i18n@0.37.1':
+  '@gunshi/plugin-i18n@0.37.3':
     dependencies:
-      '@gunshi/plugin': 0.37.1
+      '@gunshi/plugin': 0.37.3
 
-  '@gunshi/plugin-renderer@0.37.1(@gunshi/plugin-i18n@0.37.1)':
+  '@gunshi/plugin-renderer@0.37.3(@gunshi/plugin-i18n@0.37.3)':
     dependencies:
-      '@gunshi/plugin': 0.37.1
-      '@gunshi/plugin-i18n': 0.37.1
+      '@gunshi/plugin': 0.37.3
+      '@gunshi/plugin-i18n': 0.37.3
 
-  '@gunshi/plugin@0.37.1': {}
+  '@gunshi/plugin@0.37.3': {}
 
   '@gwhitney/detect-indent@7.0.1': {}
 
